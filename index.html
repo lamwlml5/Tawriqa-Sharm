@@ -2331,12 +2331,12 @@
                 checkoutForm.classList.add("hidden");
                 bagFooter.classList.add("hidden");
                 itemsContainer.innerHTML = `
-                    <div class="text-center py-12 px-5 bg-white rounded-3xl border border-tawriqa-green/10 space-y-3">
+                    <div class="text-center py-12 space-y-3">
                         <div class="w-16 h-16 rounded-full bg-tawriqa-creamDark text-tawriqa-green flex items-center justify-center mx-auto text-2xl">
-                            <i class="fa-solid fa-basket-shopping"></i>
+                            <i class="fa-solid fa-bag-shopping"></i>
                         </div>
                         <h4 class="font-extrabold text-base text-tawriqa-green">${dict.bagEmptyTitle}</h4>
-                        <p class="text-xs text-tawriqa-muted leading-relaxed max-w-xs mx-auto">${dict.bagEmptySub}</p>
+                        <p class="text-xs text-tawriqa-muted max-w-xs mx-auto">${dict.bagEmptySub}</p>
                     </div>
                 `;
                 return;
@@ -2346,55 +2346,58 @@
             bagFooter.classList.remove("hidden");
 
             itemsContainer.innerHTML = orderBag.map((item) => {
-                const sizeLabel = item.size ? `<span class="text-[11px] px-2 py-0.5 rounded-md bg-tawriqa-creamDark text-tawriqa-green font-bold">${item.size[currentLang]}</span>` : "";
-                const halvesLabel = item.halves
-                    ? `<p class="text-[11px] text-tawriqa-green font-bold mt-1"><i class="fa-solid fa-circle-half-stroke text-tawriqa-gold me-1"></i>${item.halves.first[currentLang]} + ${item.halves.second[currentLang]}</p>`
-                    : "";
-                const dipsLabel = item.includedDips && item.includedDips.length > 0
-                    ? `<p class="text-[11px] text-tawriqa-muted mt-1">${currentLang === "ar" ? "الغموسات:" : "Dips:"} ${item.includedDips.map((d) => d[currentLang]).join("، ")}</p>`
-                    : "";
-                const addonsLabel = item.addons && item.addons.length > 0
-                    ? `<p class="text-[11px] text-tawriqa-muted mt-1">+ ${item.addons.map((a) => a[currentLang]).join("، ")}</p>`
-                    : "";
-                const notesLabel = item.notes
-                    ? `<p class="text-[11px] text-tawriqa-gold font-semibold mt-1"><i class="fa-regular fa-note-sticky me-1"></i>${item.notes}</p>`
-                    : "";
+                const detailsLines = [];
+                if (item.size) {
+                    detailsLines.push(`${currentLang === "ar" ? "الحجم" : "Size"}: ${item.size[currentLang]}`);
+                }
+                if (item.halves) {
+                    detailsLines.push(
+                        `${currentLang === "ar" ? "النصفين" : "Halves"}: ${item.halves.first[currentLang]} + ${item.halves.second[currentLang]}`
+                    );
+                }
+                if (item.includedDips && item.includedDips.length > 0) {
+                    const dipNames = item.includedDips.map((d) => d[currentLang]).join("، ");
+                    detailsLines.push(`${currentLang === "ar" ? "غموسات مشمولة" : "Included Dips"}: ${dipNames}`);
+                }
+                if (item.addons && item.addons.length > 0) {
+                    const addonNames = item.addons.map((a) => a[currentLang]).join("، ");
+                    detailsLines.push(`${currentLang === "ar" ? "إضافات" : "Add-ons"}: ${addonNames}`);
+                }
+                if (item.notes) {
+                    detailsLines.push(`${currentLang === "ar" ? "ملاحظات" : "Notes"}: ${item.notes}`);
+                }
 
-                const editBtnHtml = item.productId
-                    ? `<button type="button" onclick="editCartItem(${item.uid})" class="text-[11px] font-bold text-tawriqa-green hover:text-tawriqa-gold flex items-center gap-1"><i class="fa-solid fa-pen-to-square"></i><span>${dict.editItemBtn}</span></button>`
-                    : "";
+                const lineTotal = item.unitPrice * item.qty;
 
                 return `
-                    <div class="bg-white p-4 rounded-2xl border border-tawriqa-green/10 shadow-xs space-y-3">
-                        <div class="flex items-start gap-3">
-                            <img src="${item.image || 'https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'}" onerror="this.src='https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'" alt="${item.name[currentLang]}" class="w-16 h-16 rounded-xl object-cover shrink-0 bg-tawriqa-creamDark border border-tawriqa-green/10" />
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-start justify-between gap-2">
-                                    <h4 class="font-extrabold text-sm text-tawriqa-green leading-snug">${item.name[currentLang]}</h4>
-                                    <span class="font-extrabold text-sm text-tawriqa-green shrink-0">${item.unitPrice * item.qty} EGP</span>
+                    <div class="bg-white p-4 rounded-2xl border border-tawriqa-green/10 shadow-2xs space-y-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex items-start gap-3">
+                                <img src="${item.image || 'https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'}" onerror="this.src='https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'" alt="${item.name[currentLang]}" class="w-12 h-12 rounded-xl object-cover shrink-0 bg-tawriqa-creamDark" />
+                                <div>
+                                    <h5 class="font-extrabold text-sm text-tawriqa-green">${item.name[currentLang]}</h5>
+                                    ${detailsLines.map((line) => `<p class="text-[11px] text-tawriqa-muted mt-0.5 leading-snug">${line}</p>`).join("")}
+                                    <p class="text-xs font-extrabold text-tawriqa-gold mt-1">${item.unitPrice} EGP × ${item.qty} = ${lineTotal} EGP</p>
                                 </div>
-                                <div class="mt-1 flex flex-wrap items-center gap-1.5">
-                                    ${sizeLabel}
-                                    <span class="text-[11px] text-tawriqa-muted">(${item.unitPrice} EGP / ${currentLang === "ar" ? "قطعة" : "pc"})</span>
-                                </div>
-                                ${halvesLabel}
-                                ${dipsLabel}
-                                ${addonsLabel}
-                                ${notesLabel}
                             </div>
                         </div>
+
                         <div class="flex items-center justify-between pt-2 border-t border-tawriqa-green/10">
-                            <div class="flex items-center gap-3">
-                                ${editBtnHtml}
-                                <button type="button" onclick="removeCartItem(${item.uid})" class="text-[11px] font-bold text-red-600 hover:underline flex items-center gap-1">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                    <span>${dict.removeItemBtn}</span>
+                            <div class="flex items-center gap-2">
+                                ${item.productId ? `
+                                    <button type="button" onclick="editCartItem(${item.uid})" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-tawriqa-cream text-tawriqa-green hover:bg-tawriqa-creamDark transition-colors">
+                                        <i class="fa-solid fa-pen me-1"></i>${dict.editItemBtn}
+                                    </button>
+                                ` : ""}
+                                <button type="button" onclick="removeCartItem(${item.uid})" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                                    <i class="fa-regular fa-trash-can me-1"></i>${dict.removeItemBtn}
                                 </button>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <button type="button" onclick="updateBagItemQty(${item.uid}, -1)" class="w-7 h-7 rounded-lg bg-tawriqa-creamDark text-tawriqa-green font-bold hover:bg-tawriqa-green hover:text-white transition-colors">-</button>
-                                <span class="text-xs font-extrabold w-5 text-center">${item.qty}</span>
-                                <button type="button" onclick="updateBagItemQty(${item.uid}, 1)" class="w-7 h-7 rounded-lg bg-tawriqa-creamDark text-tawriqa-green font-bold hover:bg-tawriqa-green hover:text-white transition-colors">+</button>
+
+                            <div class="flex items-center gap-2 bg-tawriqa-creamDark px-2 py-1 rounded-xl">
+                                <button type="button" onclick="updateBagItemQty(${item.uid}, -1)" class="w-6 h-6 rounded-md bg-white text-tawriqa-green font-bold text-xs shadow-2xs">-</button>
+                                <span class="text-xs font-extrabold w-4 text-center">${item.qty}</span>
+                                <button type="button" onclick="updateBagItemQty(${item.uid}, 1)" class="w-6 h-6 rounded-md bg-white text-tawriqa-green font-bold text-xs shadow-2xs">+</button>
                             </div>
                         </div>
                     </div>
@@ -2402,24 +2405,33 @@
             }).join("");
         }
 
-        function generateOrderReference() {
-            const now = new Date();
-            const rand = Math.floor(1000 + Math.random() * 9000);
-            return `TWQ-${now.getHours()}${String(now.getMinutes()).padStart(2, "0")}-${rand}`;
+        function getOrderTypeLabelText(type, lang) {
+            if (lang === "en") {
+                if (type === "delivery") return "Delivery";
+                if (type === "dinein") return "Dine-in";
+                return "Branch Pickup";
+            }
+            if (type === "delivery") return "توصيل (Delivery)";
+            if (type === "dinein") return "داخل المطعم (Dine-in)";
+            return "استلام من الفرع (Pickup)";
         }
 
         function sendOrderViaWhatsApp() {
             if (orderBag.length === 0) return;
-
             const dict = I18N[currentLang];
+
             const custName = document.getElementById("cust-name").value.trim();
             const custPhone = document.getElementById("cust-phone").value.trim();
             const custAddress = document.getElementById("cust-address").value.trim();
-            const custOrderNotes = document.getElementById("cust-order-notes").value.trim();
+            const custNotes = document.getElementById("cust-order-notes").value.trim();
 
             if (!custName || !custPhone) {
                 showToast(dict.validationErrorToast);
-                document.getElementById(!custName ? "cust-name" : "cust-phone").focus();
+                if (!custName) {
+                    document.getElementById("cust-name").focus();
+                } else {
+                    document.getElementById("cust-phone").focus();
+                }
                 return;
             }
 
@@ -2431,100 +2443,82 @@
 
             const subtotalAmount = orderBag.reduce((sum, item) => sum + item.unitPrice * item.qty, 0);
             const discountAmount = 0;
-            const totalAmount = subtotalAmount - discountAmount;
-            const orderRef = generateOrderReference();
-
-            const typeMap = {
-                delivery: currentLang === "ar" ? "توصيل (Delivery)" : "Delivery",
-                pickup: currentLang === "ar" ? "استلام من الفرع (Pickup)" : "Branch Pickup",
-                dinein: currentLang === "ar" ? "داخل المطعم (Dine-in)" : "Dine-in"
-            };
+            const finalTotal = Math.max(0, subtotalAmount - discountAmount);
+            const typeText = getOrderTypeLabelText(orderType, currentLang);
 
             let lines = [];
             if (currentLang === "ar") {
-                lines.push("مرحباً توريقة 🌿");
-                lines.push("أرغب في طلب الأوردر التالي:");
-                lines.push(`رقم مرجعي للطلب: ${orderRef}`);
-                lines.push("");
-                lines.push("تفاصيل الطلب:");
-                orderBag.forEach((item, idx) => {
-                    const sz = item.size ? ` (${item.size.ar})` : "";
-                    lines.push(`${idx + 1}. ${item.name.ar}${sz} — (${item.unitPrice * item.qty} جنيه)`);
-                    lines.push(`   الكمية: ${item.qty}`);
-                    if (item.halves) {
-                        lines.push(`   الاختيارات: ${item.halves.first.ar} + ${item.halves.second.ar}`);
-                    }
-                    if (item.includedDips && item.includedDips.length) {
-                        lines.push(`   الغموسات: ${item.includedDips.map((d) => d.ar).join("، ")}`);
-                    }
-                    if (item.addons && item.addons.length) {
-                        lines.push(`   الإضافات: ${item.addons.map((a) => a.ar).join("، ")}`);
-                    }
-                    if (item.notes) {
-                        lines.push(`   ملاحظات الصنف: ${item.notes}`);
-                    }
-                });
-                lines.push("");
-                lines.push(`إجمالي الأصناف: ${subtotalAmount} جنيه`);
-                lines.push(`الخصم: ${discountAmount} جنيه`);
-                lines.push(`الإجمالي النهائي: ${totalAmount} جنيه`);
-                lines.push("");
-                lines.push("بيانات العميل:");
+                lines.push("مرحباً توريقة شرم الشيخ (كليوباترا مول) 🥞");
+                lines.push("تفاصيل الطلب الجديد:");
+                lines.push("----------------------------");
                 lines.push(`الاسم: ${custName}`);
-                lines.push(`رقم الهاتف: ${custPhone}`);
-                lines.push(`نوع الطلب: ${typeMap[orderType]}`);
+                lines.push(`الهاتف: ${custPhone}`);
+                lines.push(`نوع الطلب: ${typeText}`);
                 if (orderType === "delivery" && custAddress) {
                     lines.push(`العنوان: ${custAddress}`);
                 }
-                lines.push(`ملاحظات: ${custOrderNotes || "لا يوجد"}`);
-                lines.push("شكراً لكم ❤️");
-            } else {
-                lines.push("Hello Tawriqa 🌿");
-                lines.push("I would like to place the following order:");
-                lines.push(`Order Reference: ${orderRef}`);
-                lines.push("");
-                lines.push("Order Details:");
+                lines.push("----------------------------");
                 orderBag.forEach((item, idx) => {
-                    const sz = item.size ? ` (${item.size.en})` : "";
-                    lines.push(`${idx + 1}. ${item.name.en}${sz} — (${item.unitPrice * item.qty} EGP)`);
-                    lines.push(`   Quantity: ${item.qty}`);
-                    if (item.halves) {
-                        lines.push(`   Selections: ${item.halves.first.en} + ${item.halves.second.en}`);
+                    const linePrice = item.unitPrice * item.qty;
+                    lines.push(`${idx + 1}. ${item.name.ar} × ${item.qty} (${linePrice} EGP)`);
+                    if (item.size) lines.push(`   - الحجم: ${item.size.ar}`);
+                    if (item.halves) lines.push(`   - النصفين: ${item.halves.first.ar} + ${item.halves.second.ar}`);
+                    if (item.includedDips && item.includedDips.length > 0) {
+                        lines.push(`   - غموسات مشمولة: ${item.includedDips.map((d) => d.ar).join("، ")}`);
                     }
-                    if (item.includedDips && item.includedDips.length) {
-                        lines.push(`   Included Dips: ${item.includedDips.map((d) => d.en).join(", ")}`);
+                    if (item.addons && item.addons.length > 0) {
+                        lines.push(`   - إضافات: ${item.addons.map((a) => a.ar).join("، ")}`);
                     }
-                    if (item.addons && item.addons.length) {
-                        lines.push(`   Add-ons: ${item.addons.map((a) => a.en).join(", ")}`);
-                    }
-                    if (item.notes) {
-                        lines.push(`   Item Notes: ${item.notes}`);
-                    }
+                    if (item.notes) lines.push(`   - ملاحظات الصنف: ${item.notes}`);
                 });
-                lines.push("");
+                lines.push("----------------------------");
+                if (custNotes) {
+                    lines.push(`ملاحظات الطلب: ${custNotes}`);
+                }
+                lines.push(`إجمالي الأصناف: ${subtotalAmount} EGP`);
+                lines.push(`الخصم: ${discountAmount} EGP`);
+                lines.push(`الإجمالي النهائي: ${finalTotal} EGP`);
+            } else {
+                lines.push("Hello Tawriqa Sharm El Sheikh (Cleopatra Mall) 🥞");
+                lines.push("New Order Summary:");
+                lines.push("----------------------------");
+                lines.push(`Customer Name: ${custName}`);
+                lines.push(`Phone: ${custPhone}`);
+                lines.push(`Order Type: ${typeText}`);
+                if (orderType === "delivery" && custAddress) {
+                    lines.push(`Address: ${custAddress}`);
+                }
+                lines.push("----------------------------");
+                orderBag.forEach((item, idx) => {
+                    const linePrice = item.unitPrice * item.qty;
+                    lines.push(`${idx + 1}. ${item.name.en} x${item.qty} (${linePrice} EGP)`);
+                    if (item.size) lines.push(`   - Size: ${item.size.en}`);
+                    if (item.halves) lines.push(`   - Halves: ${item.halves.first.en} + ${item.halves.second.en}`);
+                    if (item.includedDips && item.includedDips.length > 0) {
+                        lines.push(`   - Included Dips: ${item.includedDips.map((d) => d.en).join(", ")}`);
+                    }
+                    if (item.addons && item.addons.length > 0) {
+                        lines.push(`   - Add-ons: ${item.addons.map((a) => a.en).join(", ")}`);
+                    }
+                    if (item.notes) lines.push(`   - Item Notes: ${item.notes}`);
+                });
+                lines.push("----------------------------");
+                if (custNotes) {
+                    lines.push(`Order Notes: ${custNotes}`);
+                }
                 lines.push(`Subtotal: ${subtotalAmount} EGP`);
                 lines.push(`Discount: ${discountAmount} EGP`);
-                lines.push(`Final Total: ${totalAmount} EGP`);
-                lines.push("");
-                lines.push("Customer Details:");
-                lines.push(`Name: ${custName}`);
-                lines.push(`Phone: ${custPhone}`);
-                lines.push(`Order Type: ${typeMap[orderType]}`);
-                if (orderType === "delivery" && custAddress) {
-                    lines.push(`Delivery Address: ${custAddress}`);
-                }
-                lines.push(`Notes: ${custOrderNotes || "None"}`);
-                lines.push("Thank you ❤️");
+                lines.push(`Final Total: ${finalTotal} EGP`);
             }
 
+            const encodedMsg = encodeURIComponent(lines.join("\n"));
+            const waUrl = `https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodedMsg}`;
+
             showToast(dict.redirectingToast);
-            const waUrl = `https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
-            setTimeout(() => {
-                window.open(waUrl, "_blank", "noopener");
-            }, 450);
+            window.open(waUrl, "_blank", "noopener");
         }
 
-        // Table Reservation Inquiry Modal (WhatsApp / Phone)
+        // Table Reservation Modal (WhatsApp / Phone Inquiry)
         function openReservationModal() {
             document.getElementById("reservation-modal").classList.remove("hidden");
         }
@@ -2541,15 +2535,15 @@
             const date = document.getElementById("res-date").value;
 
             const msg = currentLang === "ar"
-                ? `*استفسار حجز طاولة — توريقة شرم الشيخ*\n• الاسم: ${name}\n• عدد الأفراد: ${guests}\n• التاريخ: ${date}\n• الوقت المفضل: ${time}\n• الفرع: كليوباترا مول، حي النور`
-                : `*Table Reservation Inquiry — Tawriqa Sharm El Sheikh*\n• Name: ${name}\n• Guests: ${guests}\n• Date: ${date}\n• Preferred Time: ${time}\n• Branch: Cleopatra Mall, Hay El Nour`;
+                ? `مرحباً توريقة شرم الشيخ، أود الاستفسار عن حجز طاولة:\nالاسم: ${name}\nعدد الأفراد: ${guests}\nالتاريخ: ${date}\nالوقت: ${time}\nالفرع: كليوباترا مول، شرم الشيخ`
+                : `Hello Tawriqa Sharm El Sheikh, I would like to reserve a table:\nName: ${name}\nGuests: ${guests}\nDate: ${date}\nTime: ${time}\nBranch: Cleopatra Mall, Sharm El Sheikh`;
 
-            const waUrl = `https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-            window.open(waUrl, "_blank", "noopener");
             closeReservationModal();
+            showToast(I18N[currentLang].redirectingToast);
+            window.open(`https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
         }
 
-        // Non-blocking Toast Banner
+        // Toast Helper
         let toastTimer = null;
         function showToast(msg) {
             const banner = document.getElementById("toast-banner");
@@ -2558,7 +2552,7 @@
             clearTimeout(toastTimer);
             toastTimer = setTimeout(() => {
                 banner.classList.add("hidden");
-            }, 2600);
+            }, 3200);
         }
     </script>
 </body>
