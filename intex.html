@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#143D29" />
+    <meta name="description" content="توريقة شرم الشيخ - تجربة الفطير المصري الأصيل والمخبوزات الطازجة. تصفح القائمة واطلب مباشرة عبر واتساب." />
+    <title>توريقة شرم | Tawriqa Sharm El Sheikh</title>
+
+    <!-- PWA Inline Manifest & Apple Touch Support -->
+    <link rel="manifest" id="pwa-manifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Tawriqa Sharm" />
+
+    <!-- Google Fonts: Cairo (Arabic) & Plus Jakarta Sans + Playfair Display (English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tawriqa: {
+                            green: '#143D29',
+                            greenLight: '#1E563B',
+                            greenDark: '#0D291B',
+                            cream: '#FBF7F0',
+                            creamDark: '#F2E9D8',
+                            gold: '#C89B3C',
+                            goldLight: '#DFB862',
+                            ink: '#1C241E',
+                            muted: '#5A665E'
+                        }
+                    },
+                    fontFamily: {
+                        arabic: ['Cairo', 'sans-serif'],
+                        english: ['Plus Jakarta Sans', 'sans-serif'],
+                        serifEn: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        /* Custom Scrollbar & Smooth Micro-interactions */
+        body {
+            background-color: #FBF7F0;
+            color: #1C241E;
+            overflow-x: hidden;
+        }
+        [dir="rtl"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+        [dir="ltr"] body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .layered-pattern {
+            background-image: radial-gradient(rgba(200, 155, 60, 0.14) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: floatSlow 4.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-tawriqa-green selection:text-tawriqa-cream">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-tawriqa-greenDark text-tawriqa-cream text-xs sm:text-sm py-2 px-4 text-center border-b border-tawriqa-gold/25">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <span class="inline-flex items-center gap-1.5">
+                <i class="fa-solid fa-fire-flame-curved text-tawriqa-gold"></i>
+                <span data-i18n="topBannerText">يُخبز طازجاً عند الطلب • فرع شرم الشيخ (كليوباترا مول)</span>
+            </span>
+            <span class="hidden sm:inline text-tawriqa-gold/50">|</span>
+            <span class="inline-flex items-center gap-1.5 text-tawriqa-goldLight font-medium">
+                <i class="fa-regular fa-clock"></i>
+                <span data-i18n="topBannerHours">يومياً: ١٠:٠٠ صباحاً – ٢:٠٠ صباحاً</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Sticky Customer Header -->
+    <header class="sticky top-0 z-40 bg-tawriqa-cream/95 backdrop-blur-md border-b border-tawriqa-green/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between gap-3">
+            <!-- Brand Identity -->
+            <a href="#home" class="flex items-center gap-3 group focus:outline-none">
+                <div class="px-2.5 py-1.5 rounded-2xl bg-[#F8DFC1] flex items-center justify-center shadow-md border border-[#243A1C]/20 group-hover:scale-105 transition-transform">
+                    <!-- Official Tawriqa Emblem ("توريقة") -->
+                    <svg class="h-8 w-auto" viewBox="0 0 180 68" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="توريقة">
+                        <path d="M8 12L172 5C175.5 4.8 178 7.5 177.5 11L171.5 58C171 61.2 168.2 63.5 165 63.3L14 57.5C10.8 57.4 8.3 54.8 8.2 51.6L6.5 17.5C6.3 14.3 5.2 12.2 8 12Z" fill="#F8DFC1"/>
+                        <path d="M12 57.5L166 63.2C169.5 63.3 172 60.8 172.5 57.5L174 47C170.5 55.5 166.5 58.2 161 58.1L12 57.5Z" fill="#243A1C"/>
+                        <!-- Warm Amber Accents -->
+                        <path d="M86 14.5H124C125.4 14.5 126.5 15.6 126.5 17C126.5 18.4 125.4 19.5 124 19.5H88L86 14.5Z" fill="#EAB366"/>
+                        <path d="M18 46.5L56 48.2C57.3 48.3 58.3 49.4 58.2 50.7C58.1 52 57 53 55.7 52.9L19.5 51.3L18 46.5Z" fill="#EAB366"/>
+                        <!-- Stylized Arabic Wordmark: توريقة -->
+                        <path d="M149 18.5C153.5 18.5 157 22.2 157 27.5C157 34.5 151.5 41 143.5 41C138.5 41 135.5 38.2 135.5 34.5C135.5 30.8 138.5 28.2 142 28.2C145 28.2 147.2 30 147.2 32.5C147.2 34.3 145.8 35.6 144 35.6C145.5 36.6 147.5 36.5 149.5 35.2C151.8 33.6 152.8 30.6 152.5 27.5C152.2 24.5 150.2 22.8 148 22.8L149 18.5Z" fill="#243A1C"/>
+                        <circle cx="145" cy="13" r="3.4" fill="#243A1C"/>
+                        <circle cx="154" cy="13" r="3.4" fill="#243A1C"/>
+                        <path d="M136 37.5C132.5 40.5 127.5 41.5 122.5 41.5H104C100.5 41.5 98 39.2 98 36C98 31.5 102.5 26.5 107.5 26.5C110.5 26.5 112.5 28.5 112.5 31C112.5 33.2 110.8 34.8 108.8 34.8C110.5 36.2 113.5 36.5 117 36.5H124C128.5 36.5 132 35.2 134.5 32.5L136 37.5Z" fill="#243A1C"/>
+                        <path d="M103 20.5C105.5 20.5 107.5 22.3 107.5 24.5C107.5 26.7 105.5 28.5 103 28.5C100.5 28.5 98.5 26.7 98.5 24.5C98.5 22.3 100.5 20.5 103 20.5Z" fill="#243A1C"/>
+                        <path d="M97 38.5C94.5 41 91 42 87.5 42C83.5 42 80.5 39.5 80.5 35.5C80.5 29.5 86.5 21.5 92.5 17.5L95.5 21.5C90.5 25 86 31.5 86 35C86 36.8 87.2 37.8 89 37.8C91.2 37.8 93.8 36.5 95.8 34.5L97 38.5Z" fill="#243A1C"/>
+                        <path d="M80.5 37.5C77.5 40.5 73.5 41.8 69 41.8C65.5 41.8 63 40 61.5 37.8C59.5 40.5 56.2 42 52.5 42C47.5 42 44 38.8 44 34.2C44 28.5 49.5 22.5 56.5 22.5C61.5 22.5 64.8 25.5 64.8 29.5C64.8 33.5 61.5 36.8 56.5 36.8C53.5 36.8 51 35.5 49.5 33.5C49 35.8 50.8 37.5 53.5 37.5C57.2 37.5 60 35 61.5 31.5L65.5 33.5C66.5 36.2 68.5 37.5 71 37.5C74 37.5 76.8 35.8 78.8 33.2L80.5 37.5ZM56 26.8C52.5 26.8 49.5 29.8 49.5 32.5C49.5 33.8 50.5 34.5 52 34.5C55.5 34.5 59.2 31.8 59.2 29.2C59.2 27.6 57.8 26.8 56 26.8Z" fill="#243A1C"/>
+                        <circle cx="52" cy="15.5" r="3.2" fill="#243A1C"/>
+                        <circle cx="60.5" cy="15.5" r="3.2" fill="#243A1C"/>
+                        <path d="M44.5 37.5C41.5 40.5 37 41.8 32 41.8H21.5C18.5 41.8 16.5 39.8 16.5 36.8C16.5 32.5 20.5 27.5 25.5 27.5C28.2 27.5 30 29.2 30 31.5C30 33.5 28.5 34.8 26.8 34.8C28.2 36 30.8 36.5 34 36.5C38 36.5 41 35.2 43 32.5L44.5 37.5Z" fill="#243A1C"/>
+                        <circle cx="23.5" cy="48.5" r="3.2" fill="#243A1C"/>
+                        <circle cx="32" cy="48.5" r="3.2" fill="#243A1C"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-tawriqa-green" data-i18n="brandName">توريقة</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-tawriqa-green/10 text-tawriqa-green" data-i18n="branchBadge">شرم الشيخ</span>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-tawriqa-muted font-semibold" data-i18n="brandTagline">بين الطبقات.. حكايات</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation (Visitor Sections Only) -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-tawriqa-ink">
+                <a href="#home" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navHome">الرئيسية</a>
+                <a href="#menu" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navMenu">قائمة الطعام</a>
+                <a href="#offers" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navOffers">العروض</a>
+                <a href="#about" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navAbout">حكايتنا</a>
+                <a href="#gallery" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navGallery">معرض الصور</a>
+                <a href="#branch" class="hover:text-tawriqa-green transition-colors py-1" data-i18n="navBranch">الفرع والحجز</a>
+            </nav>
+
+            <!-- Action Controls: Language Toggle, Install PWA, Order Bag -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- PWA Install Button (Visible when installable or helpful) -->
+                <button id="install-pwa-btn" onclick="triggerPwaInstall()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-tawriqa-creamDark text-tawriqa-green hover:bg-tawriqa-green hover:text-tawriqa-cream transition-all border border-tawriqa-green/15" title="Install App">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span data-i18n="installApp">تثبيت التطبيق</span>
+                </button>
+
+                <!-- Language Switcher -->
+                <button id="lang-toggle-btn" onclick="toggleLanguage()" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold border border-tawriqa-green/20 bg-white text-tawriqa-green hover:bg-tawriqa-green hover:text-tawriqa-cream transition-all shadow-xs" aria-label="Switch Language">
+                    <i class="fa-solid fa-globe text-tawriqa-gold me-1"></i>
+                    <span id="lang-label">English</span>
+                </button>
+
+                <!-- Customer Order Bag Button -->
+                <button onclick="openBagDrawer()" class="relative inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-tawriqa-green text-tawriqa-cream font-bold text-xs sm:text-sm shadow-md hover:bg-tawriqa-greenLight transition-all">
+                    <i class="fa-solid fa-bag-shopping text-tawriqa-gold text-base"></i>
+                    <span class="hidden md:inline" data-i18n="myOrder">سلة الطلب</span>
+                    <span id="bag-count-badge" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-tawriqa-gold text-tawriqa-greenDark text-xs font-extrabold">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Quick Horizontal Navigation -->
+        <div class="lg:hidden border-t border-tawriqa-green/10 bg-tawriqa-cream/90 px-3 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar text-xs font-bold">
+            <a href="#home" class="shrink-0 px-3 py-1.5 rounded-full bg-tawriqa-green/10 text-tawriqa-green" data-i18n="navHome">الرئيسية</a>
+            <a href="#menu" class="shrink-0 px-3 py-1.5 rounded-full bg-white text-tawriqa-ink border border-tawriqa-green/10" data-i18n="navMenu">قائمة الطعام</a>
+            <a href="#offers" class="shrink-0 px-3 py-1.5 rounded-full bg-white text-tawriqa-ink border border-tawriqa-green/10" data-i18n="navOffers">العروض</a>
+            <a href="#about" class="shrink-0 px-3 py-1.5 rounded-full bg-white text-tawriqa-ink border border-tawriqa-green/10" data-i18n="navAbout">حكايتنا</a>
+            <a href="#gallery" class="shrink-0 px-3 py-1.5 rounded-full bg-white text-tawriqa-ink border border-tawriqa-green/10" data-i18n="navGallery">معرض الصور</a>
+            <a href="#branch" class="shrink-0 px-3 py-1.5 rounded-full bg-white text-tawriqa-ink border border-tawriqa-green/10" data-i18n="navBranch">الفرع والحجز</a>
+        </div>
+    </header>
+
+    <!-- Main Visitor Content -->
+    <main>
+        <!-- 1. HERO & WELCOME BANNER -->
+        <section id="home" class="relative overflow-hidden bg-tawriqa-green text-tawriqa-cream layered-pattern">
+            <div class="absolute inset-0 bg-gradient-to-b from-tawriqa-greenDark/70 via-tawriqa-green/85 to-tawriqa-green"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-start">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-tawriqa-gold/15 border border-tawriqa-gold/40 text-tawriqa-goldLight text-xs sm:text-sm font-bold">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span data-i18n="heroBadge">بين الطبقات.. حكايات • كليوباترا مول، شرم الشيخ</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight" data-i18n="heroTitle">
+                            طبقات من التوريق الذهبي.. تُخبز طازجة لأجلك
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-tawriqa-cream/85 max-w-2xl mx-auto lg:mx-0 leading-relaxed" data-i18n="heroSubtitle">
+                            استمتع بأصالة الفطير المشلتت الفلاحي، الفطائر الشرقية والغربية المحشوة بأجود المكونات، وحلويات توريقة المميزة في قلب شرم الشيخ. تصفح قائمتنا واطلب مباشرة عبر واتساب.
+                        </p>
+
+                        <!-- Primary Visitor CTAs -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
+                            <a href="#menu" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-tawriqa-gold text-tawriqa-greenDark font-extrabold text-sm sm:text-base shadow-lg hover:bg-tawriqa-goldLight transition-all">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span data-i18n="heroCtaMenu">استكشف القائمة الكاملة</span>
+                            </a>
+                            <button onclick="openReservationModal()" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-tawriqa-cream border border-tawriqa-cream/25 font-bold text-sm sm:text-base backdrop-blur-xs transition-all">
+                                <i class="fa-regular fa-calendar-check text-tawriqa-gold"></i>
+                                <span data-i18n="heroCtaReserve">احجز طاولتك</span>
+                            </button>
+                        </div>
+
+                        <!-- Quick Visitor Highlights -->
+                        <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-4 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                            <div>
+                                <div class="text-lg sm:text-2xl font-extrabold text-tawriqa-gold">100%</div>
+                                <div class="text-xs text-tawriqa-cream/75" data-i18n="statFresh">عجين طازج يومياً</div>
+                            </div>
+                            <div>
+                                <div class="text-lg sm:text-2xl font-extrabold text-tawriqa-gold">7</div>
+                                <div class="text-xs text-tawriqa-cream/75" data-i18n="statCategories">أقسام متنوعة</div>
+                            </div>
+                            <div>
+                                <div class="text-lg sm:text-2xl font-extrabold text-tawriqa-gold">WhatsApp</div>
+                                <div class="text-xs text-tawriqa-cream/75" data-i18n="statOrder">طلب وحجز فوري</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Food Photography Showcase -->
+                    <div class="lg:col-span-5">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="rounded-3xl overflow-hidden border-4 border-tawriqa-gold/30 shadow-2xl aspect-[4/3] bg-tawriqa-greenDark">
+                                <img
+                                    src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=85"
+                                    onerror="this.src='https://placehold.co/800x600/143D29/FBF7F0?text=Tawriqa+Sharm'"
+                                    alt="Tawriqa Golden Layered Pastry"
+                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                            <!-- Floating Customer Badge -->
+                            <div class="animate-float absolute -bottom-4 start-4 sm:-start-4 bg-tawriqa-cream text-tawriqa-ink p-3.5 sm:p-4 rounded-2xl shadow-xl border border-tawriqa-green/15 max-w-[230px]">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-tawriqa-green text-tawriqa-gold flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-award text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-extrabold text-tawriqa-green" data-i18n="heroFloatingTitle">سمنة بلدي صافي</p>
+                                        <p class="text-[11px] text-tawriqa-muted" data-i18n="heroFloatingSub">مخبوز في أفران حجرية ساخنة</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. FEATURED & POPULAR PICKS CAROUSEL/GRID -->
+        <section class="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                <div>
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-tawriqa-gold" data-i18n="featuredEyebrow">الأكثر طلباً في شرم الشيخ</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-tawriqa-green mt-1" data-i18n="featuredTitle">مختارات زوّار توريقة المفضلة</h2>
+                </div>
+                <a href="#menu" class="inline-flex items-center gap-2 text-sm font-bold text-tawriqa-green hover:text-tawriqa-gold transition-colors">
+                    <span data-i18n="viewFullMenu">عرض القائمة بالكامل</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-0 ltr:rotate-180"></i>
+                </a>
+            </div>
+
+            <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Populated dynamically via JS from verified menu data -->
+            </div>
+        </section>
+
+        <!-- 3. SPECIAL OFFERS & PROMOTIONAL BANNERS -->
+        <section id="offers" class="py-12 sm:py-16 bg-tawriqa-creamDark/60 border-y border-tawriqa-green/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="inline-block px-3 py-1 rounded-full bg-tawriqa-green/10 text-tawriqa-green text-xs font-extrabold mb-2" data-i18n="offersEyebrow">عروض توريقة الحصرية</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-tawriqa-green" data-i18n="offersTitle">عروض وتوليفات العائلة والأصدقاء</h2>
+                    <p class="text-sm sm:text-base text-tawriqa-muted mt-2" data-i18n="offersSubtitle">اختر عرضك المفضل وأضفه مباشرة إلى طلبك عبر واتساب بأسعار معتمدة وواضحة.</p>
+                </div>
+
+                <div id="offers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. COMPLETE INTERACTIVE MENU (7 CATEGORIES) -->
+        <section id="menu" class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+                <div>
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-tawriqa-gold" data-i18n="menuEyebrow">القائمة الرسمية المعتمدة</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-tawriqa-green mt-1" data-i18n="menuTitle">قائمة طعام توريقة شرم</h2>
+                    <p class="text-sm text-tawriqa-muted mt-1" data-i18n="menuSubtitle">جميع الأسعار بالجنيه المصري (EGP) وتشمل التغليف الفاخر. اضغط على أي صنف للتخصيص.</p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full lg:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 start-4 text-tawriqa-muted text-sm"></i>
+                    <input
+                        type="text"
+                        id="menu-search-input"
+                        oninput="handleSearch(this.value)"
+                        data-i18n-placeholder="searchPlaceholder"
+                        placeholder="ابحث عن فطير، لحوم، جبن، حلو..."
+                        class="w-full ps-10 pe-10 py-3 rounded-2xl bg-white border border-tawriqa-green/15 text-sm text-tawriqa-ink placeholder:text-tawriqa-muted focus:outline-none focus:ring-2 focus:ring-tawriqa-green shadow-xs"
+                    />
+                    <button id="clear-search-btn" onclick="clearSearch()" class="hidden absolute top-1/2 -translate-y-1/2 end-3 text-tawriqa-muted hover:text-tawriqa-green p-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 7 Category Filter Pills -->
+            <div id="category-tabs" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-4 mb-8">
+                <!-- Populated dynamically with "All" + 7 categories -->
+            </div>
+
+            <!-- Menu Products Grid -->
+            <div id="menu-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="menu-empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-tawriqa-green/10">
+                <div class="w-16 h-16 rounded-full bg-tawriqa-creamDark text-tawriqa-green flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-plate-wheat"></i>
+                </div>
+                <h3 class="text-lg font-extrabold text-tawriqa-green" data-i18n="noResultsTitle">لم نجد أصنافاً مطابقة لبحثك</h3>
+                <p class="text-sm text-tawriqa-muted mt-1 mb-4" data-i18n="noResultsSub">جرّب البحث بكلمة أخرى أو تصفح جميع الأقسام السبعة.</p>
+                <button onclick="resetFilters()" class="px-5 py-2.5 rounded-xl bg-tawriqa-green text-tawriqa-cream text-sm font-bold hover:bg-tawriqa-greenLight transition-colors" data-i18n="resetFiltersBtn">
+                    عرض كل الأصناف
+                </button>
+            </div>
+        </section>
+
+        <!-- 5. ABOUT TAWRIQA (STORY & CRAFT PHILOSOPHY) -->
+        <section id="about" class="py-14 sm:py-20 bg-tawriqa-green text-tawriqa-cream relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                    <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+                        <img
+                            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80"
+                            onerror="this.src='https://placehold.co/600x700/1E563B/FBF7F0?text=Artisan+Dough'"
+                            alt="Fresh Dough Crafting"
+                            class="rounded-3xl object-cover w-full h-64 sm:h-80 shadow-xl border border-tawriqa-gold/25"
+                        />
+                        <img
+                            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80"
+                            onerror="this.src='https://placehold.co/600x700/0D291B/FBF7F0?text=Warm+Hospitality'"
+                            alt="Tawriqa Dining Experience"
+                            class="rounded-3xl object-cover w-full h-64 sm:h-80 mt-6 shadow-xl border border-tawriqa-gold/25"
+                        />
+                    </div>
+
+                    <div class="lg:col-span-6 space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-tawriqa-gold/20 text-tawriqa-goldLight text-xs font-extrabold">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                            <span data-i18n="aboutEyebrow">حكاية توريقة وفلسفة التحضير</span>
+                        </span>
+
+                        <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight" data-i18n="aboutTitle">
+                            فن التوريق المصري الأصيل بلمسة عصرية في شرم الشيخ
+                        </h2>
+
+                        <p class="text-tawriqa-cream/85 text-sm sm:text-base leading-relaxed" data-i18n="aboutP1">
+                            بدأت رحلة «توريقة» من شغفنا بإحياء التراث المصري الأصيل في صناعة الفطير المورّق، حيث يُفرد العجين يدوياً طبقة تلو الأخرى ليصل إلى قوام هش من الخارج وطري غني من الداخل.
+                        </p>
+
+                        <p class="text-tawriqa-cream/85 text-sm sm:text-base leading-relaxed" data-i18n="aboutP2">
+                            في فرعنا بكليوباترا مول – شرم الشيخ، نلتزم باستخدام أجود أنواع الدقيق الفاخر، السمنة البلدي الطبيعية، والجبن واللحوم الطازجة، ليخرج كل فطير من الفرن ساخناً ومعدّاً خصيصاً لك.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                                <i class="fa-solid fa-hands text-tawriqa-gold text-xl mb-2"></i>
+                                <h3 class="font-bold text-base" data-i18n="pillar1Title">فرد يدوي متقن</h3>
+                                <p class="text-xs text-tawriqa-cream/75 mt-1" data-i18n="pillar1Desc">طبقات رقيقة متعددة تضمن قرمشة ذهبية مثالية في كل قضمة.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                                <i class="fa-solid fa-leaf text-tawriqa-gold text-xl mb-2"></i>
+                                <h3 class="font-bold text-base" data-i18n="pillar2Title">مكونات طبيعية مختارة</h3>
+                                <p class="text-xs text-tawriqa-cream/75 mt-1" data-i18n="pillar2Desc">نختار مكوناتنا بعناية فائقة لضمان المذاق الأصيل والجودة العالية.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. PHOTO GALLERY -->
+        <section id="gallery" class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-tawriqa-gold" data-i18n="galleryEyebrow">لقطات من مطبخنا وأجوائنا</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-tawriqa-green mt-1" data-i18n="galleryTitle">معرض صور توريقة شرم</h2>
+                <p class="text-sm text-tawriqa-muted mt-2" data-i18n="gallerySubtitle">تشكيلة من فطائرنا الطازجة، الحلويات الشرقية، وأجواء الضيافة في فرع شرم الشيخ.</p>
+            </div>
+
+            <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Populated dynamically via JS with lightbox support -->
+            </div>
+        </section>
+
+        <!-- 7. BRANCH INFORMATION, INTERACTIVE MAP & TABLE RESERVATION -->
+        <section id="branch" class="py-14 sm:py-20 bg-tawriqa-creamDark/70 border-t border-tawriqa-green/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <!-- Branch Details Card -->
+                    <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-tawriqa-green/10 flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tawriqa-green/10 text-tawriqa-green text-xs font-extrabold">
+                                <i class="fa-solid fa-location-dot text-tawriqa-gold"></i>
+                                <span data-i18n="branchSectionEyebrow">زورونا في شرم الشيخ</span>
+                            </div>
+
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-tawriqa-green" data-i18n="branchName">توريقة شرم الشيخ</h2>
+
+                            <div class="space-y-3.5 text-sm text-tawriqa-ink pt-2">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-map-pin text-tawriqa-gold mt-1 text-base w-5 text-center"></i>
+                                    <div>
+                                        <p class="font-bold text-tawriqa-green" data-i18n="addressLabel">العنوان:</p>
+                                        <p class="text-tawriqa-muted leading-relaxed" data-i18n="branchAddress">
+                                            كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ، جنوب سيناء، مصر
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-regular fa-clock text-tawriqa-gold mt-1 text-base w-5 text-center"></i>
+                                    <div>
+                                        <p class="font-bold text-tawriqa-green" data-i18n="hoursLabel">ساعات العمل:</p>
+                                        <p class="text-tawriqa-muted" data-i18n="branchHours">يومياً من ١٠:٠٠ صباحاً حتى ٢:٠٠ بعد منتصف الليل</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-phone text-tawriqa-gold mt-1 text-base w-5 text-center"></i>
+                                    <div>
+                                        <p class="font-bold text-tawriqa-green" data-i18n="contactLabel">الهاتف وواتساب:</p>
+                                        <p class="text-tawriqa-muted font-semibold" dir="ltr">+20 102 259 5959</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Visitor Action Buttons -->
+                        <div class="space-y-3 pt-4 border-t border-tawriqa-green/10">
+                            <div class="grid grid-cols-2 gap-3">
+                                <a href="tel:+201022595959" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-tawriqa-green text-tawriqa-cream font-bold text-xs sm:text-sm hover:bg-tawriqa-greenLight transition-colors">
+                                    <i class="fa-solid fa-phone-volume"></i>
+                                    <span data-i18n="callNowBtn">اتصل الآن</span>
+                                </a>
+                                <a href="https://wa.me/201022595959?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AA%D9%88%D8%B1%D9%8A%D9%82%D8%A9%20%D8%B4%D8%B1%D9%85%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-[#25D366] text-white font-bold text-xs sm:text-sm hover:brightness-95 transition-all">
+                                    <i class="fa-brands fa-whatsapp text-base"></i>
+                                    <span data-i18n="whatsappBtn">واتساب</span>
+                                </a>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="openReservationModal()" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-tawriqa-gold text-tawriqa-greenDark font-extrabold text-xs sm:text-sm hover:bg-tawriqa-goldLight transition-colors">
+                                    <i class="fa-solid fa-chair"></i>
+                                    <span data-i18n="reserveTableBtn">حجز طاولة</span>
+                                </button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Cleopatra+Mall+Hay+El+Nour+Sharm+El+Sheikh" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-tawriqa-creamDark text-tawriqa-green font-bold text-xs sm:text-sm hover:bg-tawriqa-green/15 transition-colors">
+                                    <i class="fa-solid fa-diamond-turn-right"></i>
+                                    <span data-i18n="directionsBtn">الاتجاهات</span>
+                                </a>
+                            </div>
+
+                            <!-- Social Media Links -->
+                            <div class="flex items-center justify-center gap-4 pt-3">
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 rounded-full bg-tawriqa-cream flex items-center justify-center text-tawriqa-green hover:bg-tawriqa-green hover:text-tawriqa-cream transition-colors">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 rounded-full bg-tawriqa-cream flex items-center justify-center text-tawriqa-green hover:bg-tawriqa-green hover:text-tawriqa-cream transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="https://www.tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="w-10 h-10 rounded-full bg-tawriqa-cream flex items-center justify-center text-tawriqa-green hover:bg-tawriqa-green hover:text-tawriqa-cream transition-colors">
+                                    <i class="fa-brands fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Embedded Google Map for Cleopatra Mall, Hay El Nour, Sharm El Sheikh -->
+                    <div class="lg:col-span-7 rounded-3xl overflow-hidden shadow-md border border-tawriqa-green/15 bg-white min-h-[360px] flex flex-col">
+                        <div class="bg-tawriqa-green text-tawriqa-cream px-5 py-3 flex items-center justify-between text-xs sm:text-sm">
+                            <span class="font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot text-tawriqa-gold"></i>
+                                <span data-i18n="mapHeader">موقعنا التفاعلي • كليوباترا مول، حي النور</span>
+                            </span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Cleopatra+Mall+Hay+El+Nour+Sharm+El+Sheikh" target="_blank" rel="noopener" class="text-tawriqa-goldLight underline font-semibold" data-i18n="openFullMap">
+                                فتح في الخرائط
+                            </a>
+                        </div>
+                        <iframe
+                            title="Tawriqa Sharm El Sheikh Location Map"
+                            src="https://maps.google.com/maps?q=Cleopatra%20Mall%20Hay%20El%20Nour%20Sharm%20El%20Sheikh&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            class="w-full flex-1 min-h-[340px] border-0"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Visitor-Only Footer (Zero Staff/Admin Links) -->
+    <footer class="bg-tawriqa-greenDark text-tawriqa-cream/85 py-10 border-t border-tawriqa-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="px-2.5 py-1.5 rounded-xl bg-[#F8DFC1] flex items-center justify-center border border-tawriqa-gold/40">
+                    <span class="font-extrabold text-sm text-[#243A1C]" data-i18n="brandName">توريقة</span>
+                </div>
+                <div>
+                    <p class="font-extrabold text-tawriqa-cream text-base" data-i18n="footerBrand">توريقة شرم الشيخ • بين الطبقات.. حكايات</p>
+                    <p class="text-xs text-tawriqa-cream/65" data-i18n="footerAddress">كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold">
+                <a href="#menu" class="hover:text-tawriqa-gold transition-colors" data-i18n="navMenu">قائمة الطعام</a>
+                <a href="#offers" class="hover:text-tawriqa-gold transition-colors" data-i18n="navOffers">العروض</a>
+                <a href="#about" class="hover:text-tawriqa-gold transition-colors" data-i18n="navAbout">حكايتنا</a>
+                <a href="#branch" class="hover:text-tawriqa-gold transition-colors" data-i18n="navBranch">الفرع والحجز</a>
+            </div>
+
+            <p class="text-xs text-tawriqa-cream/60" data-i18n="footerRights">
+                © ٢٠٢٦ توريقة شرم الشيخ. تطبيق الزوار الرسمي.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating Quick WhatsApp Order Bar (Mobile & Desktop) -->
+    <div id="floating-bag-bar" class="hidden fixed bottom-4 inset-x-4 sm:inset-x-auto sm:end-6 sm:w-96 z-30">
+        <button onclick="openBagDrawer()" class="w-full bg-tawriqa-green text-tawriqa-cream px-5 py-3.5 rounded-2xl shadow-2xl border border-tawriqa-gold/40 flex items-center justify-between hover:bg-tawriqa-greenLight transition-all">
+            <div class="flex items-center gap-3">
+                <span id="floating-bag-count" class="w-7 h-7 rounded-full bg-tawriqa-gold text-tawriqa-greenDark font-extrabold text-xs flex items-center justify-center">0</span>
+                <span class="font-bold text-sm" data-i18n="viewOrderBag">مراجعة الطلب وإرساله واتساب</span>
+            </div>
+            <span id="floating-bag-total" class="font-extrabold text-sm text-tawriqa-goldLight">0 EGP</span>
+        </button>
+    </div>
+
+    <!-- MODAL 1: PRODUCT DETAILS & CUSTOMIZATION -->
+    <div id="product-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4" onclick="if(event.target===this) closeProductModal()">
+        <div class="bg-tawriqa-cream w-full sm:max-w-xl rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl border border-tawriqa-green/15 max-h-[92vh] flex flex-col">
+            <!-- Modal Image Header -->
+            <div class="relative h-56 sm:h-64 bg-tawriqa-greenDark shrink-0">
+                <img id="modal-prod-img" src="" alt="" class="w-full h-full object-cover" />
+                <button onclick="closeProductModal()" class="absolute top-4 end-4 w-10 h-10 rounded-full bg-black/55 text-white hover:bg-black/80 flex items-center justify-center transition-colors" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <span id="modal-prod-category" class="absolute bottom-3 start-4 px-3 py-1 rounded-full bg-tawriqa-green/90 text-tawriqa-goldLight text-xs font-bold backdrop-blur-xs"></span>
+            </div>
+
+            <!-- Scrollable Details & Customizations -->
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-5 flex-1">
+                <div>
+                    <div class="flex items-start justify-between gap-3">
+                        <h3 id="modal-prod-name" class="text-xl sm:text-2xl font-extrabold text-tawriqa-green"></h3>
+                        <span id="modal-prod-base-price" class="text-lg font-extrabold text-tawriqa-gold shrink-0"></span>
+                    </div>
+                    <p id="modal-prod-desc" class="text-sm text-tawriqa-muted mt-2 leading-relaxed"></p>
+                </div>
+
+                <!-- Ingredients Pill List -->
+                <div class="bg-white p-4 rounded-2xl border border-tawriqa-green/10">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-tawriqa-green mb-2" data-i18n="ingredientsLabel">المكونات الطازجة:</h4>
+                    <p id="modal-prod-ingredients" class="text-xs sm:text-sm text-tawriqa-ink leading-relaxed"></p>
+                </div>
+
+                <!-- Size Selection -->
+                <div id="modal-sizes-section" class="space-y-2.5">
+                    <h4 class="text-sm font-extrabold text-tawriqa-green" data-i18n="chooseSizeLabel">اختر الحجم:</h4>
+                    <div id="modal-sizes-options" class="grid grid-cols-2 gap-2.5"></div>
+                </div>
+
+                <!-- Half-and-Half Family Feteer Selection -->
+                <div id="modal-halves-section" class="hidden space-y-3 bg-white p-4 rounded-2xl border border-tawriqa-gold/40">
+                    <h4 class="text-sm font-extrabold text-tawriqa-green flex items-center gap-2">
+                        <i class="fa-solid fa-circle-half-stroke text-tawriqa-gold"></i>
+                        <span data-i18n="chooseHalvesLabel">اختر النصف الأول والنصف الثاني:</span>
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label for="modal-first-half" class="block text-xs font-bold text-tawriqa-muted mb-1" data-i18n="firstHalfLabel">النصف الأول:</label>
+                            <select id="modal-first-half" onchange="updateModalTotal()" class="w-full px-3 py-2.5 rounded-xl bg-tawriqa-cream border border-tawriqa-green/20 text-xs sm:text-sm font-bold text-tawriqa-ink focus:outline-none focus:ring-2 focus:ring-tawriqa-green"></select>
+                        </div>
+                        <div>
+                            <label for="modal-second-half" class="block text-xs font-bold text-tawriqa-muted mb-1" data-i18n="secondHalfLabel">النصف الثاني:</label>
+                            <select id="modal-second-half" onchange="updateModalTotal()" class="w-full px-3 py-2.5 rounded-xl bg-tawriqa-cream border border-tawriqa-green/20 text-xs sm:text-sm font-bold text-tawriqa-ink focus:outline-none focus:ring-2 focus:ring-tawriqa-green"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meshaltet Included Dips Selection -->
+                <div id="modal-dips-section" class="hidden space-y-2.5 bg-white p-4 rounded-2xl border border-tawriqa-green/15">
+                    <h4 class="text-sm font-extrabold text-tawriqa-green flex items-center gap-2">
+                        <i class="fa-solid fa-bowl-food text-tawriqa-gold"></i>
+                        <span data-i18n="includedDipsLabel">الغموسات المشمولة مع المشلتت:</span>
+                    </h4>
+                    <div id="modal-dips-options" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+                </div>
+
+                <!-- Add-ons / Extra Dips / Sweet Toppings Selection -->
+                <div id="modal-addons-section" class="space-y-2.5">
+                    <h4 id="modal-addons-title" class="text-sm font-extrabold text-tawriqa-green" data-i18n="chooseAddonsLabel">إضافات اختيارية:</h4>
+                    <div id="modal-addons-options" class="space-y-2"></div>
+                </div>
+
+                <!-- Special Customer Notes -->
+                <div class="space-y-2">
+                    <label for="modal-prod-notes" class="block text-sm font-extrabold text-tawriqa-green" data-i18n="notesLabel">تعليمات وملاحظات خاصة (اختياري):</label>
+                    <input
+                        type="text"
+                        id="modal-prod-notes"
+                        data-i18n-placeholder="notesPlaceholder"
+                        placeholder="مثال: تسوية إضافية، بدون بصل، تقطيع مثلثات..."
+                        class="w-full px-4 py-2.5 rounded-xl bg-white border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green"
+                    />
+                </div>
+            </div>
+
+            <!-- Sticky Add to WhatsApp Order Footer -->
+            <div class="p-4 sm:p-5 bg-white border-t border-tawriqa-green/10 flex items-center justify-between gap-4 shrink-0">
+                <!-- Quantity Control -->
+                <div class="flex items-center gap-3 bg-tawriqa-creamDark px-3 py-2 rounded-xl">
+                    <button type="button" onclick="changeModalQty(-1)" class="w-7 h-7 rounded-lg bg-white text-tawriqa-green font-bold shadow-xs hover:bg-tawriqa-green hover:text-white transition-colors">-</button>
+                    <span id="modal-prod-qty" class="font-extrabold text-base w-5 text-center">1</span>
+                    <button type="button" onclick="changeModalQty(1)" class="w-7 h-7 rounded-lg bg-white text-tawriqa-green font-bold shadow-xs hover:bg-tawriqa-green hover:text-white transition-colors">+</button>
+                </div>
+
+                <button type="button" onclick="saveModalProductToCart()" class="flex-1 py-3 px-5 rounded-2xl bg-tawriqa-green text-tawriqa-cream font-extrabold text-sm sm:text-base hover:bg-tawriqa-greenLight transition-all flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span id="modal-submit-label" data-i18n="addToOrderBtn">أضف إلى السلة</span>
+                    <span class="mx-1">•</span>
+                    <span id="modal-total-price" class="text-tawriqa-goldLight">0 EGP</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CUSTOMER WHATSAPP SHOPPING CART & CHECKOUT DRAWER -->
+    <div id="bag-drawer" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex justify-end" onclick="if(event.target===this) closeBagDrawer()">
+        <div class="bg-tawriqa-cream w-full max-w-lg h-full shadow-2xl flex flex-col justify-between overflow-hidden">
+            <!-- Drawer Header -->
+            <div class="p-5 bg-tawriqa-green text-tawriqa-cream flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-cart-shopping text-tawriqa-gold text-xl"></i>
+                    <div>
+                        <h3 class="font-extrabold text-lg" data-i18n="bagTitle">سلة التسوق وإتمام الطلب</h3>
+                        <p class="text-xs text-tawriqa-cream/75" data-i18n="bagSubtitle">راجع أصنافك وأكمل بياناتك للإرسال عبر واتساب</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeBagDrawer()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Bag Items List & Customer Checkout Form -->
+            <div class="p-5 overflow-y-auto flex-1 space-y-5">
+                <div id="bag-items-container" class="space-y-3">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Customer Checkout Screen (No Registration Required) -->
+                <div id="bag-checkout-form" class="hidden space-y-4 pt-4 border-t border-tawriqa-green/15 bg-white p-4 rounded-3xl border">
+                    <h4 class="text-sm font-extrabold text-tawriqa-green flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-tawriqa-gold"></i>
+                        <span data-i18n="checkoutSectionTitle">بيانات العميل ونوع الطلب</span>
+                    </h4>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-tawriqa-green mb-2" data-i18n="orderTypeLabel">نوع الطلب *</label>
+                        <div id="order-type-grid" class="grid grid-cols-2 gap-2 text-xs font-bold">
+                            <button type="button" onclick="setOrderType('pickup')" id="type-pickup" class="order-type-btn py-2.5 px-2 rounded-xl border border-tawriqa-green bg-tawriqa-green text-tawriqa-cream text-center" data-i18n="typePickup">استلام من الفرع (Pickup)</button>
+                            <button type="button" onclick="setOrderType('dinein')" id="type-dinein" class="order-type-btn py-2.5 px-2 rounded-xl border border-tawriqa-green/20 bg-tawriqa-cream text-tawriqa-ink text-center" data-i18n="typeDinein">داخل المطعم (Dine-in)</button>
+                            <button type="button" onclick="setOrderType('delivery')" id="type-delivery" class="order-type-btn hidden py-2.5 px-2 rounded-xl border border-tawriqa-green/20 bg-tawriqa-cream text-tawriqa-ink text-center" data-i18n="typeDelivery">توصيل (Delivery)</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label for="cust-name" class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="custNameLabel">الاسم الكامل *</label>
+                            <input type="text" id="cust-name" required data-i18n-placeholder="custNamePlaceholder" placeholder="أدخل اسمك الكريم" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+
+                        <div>
+                            <label for="cust-phone" class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="custPhoneLabel">رقم الهاتف *</label>
+                            <input type="tel" id="cust-phone" required dir="ltr" data-i18n-placeholder="custPhonePlaceholder" placeholder="010XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/15 text-sm text-start focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+
+                        <div id="cust-address-wrap" class="hidden">
+                            <label for="cust-address" class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="custAddressLabel">عنوان التوصيل في شرم الشيخ *</label>
+                            <input type="text" id="cust-address" data-i18n-placeholder="custAddressPlaceholder" placeholder="اسم الفندق / الحي / رقم الغرفة أو الشقة" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+
+                        <div>
+                            <label for="cust-order-notes" class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="custNotesLabel">ملاحظات إضافية على الطلب (اختياري)</label>
+                            <input type="text" id="cust-order-notes" data-i18n-placeholder="custNotesPlaceholder" placeholder="أي تعليمات خاصة بالطلب أو موعد الاستلام" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bag Financial Breakdown & WhatsApp Send Button -->
+            <div id="bag-footer" class="hidden p-5 bg-white border-t border-tawriqa-green/10 space-y-3 shrink-0">
+                <div class="space-y-1.5 text-xs sm:text-sm">
+                    <div class="flex items-center justify-between text-tawriqa-muted">
+                        <span data-i18n="subtotalLabel">إجمالي الأصناف:</span>
+                        <span id="bag-subtotal-amount" class="font-bold">0 EGP</span>
+                    </div>
+                    <div class="flex items-center justify-between text-tawriqa-muted">
+                        <span data-i18n="discountLabel">الخصم:</span>
+                        <span id="bag-discount-amount" class="font-bold">0 EGP</span>
+                    </div>
+                    <div class="flex items-center justify-between text-base font-extrabold text-tawriqa-green pt-1.5 border-t border-tawriqa-green/10">
+                        <span data-i18n="estimatedTotalLabel">الإجمالي النهائي:</span>
+                        <span id="bag-total-amount" class="text-lg">0 EGP</span>
+                    </div>
+                </div>
+                <p class="text-[11px] text-tawriqa-muted leading-relaxed" data-i18n="whatsappNoRegNote">
+                    سيتم فتح تطبيق واتساب برسالة طلبك كاملة وجاهزة؛ كل ما عليك هو الضغط على زر «إرسال» داخل واتساب.
+                </p>
+                <button type="button" onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 px-5 rounded-2xl bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2.5 transition-all">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span data-i18n="sendWhatsappOrderBtn">إرسال الطلب عبر واتساب</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: TABLE RESERVATION INQUIRY (WHATSAPP / PHONE ONLY) -->
+    <div id="reservation-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" onclick="if(event.target===this) closeReservationModal()">
+        <div class="bg-tawriqa-cream w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-tawriqa-green/15">
+            <div class="p-5 bg-tawriqa-green text-tawriqa-cream flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-chair text-tawriqa-gold text-lg"></i>
+                    <h3 class="font-extrabold text-lg" data-i18n="resModalTitle">استفسار حجز طاولة</h3>
+                </div>
+                <button onclick="closeReservationModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="submitReservationWhatsApp(event)" class="p-5 sm:p-6 space-y-4">
+                <p class="text-xs text-tawriqa-muted leading-relaxed" data-i18n="resModalDesc">
+                    احجز طاولتك في فرع توريقة – كليوباترا مول، شرم الشيخ مباشرة عبر واتساب أو الاتصال الهاتفي.
+                </p>
+
+                <div>
+                    <label class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="resNameLabel">الاسم الكريم *</label>
+                    <input type="text" id="res-name" required class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="resGuestsLabel">عدد الأفراد *</label>
+                        <select id="res-guests" class="w-full px-3 py-2.5 rounded-xl bg-white border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4" selected>4</option>
+                            <option value="6">6</option>
+                            <option value="8+">8+</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="resTimeLabel">الوقت المفضل *</label>
+                        <input type="time" id="res-time" value="20:00" required class="w-full px-3 py-2.5 rounded-xl bg-white border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-tawriqa-green mb-1" data-i18n="resDateLabel">التاريخ *</label>
+                    <input type="date" id="res-date" required class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-tawriqa-green/15 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                </div>
+
+                <div class="pt-2 space-y-2.5">
+                    <button type="submit" class="w-full py-3 px-4 rounded-2xl bg-[#25D366] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span data-i18n="resSendWhatsappBtn">إرسال طلب الحجز عبر واتساب</span>
+                    </button>
+                    <a href="tel:+201022595959" class="w-full py-2.5 px-4 rounded-2xl bg-tawriqa-creamDark text-tawriqa-green font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-tawriqa-green/15 transition-colors">
+                        <i class="fa-solid fa-phone"></i>
+                        <span data-i18n="resCallInsteadBtn">أو اتصل هاتفياً بالفرع</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: GALLERY LIGHTBOX -->
+    <div id="lightbox-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-xs flex items-center justify-center p-4" onclick="if(event.target===this) closeLightbox()">
+        <div class="relative max-w-3xl w-full">
+            <button onclick="closeLightbox()" class="absolute -top-12 end-0 w-10 h-10 rounded-full bg-white/15 text-white hover:bg-white/30 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="" class="w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl" />
+            <p id="lightbox-caption" class="text-center text-tawriqa-cream text-sm font-bold mt-3"></p>
+        </div>
+    </div>
+
+    <!-- Non-Blocking Toast Notification -->
+    <div id="toast-banner" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-tawriqa-greenDark text-tawriqa-cream px-5 py-3 rounded-2xl shadow-xl border border-tawriqa-gold/40 text-xs sm:text-sm font-bold flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-tawriqa-gold"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           TAWRIQA SHARM EL SHEIKH — VISITOR-ONLY CUSTOMER APPLICATION DATA & LOGIC
+           Strictly approved public menu items with verified EGP pricing.
+           Zero owner, admin, kitchen, or staff modules.
+        ========================================================================== */
+
+        // Centralized Branch Configuration (Easy to update when Sharm direct line changes)
+        const BRANCH_CONFIG = {
+            whatsappNumber: "201022595959", // Temporary default published Tawriqa number (+201022595959)
+            phoneDisplay: "+20 102 259 5959",
+            deliveryConfirmed: false, // Set to true only when Sharm branch delivery is officially confirmed
+            cartStorageKey: "tawriqa_sharm_visitor_cart_v1"
+        };
+
+        // 1. Bilingual UI Dictionary (Arabic Default RTL / English LTR)
+        const I18N = {
+            ar: {
+                topBannerText: "يُخبز طازجاً عند الطلب • فرع شرم الشيخ (كليوباترا مول)",
+                topBannerHours: "يومياً: ١٠:٠٠ صباحاً – ٢:٠٠ صباحاً",
+                brandName: "توريقة",
+                branchBadge: "شرم الشيخ",
+                brandTagline: "بين الطبقات.. حكايات",
+                navHome: "الرئيسية",
+                navMenu: "قائمة الطعام",
+                navOffers: "العروض",
+                navAbout: "حكايتنا",
+                navGallery: "معرض الصور",
+                navBranch: "الفرع والحجز",
+                installApp: "تثبيت التطبيق",
+                myOrder: "سلة الطلب",
+                heroBadge: "بين الطبقات.. حكايات • كليوباترا مول، شرم الشيخ",
+                heroTitle: "طبقات من التوريق الذهبي.. تُخبز طازجة لأجلك",
+                heroSubtitle: "استمتع بأصالة الفطير المشلتت الفلاحي، الفطائر الشرقية والغربية المحشوة بأجود المكونات، وحلويات توريقة المميزة في قلب شرم الشيخ. تصفح قائمتنا واطلب مباشرة عبر واتساب.",
+                heroCtaMenu: "استكشف القائمة الكاملة",
+                heroCtaReserve: "احجز طاولتك",
+                statFresh: "عجين طازج يومياً",
+                statCategories: "أقسام متنوعة",
+                statOrder: "طلب وحجز فوري",
+                heroFloatingTitle: "سمنة بلدي صافي",
+                heroFloatingSub: "مخبوز في أفران حجرية ساخنة",
+                featuredEyebrow: "الأكثر طلباً في شرم الشيخ",
+                featuredTitle: "مختارات زوّار توريقة المفضلة",
+                viewFullMenu: "عرض القائمة بالكامل",
+                offersEyebrow: "عروض توريقة الحصرية",
+                offersTitle: "عروض وتوليفات العائلة والأصدقاء",
+                offersSubtitle: "اختر عرضك المفضل وأضفه مباشرة إلى طلبك عبر واتساب بأسعار معتمدة وواضحة.",
+                menuEyebrow: "القائمة الرسمية المعتمدة",
+                menuTitle: "قائمة طعام توريقة شرم",
+                menuSubtitle: "جميع الأسعار بالجنيه المصري (EGP). أضف للسلة مباشرة أو خصّص فطيرتك كما تحب.",
+                searchPlaceholder: "ابحث عن فطير، لحوم، جبن، حلو...",
+                allCategories: "جميع الأقسام (٧)",
+                noResultsTitle: "لم نجد أصنافاً مطابقة لبحثك",
+                noResultsSub: "جرّب البحث بكلمة أخرى أو تصفح جميع الأقسام السبعة.",
+                menuUpdatingTitle: "جاري تحديث القائمة الرسمية",
+                menuUpdatingSub: "نعمل حالياً على مراجعة واعتماد الأصناف والأسعار لفرع شرم الشيخ. تواصل معنا عبر واتساب للاستفسار.",
+                resetFiltersBtn: "عرض كل الأصناف",
+                aboutEyebrow: "حكاية توريقة وفلسفة التحضير",
+                aboutTitle: "فن التوريق المصري الأصيل بلمسة عصرية في شرم الشيخ",
+                aboutP1: "بدأت رحلة «توريقة» من شغفنا بإحياء التراث المصري الأصيل في صناعة الفطير المورّق، حيث يُفرد العجين يدوياً طبقة تلو الأخرى ليصل إلى قوام هش من الخارج وطري غني من الداخل.",
+                aboutP2: "في فرعنا بكليوباترا مول – شرم الشيخ، نلتزم باستخدام أجود أنواع الدقيق الفاخر، السمنة البلدي الطبيعية، والجبن واللحوم الطازجة، ليخرج كل فطير من الفرن ساخناً ومعدّاً خصيصاً لك.",
+                pillar1Title: "فرد يدوي متقن",
+                pillar1Desc: "طبقات رقيقة متعددة تضمن قرمشة ذهبية مثالية في كل قضمة.",
+                pillar2Title: "مكونات طبيعية مختارة",
+                pillar2Desc: "نختار مكوناتنا بعناية فائقة لضمان المذاق الأصيل والجودة العالية.",
+                galleryEyebrow: "لقطات من مطبخنا وأجوائنا",
+                galleryTitle: "معرض صور توريقة شرم",
+                gallerySubtitle: "تشكيلة من فطائرنا الطازجة، الحلويات الشرقية، وأجواء الضيافة في فرع شرم الشيخ.",
+                branchSectionEyebrow: "زورونا في شرم الشيخ",
+                branchName: "توريقة شرم الشيخ",
+                addressLabel: "العنوان:",
+                branchAddress: "كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ، جنوب سيناء، مصر",
+                hoursLabel: "ساعات العمل:",
+                branchHours: "يومياً من ١٠:٠٠ صباحاً حتى ٢:٠٠ بعد منتصف الليل",
+                contactLabel: "الهاتف وواتساب:",
+                callNowBtn: "اتصل الآن",
+                whatsappBtn: "واتساب",
+                reserveTableBtn: "حجز طاولة",
+                directionsBtn: "الاتجاهات",
+                mapHeader: "موقعنا التفاعلي • كليوباترا مول، حي النور",
+                openFullMap: "فتح في الخرائط",
+                footerBrand: "توريقة شرم الشيخ • بين الطبقات.. حكايات",
+                footerAddress: "كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ",
+                footerRights: "© ٢٠٢٦ توريقة شرم الشيخ. تطبيق الزوار الرسمي.",
+                viewOrderBag: "مراجعة السلة وإرسال واتساب",
+                ingredientsLabel: "المكونات الطازجة:",
+                chooseSizeLabel: "اختر الحجم:",
+                chooseHalvesLabel: "اختر النصف الأول والنصف الثاني:",
+                firstHalfLabel: "النصف الأول:",
+                secondHalfLabel: "النصف الثاني:",
+                includedDipsLabel: "الغموسات المشمولة مع المشلتت:",
+                chooseAddonsLabel: "إضافات اختيارية:",
+                chooseSweetToppingsLabel: "إضافات وتوبينج الفطير الحلو:",
+                notesLabel: "تعليمات وملاحظات خاصة (اختياري):",
+                notesPlaceholder: "مثال: تسوية إضافية، بدون بصل، تقطيع مثلثات...",
+                addToOrderBtn: "أضف إلى السلة",
+                updateOrderBtn: "تحديث الصنف في السلة",
+                quickAddBtn: "أضف للسلة",
+                customizeBtn: "تخصيص",
+                editItemBtn: "تعديل الاختيارات",
+                removeItemBtn: "حذف",
+                bagTitle: "سلة التسوق وإتمام الطلب",
+                bagSubtitle: "راجع أصنافك وأكمل بياناتك للإرسال عبر واتساب",
+                bagEmptyTitle: "سلة التسوق فارغة حالياً",
+                bagEmptySub: "اختر فطيرتك المفضلة من القائمة وخصّصها لإرسال طلبك عبر واتساب.",
+                checkoutSectionTitle: "بيانات العميل ونوع الطلب",
+                orderTypeLabel: "نوع الطلب *",
+                typeDelivery: "توصيل (Delivery)",
+                typePickup: "استلام من الفرع (Pickup)",
+                typeDinein: "داخل المطعم (Dine-in)",
+                custNameLabel: "الاسم الكامل *",
+                custNamePlaceholder: "أدخل اسمك الكريم",
+                custPhoneLabel: "رقم الهاتف *",
+                custPhonePlaceholder: "010XXXXXXXX",
+                custAddressLabel: "عنوان التوصيل في شرم الشيخ *",
+                custAddressPlaceholder: "اسم الفندق / الحي / رقم الغرفة أو الشقة",
+                custNotesLabel: "ملاحظات إضافية على الطلب (اختياري)",
+                custNotesPlaceholder: "أي تعليمات خاصة بالطلب أو موعد الاستلام",
+                subtotalLabel: "إجمالي الأصناف:",
+                discountLabel: "الخصم:",
+                estimatedTotalLabel: "الإجمالي النهائي:",
+                whatsappNoRegNote: "سيتم فتح تطبيق واتساب برسالة طلبك كاملة وجاهزة؛ كل ما عليك هو الضغط على زر «إرسال» داخل واتساب.",
+                sendWhatsappOrderBtn: "إرسال الطلب عبر واتساب",
+                resModalTitle: "استفسار حجز طاولة",
+                resModalDesc: "احجز طاولتك في فرع توريقة – كليوباترا مول، شرم الشيخ مباشرة عبر واتساب أو الاتصال الهاتفي.",
+                resNameLabel: "الاسم الكريم *",
+                resGuestsLabel: "عدد الأفراد *",
+                resTimeLabel: "الوقت المفضل *",
+                resDateLabel: "التاريخ *",
+                resSendWhatsappBtn: "إرسال طلب الحجز عبر واتساب",
+                resCallInsteadBtn: "أو اتصل هاتفياً بالفرع",
+                addOfferBtn: "أضف العرض للسلة",
+                popularBadge: "الأكثر طلباً",
+                addedToast: "تمت الإضافة إلى سلة التسوق",
+                updatedToast: "تم تحديث اختيارات الصنف في السلة",
+                redirectingToast: "جاري تجهيز رسالتك وفتح واتساب... اضغط إرسال في واتساب لتأكيد الطلب",
+                validationErrorToast: "يرجى إدخال الاسم ورقم الهاتف قبل المتابعة إلى واتساب",
+                addressErrorToast: "يرجى إدخال عنوان التوصيل في شرم الشيخ"
+            },
+            en: {
+                topBannerText: "Baked Fresh to Order • Sharm El Sheikh Branch (Cleopatra Mall)",
+                topBannerHours: "Daily: 10:00 AM – 2:00 AM",
+                brandName: "Tawriqa",
+                branchBadge: "Sharm El Sheikh",
+                brandTagline: "Stories Between Every Layer",
+                navHome: "Home",
+                navMenu: "Menu",
+                navOffers: "Offers",
+                navAbout: "Our Story",
+                navGallery: "Gallery",
+                navBranch: "Branch & Reserve",
+                installApp: "Install App",
+                myOrder: "Cart",
+                heroBadge: "Stories Between Every Layer • Cleopatra Mall, Sharm El Sheikh",
+                heroTitle: "Golden Flaky Layers.. Baked Fresh Just For You",
+                heroSubtitle: "Savor authentic Egyptian Feteer Meshaltet, savory stuffed pies, and signature sweet pastries in the heart of Sharm El Sheikh. Explore our menu and order directly via WhatsApp.",
+                heroCtaMenu: "Explore Full Menu",
+                heroCtaReserve: "Reserve a Table",
+                statFresh: "Fresh Dough Daily",
+                statCategories: "Menu Categories",
+                statOrder: "Direct WhatsApp Order",
+                heroFloatingTitle: "Pure Baladi Ghee",
+                heroFloatingSub: "Stone-oven baked to golden perfection",
+                featuredEyebrow: "Visitor Favorites in Sharm",
+                featuredTitle: "Most Popular Tawriqa Signatures",
+                viewFullMenu: "View Full Menu",
+                offersEyebrow: "Exclusive Tawriqa Deals",
+                offersTitle: "Family & Friends Value Combos",
+                offersSubtitle: "Select your favorite bundle and add it straight to your shopping cart with verified EGP pricing.",
+                menuEyebrow: "Official Approved Menu",
+                menuTitle: "Tawriqa Sharm Menu",
+                menuSubtitle: "All prices are in Egyptian Pounds (EGP). Add directly to cart or customize your feteer.",
+                searchPlaceholder: "Search feteer, meats, cheese, sweet...",
+                allCategories: "All Categories (7)",
+                noResultsTitle: "No matching items found",
+                noResultsSub: "Try another keyword or browse all seven categories.",
+                menuUpdatingTitle: "Official Menu Being Updated",
+                menuUpdatingSub: "We are currently verifying public items and prices for the Sharm branch. Please contact us via WhatsApp.",
+                resetFiltersBtn: "Show All Items",
+                aboutEyebrow: "Our Story & Craft Philosophy",
+                aboutTitle: "The Art of Egyptian Layered Pastry in Sharm El Sheikh",
+                aboutP1: "Tawriqa was born from a passion to celebrate Egypt's rich culinary heritage of hand-stretched layered feteer—crafted layer by delicate layer for a crisp golden crust and tender, aromatic heart.",
+                aboutP2: "At our Cleopatra Mall branch in Sharm El Sheikh, we use premium flour, pure baladi ghee, farm cheeses, and fresh meats so every pie arrives piping hot from the oven.",
+                pillar1Title: "Hand-Stretched Layers",
+                pillar1Desc: "Paper-thin dough layers folded with care for an unmistakable flaky texture.",
+                pillar2Title: "Wholesome Ingredients",
+                pillar2Desc: "Carefully sourced cheeses, meats, and pure ghee for authentic flavor.",
+                galleryEyebrow: "From Our Kitchen & Dining Room",
+                galleryTitle: "Tawriqa Sharm Photo Gallery",
+                gallerySubtitle: "A glimpse of our freshly baked feteer, sweet creations, and warm hospitality.",
+                branchSectionEyebrow: "Visit Us in Sharm El Sheikh",
+                branchName: "Tawriqa Sharm El Sheikh",
+                addressLabel: "Address:",
+                branchAddress: "Cleopatra Mall, Hay El Nour, Hadekat Al Hayawan Street, Sharm El Sheikh, South Sinai, Egypt",
+                hoursLabel: "Working Hours:",
+                branchHours: "Daily from 10:00 AM to 2:00 AM",
+                contactLabel: "Phone & WhatsApp:",
+                callNowBtn: "Call Now",
+                whatsappBtn: "WhatsApp",
+                reserveTableBtn: "Reserve Table",
+                directionsBtn: "Directions",
+                mapHeader: "Interactive Map • Cleopatra Mall, Hay El Nour",
+                openFullMap: "Open in Maps",
+                footerBrand: "Tawriqa Sharm El Sheikh • Stories Between Every Layer",
+                footerAddress: "Cleopatra Mall, Hay El Nour, Hadekat Al Hayawan St., Sharm El Sheikh",
+                footerRights: "© 2026 Tawriqa Sharm El Sheikh. Official Visitor App.",
+                viewOrderBag: "Review Cart & Send via WhatsApp",
+                ingredientsLabel: "Fresh Ingredients:",
+                chooseSizeLabel: "Select Size:",
+                chooseHalvesLabel: "Select First Half & Second Half:",
+                firstHalfLabel: "First Half:",
+                secondHalfLabel: "Second Half:",
+                includedDipsLabel: "Included Dips with Meshaltet:",
+                chooseAddonsLabel: "Optional Add-ons:",
+                chooseSweetToppingsLabel: "Sweet Toppings & Extras:",
+                notesLabel: "Special Instructions (Optional):",
+                notesPlaceholder: "e.g. Extra crispy, no onions, cut into triangles...",
+                addToOrderBtn: "Add to Cart",
+                updateOrderBtn: "Update Cart Item",
+                quickAddBtn: "Add to Cart",
+                customizeBtn: "Customize",
+                editItemBtn: "Edit Options",
+                removeItemBtn: "Remove",
+                bagTitle: "Shopping Cart & Checkout",
+                bagSubtitle: "Review your items and fill in your details to send via WhatsApp",
+                bagEmptyTitle: "Your shopping cart is empty",
+                bagEmptySub: "Browse our freshly baked menu and customize items to order via WhatsApp.",
+                checkoutSectionTitle: "Customer Details & Order Type",
+                orderTypeLabel: "Order Type *",
+                typeDelivery: "Delivery",
+                typePickup: "Branch Pickup",
+                typeDinein: "Dine-in",
+                custNameLabel: "Full Name *",
+                custNamePlaceholder: "Enter your full name",
+                custPhoneLabel: "Phone Number *",
+                custPhonePlaceholder: "010XXXXXXXX",
+                custAddressLabel: "Sharm El Sheikh Delivery Address *",
+                custAddressPlaceholder: "Hotel Name / District / Room or Apt #",
+                custNotesLabel: "Additional Order Notes (Optional)",
+                custNotesPlaceholder: "Any special instructions or pickup timing",
+                subtotalLabel: "Subtotal:",
+                discountLabel: "Discount:",
+                estimatedTotalLabel: "Final Total:",
+                whatsappNoRegNote: "WhatsApp will open with your complete order message prepared—simply press Send inside WhatsApp.",
+                sendWhatsappOrderBtn: "Send Order via WhatsApp",
+                resModalTitle: "Table Reservation Inquiry",
+                resModalDesc: "Request a table at Tawriqa – Cleopatra Mall, Sharm El Sheikh via WhatsApp or direct phone call.",
+                resNameLabel: "Your Name *",
+                resGuestsLabel: "Number of Guests *",
+                resTimeLabel: "Preferred Time *",
+                resDateLabel: "Date *",
+                resSendWhatsappBtn: "Send Reservation via WhatsApp",
+                resCallInsteadBtn: "Or Call Branch Directly",
+                addOfferBtn: "Add Offer to Cart",
+                popularBadge: "Popular",
+                addedToast: "Added to your shopping cart",
+                updatedToast: "Cart item customizations updated",
+                redirectingToast: "Preparing your order & opening WhatsApp... Press Send in WhatsApp to complete.",
+                validationErrorToast: "Please enter your name and phone number before continuing to WhatsApp",
+                addressErrorToast: "Please enter your delivery address in Sharm El Sheikh"
+            }
+        };
+
+        // 2. Seven (7) Approved Food Categories
+        const CATEGORIES = [
+            { id: "meshaltet", icon: "fa-wheat-awn", ar: "الفطير المشلتت الفلاحي", en: "Traditional Meshaltet" },
+            { id: "meat", icon: "fa-drumstick-bite", ar: "فطائر اللحوم", en: "Savory Meat Feteer" },
+            { id: "chicken", icon: "fa-fire-burner", ar: "فطائر الدجاج", en: "Chicken Feteer" },
+            { id: "cheese", icon: "fa-cheese", ar: "فطائر الأجبان", en: "Artisan Cheese Feteer" },
+            { id: "seafood", icon: "fa-shrimp", ar: "فطائر السي فود", en: "Sharm Seafood Feteer" },
+            { id: "sweet", icon: "fa-honey-pot", ar: "الفطير الحلو والشرقي", en: "Sweet & Oriental Feteer" },
+            { id: "drinks", icon: "fa-mug-hot", ar: "المشروبات والضيافة", en: "Beverages & Sides" }
+        ];
+
+        // Half-and-Half Savory Flavors Pool (Used for Half-and-Half Family Feteer)
+        const HALF_FLAVORS = [
+            { id: "hf_beef", ar: "نصف لحم مفروم وموتزاريلا", en: "Minced Beef & Mozzarella Half", halfPrice: 145 },
+            { id: "hf_sausage", ar: "نصف سجق شرقي بلدي", en: "Oriental Baladi Sausage Half", halfPrice: 148 },
+            { id: "hf_pastrami", ar: "نصف بسطرمة بلدي وكيري", en: "Pastrami & Cream Cheese Half", halfPrice: 155 },
+            { id: "hf_chicken", ar: "نصف دجاج مشوي رانش", en: "Grilled Chicken & Ranch Half", halfPrice: 145 },
+            { id: "hf_shawarma", ar: "نصف شاورما دجاج توريقة", en: "Chicken Shawarma Half", halfPrice: 142 },
+            { id: "hf_cheese", ar: "نصف ميكس أجبان فاخر", en: "Four-Cheese Blend Half", halfPrice: 132 }
+        ];
+
+        // 3. Public Menu Database Records (Strictly validated: only approved & available items are displayed)
+        const MENU_PRODUCTS = [
+            {
+                id: "m1",
+                category: "meshaltet",
+                approved: true,
+                available: true,
+                popular: true,
+                customType: "meshaltet",
+                name: { ar: "فطير مشلتت فلاحي بالسمنة البلدي", en: "Classic Baladi Ghee Meshaltet" },
+                desc: {
+                    ar: "فطير مشلتت مصري أصيل مورّق يدوياً ومخبوز بالسمنة البلدي الصافي، يُقدّم ساخناً مع غموساتك المختارة.",
+                    en: "Hand-layered Egyptian feteer baked with pure baladi ghee, served hot with your chosen traditional dips."
+                },
+                ingredients: {
+                    ar: "دقيق فاخر، سمنة بلدي طبيعي، عسل أسود، طحينة سمسم، جبنة قديمة",
+                    en: "Premium flour, pure baladi ghee, blackstrap molasses, sesame tahini, aged mish cheese"
+                },
+                price: 165,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير عائلي", en: "Large Family", delta: 55 }
+                ],
+                includedDips: [
+                    { id: "dip_molasses", ar: "عسل أسود", en: "Blackstrap Molasses" },
+                    { id: "dip_tahini", ar: "طحينة سمسم", en: "Sesame Tahini" },
+                    { id: "dip_mish", ar: "جبنة قديمة فلاحي", en: "Aged Village Mish Cheese" }
+                ],
+                addons: [
+                    { id: "a_qishta", ar: "قشطة بلدي طازجة (إضافي)", en: "Extra Fresh Baladi Clotted Cream", price: 35 },
+                    { id: "a_honey", ar: "عسل نحل أبيض (إضافي)", en: "Extra White Bee Honey Dip", price: 25 },
+                    { id: "a_mish_extra", ar: "طبق جبنة قديمة إضافي", en: "Extra Aged Mish Cheese Dip", price: 20 }
+                ],
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "m2",
+                category: "meshaltet",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "meshaltet",
+                name: { ar: "فطير مشلتت بالقشطة والعسل", en: "Meshaltet with Clotted Cream & Honey" },
+                desc: {
+                    ar: "طبقات الفطير الذهبي الهش مغطاة بطبقة غنية من القشطة البلدي الطازجة وعسل النحل الطبيعي.",
+                    en: "Crispy golden feteer layers topped generously with fresh baladi clotted cream and natural blossom honey."
+                },
+                ingredients: {
+                    ar: "عجين مورّق، سمنة بلدي، قشطة بلدي طازجة، عسل نحل صافي",
+                    en: "Layered pastry dough, baladi ghee, fresh clotted cream, pure bee honey"
+                },
+                price: 195,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
+                ],
+                includedDips: [
+                    { id: "dip_qishta_inc", ar: "قشطة بلدي", en: "Baladi Clotted Cream" },
+                    { id: "dip_honey_inc", ar: "عسل نحل أبيض", en: "White Bee Honey" }
+                ],
+                addons: [
+                    { id: "a_nuts", ar: "مكسرات محمصة", en: "Roasted Mixed Nuts", price: 35 },
+                    { id: "a_qishta_extra", ar: "قشطة بلدي إضافية", en: "Extra Clotted Cream", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "mt_half",
+                category: "meat",
+                approved: true,
+                available: true,
+                popular: true,
+                customType: "half_and_half",
+                name: { ar: "فطير عائلي نصفين (اختيارك من نوعين)", en: "Family Half-and-Half Feteer (Two Flavors)" },
+                desc: {
+                    ar: "فطير عائلي كبير مقسّم إلى نصفين لتختار حشوتك المفضلة لكل نصف على حدة.",
+                    en: "Large family-sized layered pie split into two halves—choose your favorite savory filling for each half."
+                },
+                ingredients: {
+                    ar: "عجين توريقة عائلي كبير، اختيارك من حشوتين، جبن موتزاريلا، زيتون، فلفل ألوان",
+                    en: "Large family dough, your choice of two savory halves, mozzarella, olives, bell peppers"
+                },
+                price: 290,
+                sizes: [
+                    { id: "s_family", ar: "عائلي كبير (نصفين)", en: "Large Family (Half & Half)", delta: 0 }
+                ],
+                addons: [
+                    { id: "a_wash", ar: "وش بيتزا (موتزاريلا وخضار)", en: "Pizza Top Crust", price: 35 },
+                    { id: "a_kiri", ar: "إضافة جبنة كيري", en: "Add Creamy Kiri Cheese", price: 30 }
+                ],
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "mt1",
+                category: "meat",
+                approved: true,
+                available: true,
+                popular: true,
+                customType: "standard",
+                name: { ar: "فطير توريقة باللحم المفروم والموتزاريلا", en: "Tawriqa Minced Beef & Mozzarella Feteer" },
+                desc: {
+                    ar: "فطير محشو باللحم البقري المتبل على الطريقة المصرية مع خليط الجبن الموتزاريلا والزيتون والفلفل الرومي.",
+                    en: "Stuffed with spiced Egyptian minced beef, melted mozzarella blend, black olives, and sweet bell peppers."
+                },
+                ingredients: {
+                    ar: "لحم بقري مفروم متبل، جبن موتزاريلا، فلفل ألوان، زيتون أسود، عجين توريقة",
+                    en: "Seasoned minced beef, mozzarella cheese, bell peppers, black olives, layered dough"
+                },
+                price: 225,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                ],
+                addons: [
+                    { id: "a_kiri", ar: "إضافة جبنة كيري", en: "Add Creamy Kiri Cheese", price: 30 },
+                    { id: "a_wash", ar: "وش بيتزا (موتزاريلا وخضار)", en: "Pizza Top Crust", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "mt2",
+                category: "meat",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير سجق شرقي بلدي", en: "Oriental Baladi Sausage Feteer" },
+                desc: {
+                    ar: "سجق بلدي متبل مشوي مع الطماطم الطازجة، الفلفل الحلو، والجبنة الرومي والموتزاريلا داخل عجين مورّق.",
+                    en: "Grilled spiced Egyptian sausage with diced tomatoes, peppers, aged Roumy, and mozzarella inside flaky pastry."
+                },
+                ingredients: {
+                    ar: "سجق بلدي، طماطم، فلفل رومي، جبنة رومي، موتزاريلا",
+                    en: "Baladi sausage, tomatoes, sweet peppers, Roumy cheese, mozzarella"
+                },
+                price: 230,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                ],
+                addons: [
+                    { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 },
+                    { id: "a_jalapeno", ar: "هالبينو حار", en: "Spicy Jalapeños", price: 15 }
+                ],
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "mt3",
+                category: "meat",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير بسطرمة بلدي وكيري", en: "Egyptian Pastrami & Cream Cheese Feteer" },
+                desc: {
+                    ar: "شرائح البسطرمة البلدي الفاخرة مع مكعبات الجبنة الكيري والموتزاريلا والزيتون.",
+                    en: "Cured Egyptian beef pastrami layered with creamy cheese cubes, mozzarella, and sliced olives."
+                },
+                ingredients: {
+                    ar: "بسطرمة بلدي، جبنة كيري، موتزاريلا، زيتون، فلفل رومي",
+                    en: "Baladi pastrami, cream cheese, mozzarella, olives, bell pepper"
+                },
+                price: 240,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 70 }
+                ],
+                addons: [
+                    { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "ch1",
+                category: "chicken",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير دجاج مشوي مع صوص الرانش", en: "Grilled Chicken & Ranch Feteer" },
+                desc: {
+                    ar: "قطع صدور الدجاج المشوية المتبلة مع الجبن الموتزاريلا والزيتون وصوص الرانش الكريمي.",
+                    en: "Marinated grilled chicken breast strips with melted mozzarella, olives, and creamy ranch drizzle."
+                },
+                ingredients: {
+                    ar: "صدور دجاج مشوية، جبن موتزاريلا، صوص رانش، فلفل ألوان، زيتون",
+                    en: "Grilled chicken breast, mozzarella, ranch sauce, bell peppers, olives"
+                },
+                price: 225,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                ],
+                addons: [
+                    { id: "a_mushroom", ar: "مشروم طازج", en: "Fresh Mushrooms", price: 25 },
+                    { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "ch2",
+                category: "chicken",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير شاورما دجاج توريقة", en: "Tawriqa Chicken Shawarma Feteer" },
+                desc: {
+                    ar: "شاورما دجاج متبلة ببهارات توريقة الخاصة مع الموتزاريلا والخيار المخلل ولمسة ثومية.",
+                    en: "Signature spiced chicken shawarma baked inside golden pastry with mozzarella and pickles."
+                },
+                ingredients: {
+                    ar: "شاورما دجاج، بهارات شرقية، موتزاريلا، مخلل خيار",
+                    en: "Chicken shawarma, oriental spices, mozzarella, pickled cucumbers"
+                },
+                price: 220,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 60 }
+                ],
+                addons: [
+                    { id: "a_cheddar", ar: "صوص شيدر", en: "Warm Cheddar Sauce", price: 25 }
+                ],
+                image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "cz1",
+                category: "cheese",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير ميكس أجبان توريقة الفاخر", en: "Tawriqa Four-Cheese Feteer" },
+                desc: {
+                    ar: "توليفة غنية من الجبن الموتزاريلا، الشيدر، الرومي القديم، والجبنة الكيري داخل طبقات مقرمشة.",
+                    en: "Rich blend of mozzarella, cheddar, aged Egyptian Roumy, and creamy Kiri baked in flaky pastry."
+                },
+                ingredients: {
+                    ar: "موتزاريلا، شيدر، جبنة رومي، جبنة كيري، زيتون أسود",
+                    en: "Mozzarella, cheddar, Roumy cheese, Kiri cream cheese, black olives"
+                },
+                price: 205,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
+                ],
+                addons: [
+                    { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1548369937-47519962c11a?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "sf1",
+                category: "seafood",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "فطير جمبري شرم بالثوم والأعشاب", en: "Sharm Garlic & Herb Shrimp Feteer" },
+                desc: {
+                    ar: "جمبري البحر الأحمر المتبل بالثوم والزبدة والأعشاب مع الجبن الموتزاريلا والفلفل الملون.",
+                    en: "Red Sea shrimp sautéed with garlic butter and herbs, baked with mozzarella and colorful peppers."
+                },
+                ingredients: {
+                    ar: "جمبري طازج، زبدة وأعشاب، ثوم، جبن موتزاريلا، فلفل ألوان",
+                    en: "Fresh shrimp, herb butter, garlic, mozzarella, bell peppers"
+                },
+                price: 285,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 80 }
+                ],
+                addons: [
+                    { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "sw1",
+                category: "sweet",
+                approved: true,
+                available: true,
+                popular: true,
+                customType: "sweet",
+                name: { ar: "فطير توريقة بالكاسترد والسكر البودرة", en: "Tawriqa Custard & Powdered Sugar Feteer" },
+                desc: {
+                    ar: "فطير حلو هش محشو بكريمة الكاسترد الفانيليا الدافئة ومغطى بالسكر البودرة والحليب الدافئ.",
+                    en: "Flaky sweet feteer filled with warm vanilla custard, dusted with powdered sugar and drizzled with warm milk."
+                },
+                ingredients: {
+                    ar: "كاسترد فانيليا، حليب طازج، سكر بودرة، سمنة بلدي",
+                    en: "Vanilla custard, fresh milk, powdered sugar, baladi ghee"
+                },
+                price: 155,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 45 }
+                ],
+                addons: [
+                    { id: "a_nuts", ar: "مكسرات وزبيب وجوز هند", en: "Nuts, Raisins & Coconut Topping", price: 30 },
+                    { id: "a_qishta", ar: "قشطة بلدي طازجة", en: "Fresh Clotted Cream Topping", price: 35 },
+                    { id: "a_lotus", ar: "صوص لوتس وبسكويت", en: "Lotus Biscoff Drizzle & Crumble", price: 35 }
+                ],
+                image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "sw2",
+                category: "sweet",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "sweet",
+                name: { ar: "فطير شوكولاتة بندق وموز", en: "Hazelnut Chocolate & Banana Feteer" },
+                desc: {
+                    ar: "طبقات الفطير المقرمش مع كريمة الشوكولاتة بالبندق وشرائح الموز الطازج.",
+                    en: "Crisp layered pastry filled with rich hazelnut chocolate spread and fresh sliced bananas."
+                },
+                ingredients: {
+                    ar: "كريمة شوكولاتة بالبندق، موز طازج، سكر بودرة، عجين مورّق",
+                    en: "Hazelnut chocolate spread, fresh banana, powdered sugar, flaky pastry"
+                },
+                price: 185,
+                sizes: [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 50 }
+                ],
+                addons: [
+                    { id: "a_nuts", ar: "بندق محمص مجروش", en: "Crushed Roasted Hazelnuts", price: 30 },
+                    { id: "a_icecream", ar: "بولة آيس كريم فانيليا", en: "Vanilla Ice Cream Scoop", price: 30 }
+                ],
+                image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "dr1",
+                category: "drinks",
+                approved: true,
+                available: true,
+                popular: false,
+                customType: "standard",
+                name: { ar: "براد شاي مصري بالنعناع الفريش", en: "Egyptian Mint Tea Pot" },
+                desc: {
+                    ar: "شاي مصري أصيل محضّر مع أوراق النعناع الأخضر الطازج، الرفيق المثالي للفطير.",
+                    en: "Traditional Egyptian black tea brewed with fresh garden mint leaves—the ideal pairing for feteer."
+                },
+                ingredients: {
+                    ar: "شاي أسود فاخر، أوراق نعناع طازجة",
+                    en: "Fine black tea, fresh mint leaves"
+                },
+                price: 45,
+                sizes: [
+                    { id: "s_cup", ar: "كوب", en: "Single Cup", delta: 0 },
+                    { id: "s_pot", ar: "براد لشخصين", en: "Teapot for Two", delta: 30 }
+                ],
+                addons: [],
+                image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // 4. Approved Special Offers
+        const SPECIAL_OFFERS = [
+            {
+                id: "off1",
+                approved: true,
+                badge: { ar: "عرض العائلة", en: "Family Feast" },
+                title: { ar: "وليمة توريقة العائلية", en: "Tawriqa Family Feast Bundle" },
+                desc: {
+                    ar: "١ فطير لحم مفروم كبير + ١ فطير دجاج رانش كبير + ١ فطير كاسترد وسط + ٤ مشروبات غازية.",
+                    en: "1 Large Minced Beef Feteer + 1 Large Chicken Ranch Feteer + 1 Medium Custard Feteer + 4 Soft Drinks."
+                },
+                price: 640,
+                image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "off2",
+                approved: true,
+                badge: { ar: "فطور الصباح", en: "Morning Duo" },
+                title: { ar: "ترويقة الصباح لشخصين", en: "Morning Breakfast for Two" },
+                desc: {
+                    ar: "١ فطير مشلتت فلاحي وسط بالسمنة البلدي + عسل أسود وطحينة وجبنة قديمة + براد شاي بالنعناع.",
+                    en: "1 Medium Baladi Ghee Meshaltet + Molasses, Tahini & Aged Cheese + Mint Teapot for Two."
+                },
+                price: 215,
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "off3",
+                approved: true,
+                badge: { ar: "تحلية المساء", en: "Sweet Combo" },
+                title: { ar: "توليفة الحلو والشاي", en: "Sweet Feteer & Tea Combo" },
+                desc: {
+                    ar: "١ فطير شوكولاتة بندق وموز وسط + ٢ كوب شاي مصري بالنعناع الطازج.",
+                    en: "1 Medium Hazelnut Chocolate & Banana Feteer + 2 Cups of Fresh Egyptian Mint Tea."
+                },
+                price: 235,
+                image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // 5. Photo Gallery Items
+        const GALLERY_ITEMS = [
+            {
+                src: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85",
+                ar: "طبقات الفطير المشلتت الذهبي الطازج",
+                en: "Freshly Baked Golden Meshaltet Layers"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85",
+                ar: "فطائر توريقة الشرقية المحشوة",
+                en: "Signature Stuffed Savory Feteer"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=85",
+                ar: "تحضير العجين الطازج يومياً في مطبخنا",
+                en: "Daily Hand-Crafted Artisan Dough"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=85",
+                ar: "فطير الكاسترد والسكر البودرة",
+                en: "Sweet Custard & Powdered Sugar Pastry"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85",
+                ar: "أجواء الضيافة في فرع شرم الشيخ",
+                en: "Warm Hospitality at Sharm El Sheikh Branch"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=900&q=85",
+                ar: "الشاي المصري بالنعناع مع المخبوزات",
+                en: "Egyptian Mint Tea & Fresh Pastries"
+            }
+        ];
+
+        // Approved Public Menu Helper
+        function getApprovedMenuProducts() {
+            return MENU_PRODUCTS.filter((p) => p.approved === true && p.available === true && typeof p.price === "number" && p.price > 0);
+        }
+
+        // Application Visitor State
+        let currentLang = "ar";
+        let activeCategory = "all";
+        let searchQuery = "";
+        let orderBag = [];
+        let orderType = BRANCH_CONFIG.deliveryConfirmed ? "delivery" : "pickup";
+        let activeModalProduct = null;
+        let editingCartUid = null;
+        let selectedSizeId = null;
+        let selectedDipIds = [];
+        let selectedAddonIds = [];
+        let modalQty = 1;
+        let deferredPwaPrompt = null;
+
+        // Persistent Local Storage Cart Helpers
+        function loadCartFromStorage() {
+            try {
+                const raw = localStorage.getItem(BRANCH_CONFIG.cartStorageKey);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) {
+                        orderBag = parsed;
+                    }
+                }
+            } catch (err) {
+                orderBag = [];
+            }
+        }
+
+        function saveCartToStorage() {
+            try {
+                localStorage.setItem(BRANCH_CONFIG.cartStorageKey, JSON.stringify(orderBag));
+            } catch (err) {
+                // Storage quota or private browsing fallback
+            }
+        }
+
+        // Initialize Application on Load
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCartFromStorage();
+            configureDeliveryAvailability();
+            setupPwaManifest();
+            setDefaultReservationDate();
+            renderAll();
+        });
+
+        function configureDeliveryAvailability() {
+            const delBtn = document.getElementById("type-delivery");
+            const typeGrid = document.getElementById("order-type-grid");
+            if (BRANCH_CONFIG.deliveryConfirmed) {
+                if (delBtn) delBtn.classList.remove("hidden");
+                if (typeGrid) {
+                    typeGrid.classList.remove("grid-cols-2");
+                    typeGrid.classList.add("grid-cols-3");
+                }
+                setOrderType("delivery");
+            } else {
+                if (delBtn) delBtn.classList.add("hidden");
+                if (typeGrid) {
+                    typeGrid.classList.remove("grid-cols-3");
+                    typeGrid.classList.add("grid-cols-2");
+                }
+                setOrderType("pickup");
+            }
+        }
+
+        // PWA Setup (Inline Manifest)
+        function setupPwaManifest() {
+            const manifestObj = {
+                name: "Tawriqa Sharm El Sheikh | توريقة شرم",
+                short_name: "Tawriqa Sharm",
+                start_url: ".",
+                display: "standalone",
+                background_color: "#FBF7F0",
+                theme_color: "#143D29",
+                description: "Official Visitor Application for Tawriqa Sharm El Sheikh",
+                icons: [
+                    {
+                        src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%23143D29'/><text x='50%' y='58%' font-size='96' text-anchor='middle' fill='%23C89B3C' font-family='sans-serif' font-weight='bold'>ت</text></svg>",
+                        sizes: "192x192",
+                        type: "image/svg+xml"
+                    }
+                ]
+            };
+            const blob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
+            const manifestEl = document.getElementById("pwa-manifest");
+            if (manifestEl) {
+                manifestEl.setAttribute("href", URL.createObjectURL(blob));
+            }
+
+            window.addEventListener("beforeinstallprompt", (e) => {
+                e.preventDefault();
+                deferredPwaPrompt = e;
+                const btn = document.getElementById("install-pwa-btn");
+                if (btn) btn.classList.remove("hidden");
+            });
+        }
+
+        function triggerPwaInstall() {
+            if (deferredPwaPrompt) {
+                deferredPwaPrompt.prompt();
+                deferredPwaPrompt.userChoice.finally(() => {
+                    deferredPwaPrompt = null;
+                });
+            } else {
+                showToast(currentLang === "ar"
+                    ? "للتثبيت: اضغط على مشاركة (Share) ثم إضافة إلى الشاشة الرئيسية"
+                    : "To install: Tap your browser's Share/Menu button and select 'Add to Home Screen'"
+                );
+            }
+        }
+
+        function setDefaultReservationDate() {
+            const dateInput = document.getElementById("res-date");
+            if (dateInput) {
+                const today = new Date().toISOString().split("T")[0];
+                dateInput.value = today;
+                dateInput.min = today;
+            }
+        }
+
+        // Language Toggle (Arabic RTL <-> English LTR)
+        function toggleLanguage() {
+            currentLang = currentLang === "ar" ? "en" : "ar";
+            const htmlEl = document.documentElement;
+            htmlEl.lang = currentLang;
+            htmlEl.dir = currentLang === "ar" ? "rtl" : "ltr";
+
+            document.getElementById("lang-label").textContent = currentLang === "ar" ? "English" : "العربية";
+            applyStaticTranslations();
+            renderAll();
+        }
+
+        function applyStaticTranslations() {
+            const dict = I18N[currentLang];
+            document.querySelectorAll("[data-i18n]").forEach((el) => {
+                const key = el.getAttribute("data-i18n");
+                if (dict[key]) el.textContent = dict[key];
+            });
+            document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+                const key = el.getAttribute("data-i18n-placeholder");
+                if (dict[key]) el.setAttribute("placeholder", dict[key]);
+            });
+        }
+
+        function renderAll() {
+            renderFeaturedProducts();
+            renderOffers();
+            renderCategoryTabs();
+            renderMenuProducts();
+            renderGallery();
+            renderBag();
+        }
+
+        // Render Featured Popular Items
+        function renderFeaturedProducts() {
+            const container = document.getElementById("featured-grid");
+            const popularItems = getApprovedMenuProducts().filter((p) => p.popular).slice(0, 4);
+            const dict = I18N[currentLang];
+
+            container.innerHTML = popularItems.map((item) => `
+                <article class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-tawriqa-green/10 transition-all flex flex-col justify-between">
+                    <div onclick="openProductModal('${item.id}')" class="cursor-pointer">
+                        <div class="relative h-48 overflow-hidden bg-tawriqa-creamDark">
+                            <img src="${item.image}" onerror="this.src='https://placehold.co/600x400/143D29/FBF7F0?text=Tawriqa'" alt="${item.name[currentLang]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                            <span class="absolute top-3 start-3 px-2.5 py-1 rounded-full bg-tawriqa-green text-tawriqa-goldLight text-[11px] font-extrabold shadow-xs">
+                                <i class="fa-solid fa-star text-[10px] me-1"></i>${dict.popularBadge}
+                            </span>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="font-extrabold text-base sm:text-lg text-tawriqa-green group-hover:text-tawriqa-gold transition-colors line-clamp-1">${item.name[currentLang]}</h3>
+                            <p class="text-xs text-tawriqa-muted mt-1.5 line-clamp-2 leading-relaxed">${item.desc[currentLang]}</p>
+                        </div>
+                    </div>
+                    <div class="px-4 sm:px-5 pb-4 sm:pb-5 pt-2 flex items-center justify-between gap-2 border-t border-tawriqa-green/5">
+                        <span class="font-extrabold text-base text-tawriqa-green shrink-0">${item.price} EGP</span>
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="openProductModal('${item.id}')" class="text-xs font-bold px-2.5 py-2 rounded-xl bg-tawriqa-creamDark text-tawriqa-green hover:bg-tawriqa-green/15 transition-colors">
+                                ${dict.customizeBtn}
+                            </button>
+                            <button type="button" onclick="quickAddToCart('${item.id}')" class="inline-flex items-center gap-1 text-xs font-extrabold px-3 py-2 rounded-xl bg-tawriqa-green text-tawriqa-cream hover:bg-tawriqa-greenLight transition-colors shadow-xs">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>${dict.quickAddBtn}</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        // Render Special Offers
+        function renderOffers() {
+            const container = document.getElementById("offers-grid");
+            const dict = I18N[currentLang];
+            const approvedOffers = SPECIAL_OFFERS.filter((o) => o.approved === true);
+
+            container.innerHTML = approvedOffers.map((offer) => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-tawriqa-gold/30 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 bg-tawriqa-greenDark">
+                            <img src="${offer.image}" onerror="this.src='https://placehold.co/600x400/143D29/C89B3C?text=Tawriqa+Offer'" alt="${offer.title[currentLang]}" class="w-full h-full object-cover" loading="lazy" />
+                            <span class="absolute top-3 start-3 px-3 py-1 rounded-full bg-tawriqa-gold text-tawriqa-greenDark text-xs font-extrabold shadow-md">
+                                ${offer.badge[currentLang]}
+                            </span>
+                        </div>
+                        <div class="p-5 sm:p-6">
+                            <h3 class="font-extrabold text-lg sm:text-xl text-tawriqa-green">${offer.title[currentLang]}</h3>
+                            <p class="text-xs sm:text-sm text-tawriqa-muted mt-2 leading-relaxed">${offer.desc[currentLang]}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-tawriqa-green/10 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-xs text-tawriqa-muted block">${currentLang === "ar" ? "سعر العرض" : "Offer Price"}</span>
+                            <span class="text-xl font-extrabold text-tawriqa-green">${offer.price} EGP</span>
+                        </div>
+                        <button type="button" onclick="addOfferToBag('${offer.id}')" class="px-4 py-2.5 rounded-2xl bg-tawriqa-green text-tawriqa-cream hover:bg-tawriqa-greenLight font-bold text-xs sm:text-sm transition-colors flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-cart-plus text-tawriqa-gold"></i>
+                            <span>${dict.addOfferBtn}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        // Render 7 Category Filter Tabs
+        function renderCategoryTabs() {
+            const container = document.getElementById("category-tabs");
+            const dict = I18N[currentLang];
+
+            const allBtn = `
+                <button type="button" onclick="selectCategory('all')" class="shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all flex items-center gap-2 ${
+                    activeCategory === "all"
+                        ? "bg-tawriqa-green text-tawriqa-cream shadow-md"
+                        : "bg-white text-tawriqa-ink border border-tawriqa-green/15 hover:border-tawriqa-green"
+                }">
+                    <i class="fa-solid fa-border-all text-tawriqa-gold"></i>
+                    <span>${dict.allCategories}</span>
+                </button>
+            `;
+
+            const catBtns = CATEGORIES.map((cat) => `
+                <button type="button" onclick="selectCategory('${cat.id}')" class="shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+                    activeCategory === cat.id
+                        ? "bg-tawriqa-green text-tawriqa-cream shadow-md"
+                        : "bg-white text-tawriqa-ink border border-tawriqa-green/15 hover:border-tawriqa-green"
+                }">
+                    <i class="fa-solid ${cat.icon} ${activeCategory === cat.id ? "text-tawriqa-gold" : "text-tawriqa-green"}"></i>
+                    <span>${cat[currentLang]}</span>
+                </button>
+            `).join("");
+
+            container.innerHTML = allBtn + catBtns;
+        }
+
+        function selectCategory(catId) {
+            activeCategory = catId;
+            renderCategoryTabs();
+            renderMenuProducts();
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.trim().toLowerCase();
+            const clearBtn = document.getElementById("clear-search-btn");
+            if (searchQuery.length > 0) {
+                clearBtn.classList.remove("hidden");
+            } else {
+                clearBtn.classList.add("hidden");
+            }
+            renderMenuProducts();
+        }
+
+        function clearSearch() {
+            document.getElementById("menu-search-input").value = "";
+            handleSearch("");
+        }
+
+        function resetFilters() {
+            activeCategory = "all";
+            clearSearch();
+            renderCategoryTabs();
+            renderMenuProducts();
+        }
+
+        // Render Filtered Interactive Menu Cards with Explicit Add to Cart & Customize Buttons
+        function renderMenuProducts() {
+            const container = document.getElementById("menu-products-grid");
+            const emptyState = document.getElementById("menu-empty-state");
+            const dict = I18N[currentLang];
+            const approvedList = getApprovedMenuProducts();
+
+            if (approvedList.length === 0) {
+                container.innerHTML = "";
+                emptyState.classList.remove("hidden");
+                emptyState.querySelector("h3").textContent = dict.menuUpdatingTitle;
+                emptyState.querySelector("p").textContent = dict.menuUpdatingSub;
+                return;
+            }
+
+            const filtered = approvedList.filter((item) => {
+                const matchesCat = activeCategory === "all" || item.category === activeCategory;
+                if (!matchesCat) return false;
+                if (!searchQuery) return true;
+
+                const haystack = [
+                    item.name.ar,
+                    item.name.en,
+                    item.desc.ar,
+                    item.desc.en,
+                    item.ingredients.ar,
+                    item.ingredients.en
+                ].join(" ").toLowerCase();
+
+                return haystack.includes(searchQuery);
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = "";
+                emptyState.classList.remove("hidden");
+                emptyState.querySelector("h3").textContent = dict.noResultsTitle;
+                emptyState.querySelector("p").textContent = dict.noResultsSub;
+                return;
+            }
+
+            emptyState.classList.add("hidden");
+            container.innerHTML = filtered.map((item) => {
+                const catObj = CATEGORIES.find((c) => c.id === item.category);
+                return `
+                    <article class="group bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl border border-tawriqa-green/10 transition-all flex flex-col justify-between">
+                        <div onclick="openProductModal('${item.id}')" class="cursor-pointer">
+                            <div class="relative h-52 overflow-hidden bg-tawriqa-creamDark">
+                                <img src="${item.image}" onerror="this.src='https://placehold.co/600x400/143D29/FBF7F0?text=Tawriqa+Sharm'" alt="${item.name[currentLang]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                                <span class="absolute top-3 start-3 px-3 py-1 rounded-full bg-tawriqa-cream/95 text-tawriqa-green text-[11px] font-extrabold shadow-xs">
+                                    ${catObj ? catObj[currentLang] : ""}
+                                </span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="font-extrabold text-lg text-tawriqa-green group-hover:text-tawriqa-gold transition-colors">${item.name[currentLang]}</h3>
+                                <p class="text-xs sm:text-sm text-tawriqa-muted mt-1.5 line-clamp-2 leading-relaxed">${item.desc[currentLang]}</p>
+                                <p class="text-[11px] text-tawriqa-ink/75 mt-3 bg-tawriqa-cream px-3 py-1.5 rounded-xl line-clamp-1">
+                                    <i class="fa-solid fa-seedling text-tawriqa-gold me-1"></i>
+                                    ${item.ingredients[currentLang]}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-5 pb-5 pt-3 border-t border-tawriqa-green/10 flex items-center justify-between gap-2">
+                            <div>
+                                <span class="text-[11px] text-tawriqa-muted block">${currentLang === "ar" ? "السعر" : "Price"}</span>
+                                <span class="font-extrabold text-lg text-tawriqa-green">${item.price} EGP</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="openProductModal('${item.id}')" class="px-3 py-2.5 rounded-2xl bg-tawriqa-creamDark text-tawriqa-green text-xs font-extrabold hover:bg-tawriqa-green/15 transition-colors flex items-center gap-1.5">
+                                    <i class="fa-solid fa-sliders"></i>
+                                    <span>${dict.customizeBtn}</span>
+                                </button>
+                                <button type="button" onclick="quickAddToCart('${item.id}')" class="px-3.5 py-2.5 rounded-2xl bg-tawriqa-green text-tawriqa-cream text-xs font-extrabold hover:bg-tawriqa-gold hover:text-tawriqa-greenDark transition-colors flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>${dict.quickAddBtn}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        // Quick Add to Cart (Opens customization modal for Half-and-Half pies so visitor selects both halves)
+        function quickAddToCart(productId) {
+            const prod = getApprovedMenuProducts().find((p) => p.id === productId);
+            if (!prod) return;
+
+            if (prod.customType === "half_and_half") {
+                openProductModal(productId);
+                return;
+            }
+
+            const defaultSize = prod.sizes && prod.sizes.length ? prod.sizes[0] : null;
+            const defaultDips = prod.includedDips ? [...prod.includedDips] : [];
+
+            orderBag.push({
+                uid: Date.now() + Math.random(),
+                productId: prod.id,
+                image: prod.image,
+                name: prod.name,
+                size: defaultSize,
+                halves: null,
+                includedDips: defaultDips,
+                addons: [],
+                notes: "",
+                unitPrice: prod.price,
+                qty: 1
+            });
+
+            saveCartToStorage();
+            renderBag();
+            showToast(I18N[currentLang].addedToast);
+        }
+
+        // Render Photo Gallery
+        function renderGallery() {
+            const container = document.getElementById("gallery-grid");
+            container.innerHTML = GALLERY_ITEMS.map((g, idx) => `
+                <button type="button" onclick="openLightbox(${idx})" class="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-tawriqa-greenDark shadow-sm focus:outline-none">
+                    <img src="${g.src}" onerror="this.src='https://placehold.co/600x450/143D29/FBF7F0?text=Tawriqa+Gallery'" alt="${g[currentLang]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity flex items-end p-4 text-start">
+                        <p class="text-white text-xs sm:text-sm font-bold">${g[currentLang]}</p>
+                    </div>
+                </button>
+            `).join("");
+        }
+
+        function openLightbox(idx) {
+            const item = GALLERY_ITEMS[idx];
+            if (!item) return;
+            document.getElementById("lightbox-img").src = item.src;
+            document.getElementById("lightbox-caption").textContent = item[currentLang];
+            document.getElementById("lightbox-modal").classList.remove("hidden");
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox-modal").classList.add("hidden");
+        }
+
+        // Product Details & Customization Modal (Supports New Add AND Editing Existing Cart Item)
+        function openProductModal(productId, existingCartItem = null) {
+            const prod = getApprovedMenuProducts().find((p) => p.id === productId);
+            if (!prod) return;
+
+            activeModalProduct = prod;
+            editingCartUid = existingCartItem ? existingCartItem.uid : null;
+
+            selectedSizeId = existingCartItem && existingCartItem.size
+                ? existingCartItem.size.id
+                : (prod.sizes && prod.sizes.length ? prod.sizes[0].id : null);
+
+            selectedDipIds = existingCartItem && existingCartItem.includedDips
+                ? existingCartItem.includedDips.map((d) => d.id)
+                : (prod.includedDips ? prod.includedDips.map((d) => d.id) : []);
+
+            selectedAddonIds = existingCartItem && existingCartItem.addons
+                ? existingCartItem.addons.map((a) => a.id)
+                : [];
+
+            modalQty = existingCartItem ? existingCartItem.qty : 1;
+
+            const dict = I18N[currentLang];
+            const catObj = CATEGORIES.find((c) => c.id === prod.category);
+            document.getElementById("modal-prod-img").src = prod.image;
+            document.getElementById("modal-prod-category").textContent = catObj ? catObj[currentLang] : "";
+            document.getElementById("modal-prod-name").textContent = prod.name[currentLang];
+            document.getElementById("modal-prod-base-price").textContent = `${prod.price} EGP`;
+            document.getElementById("modal-prod-desc").textContent = prod.desc[currentLang];
+            document.getElementById("modal-prod-ingredients").textContent = prod.ingredients[currentLang];
+            document.getElementById("modal-prod-notes").value = existingCartItem ? existingCartItem.notes : "";
+            document.getElementById("modal-prod-qty").textContent = String(modalQty);
+            document.getElementById("modal-submit-label").textContent = existingCartItem ? dict.updateOrderBtn : dict.addToOrderBtn;
+
+            renderModalCustomizations(existingCartItem);
+            updateModalTotal();
+            document.getElementById("product-modal").classList.remove("hidden");
+        }
+
+        function closeProductModal() {
+            document.getElementById("product-modal").classList.add("hidden");
+            activeModalProduct = null;
+            editingCartUid = null;
+        }
+
+        function renderModalCustomizations(existingCartItem = null) {
+            if (!activeModalProduct) return;
+            const dict = I18N[currentLang];
+
+            // 1. Sizes
+            const sizesSec = document.getElementById("modal-sizes-section");
+            const sizesWrap = document.getElementById("modal-sizes-options");
+            if (activeModalProduct.sizes && activeModalProduct.sizes.length > 0) {
+                sizesSec.classList.remove("hidden");
+                sizesWrap.innerHTML = activeModalProduct.sizes.map((sz) => {
+                    const isSelected = sz.id === selectedSizeId;
+                    const deltaText = sz.delta > 0 ? ` (+${sz.delta} EGP)` : "";
+                    return `
+                        <button type="button" onclick="selectModalSize('${sz.id}')" class="p-3 rounded-2xl border text-start transition-all ${
+                            isSelected
+                                ? "border-tawriqa-green bg-tawriqa-green text-tawriqa-cream font-extrabold shadow-xs"
+                                : "border-tawriqa-green/15 bg-white text-tawriqa-ink font-semibold hover:border-tawriqa-green"
+                        }">
+                            <div class="text-xs sm:text-sm">${sz[currentLang]}</div>
+                            <div class="text-[11px] ${isSelected ? "text-tawriqa-goldLight" : "text-tawriqa-muted"}">${activeModalProduct.price + sz.delta} EGP${deltaText}</div>
+                        </button>
+                    `;
+                }).join("");
+            } else {
+                sizesSec.classList.add("hidden");
+            }
+
+            // 2. Half-and-Half Family Feteer Selectors
+            const halvesSec = document.getElementById("modal-halves-section");
+            const firstHalfSel = document.getElementById("modal-first-half");
+            const secondHalfSel = document.getElementById("modal-second-half");
+            if (activeModalProduct.customType === "half_and_half") {
+                halvesSec.classList.remove("hidden");
+                const optionsHtml = HALF_FLAVORS.map((hf) => `
+                    <option value="${hf.id}">${hf[currentLang]} (${hf.halfPrice} EGP)</option>
+                `).join("");
+                firstHalfSel.innerHTML = optionsHtml;
+                secondHalfSel.innerHTML = optionsHtml;
+
+                if (existingCartItem && existingCartItem.halves) {
+                    firstHalfSel.value = existingCartItem.halves.first.id;
+                    secondHalfSel.value = existingCartItem.halves.second.id;
+                } else {
+                    firstHalfSel.selectedIndex = 0;
+                    secondHalfSel.selectedIndex = 1;
+                }
+            } else {
+                halvesSec.classList.add("hidden");
+            }
+
+            // 3. Meshaltet Included Dips
+            const dipsSec = document.getElementById("modal-dips-section");
+            const dipsWrap = document.getElementById("modal-dips-options");
+            if (activeModalProduct.includedDips && activeModalProduct.includedDips.length > 0) {
+                dipsSec.classList.remove("hidden");
+                dipsWrap.innerHTML = activeModalProduct.includedDips.map((dip) => {
+                    const checked = selectedDipIds.includes(dip.id);
+                    return `
+                        <button type="button" onclick="toggleModalDip('${dip.id}')" class="p-2.5 rounded-xl border flex items-center gap-2 text-xs font-bold transition-all ${
+                            checked
+                                ? "border-tawriqa-green bg-tawriqa-green/10 text-tawriqa-green"
+                                : "border-tawriqa-green/15 bg-tawriqa-cream/40 text-tawriqa-muted"
+                        }">
+                            <i class="fa-solid ${checked ? "fa-square-check text-tawriqa-green" : "fa-square text-tawriqa-muted/40"}"></i>
+                            <span>${dip[currentLang]}</span>
+                        </button>
+                    `;
+                }).join("");
+            } else {
+                dipsSec.classList.add("hidden");
+            }
+
+            // 4. Add-ons / Extra Dips / Sweet Toppings
+            const addonsSec = document.getElementById("modal-addons-section");
+            const addonsTitle = document.getElementById("modal-addons-title");
+            const addonsWrap = document.getElementById("modal-addons-options");
+            if (activeModalProduct.addons && activeModalProduct.addons.length > 0) {
+                addonsSec.classList.remove("hidden");
+                addonsTitle.textContent = activeModalProduct.customType === "sweet"
+                    ? dict.chooseSweetToppingsLabel
+                    : dict.chooseAddonsLabel;
+
+                addonsWrap.innerHTML = activeModalProduct.addons.map((ad) => {
+                    const checked = selectedAddonIds.includes(ad.id);
+                    return `
+                        <button type="button" onclick="toggleModalAddon('${ad.id}')" class="w-full p-3 rounded-2xl border flex items-center justify-between text-xs sm:text-sm transition-all ${
+                            checked
+                                ? "border-tawriqa-green bg-tawriqa-green/10 text-tawriqa-green font-extrabold"
+                                : "border-tawriqa-green/15 bg-white text-tawriqa-ink font-medium"
+                        }">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fa-solid ${checked ? "fa-square-check text-tawriqa-green" : "fa-square text-tawriqa-muted/40"} text-base"></i>
+                                <span>${ad[currentLang]}</span>
+                            </span>
+                            <span class="font-bold text-tawriqa-gold">+${ad.price} EGP</span>
+                        </button>
+                    `;
+                }).join("");
+            } else {
+                addonsSec.classList.add("hidden");
+            }
+        }
+
+        function selectModalSize(sizeId) {
+            selectedSizeId = sizeId;
+            renderModalCustomizations();
+            updateModalTotal();
+        }
+
+        function toggleModalDip(dipId) {
+            if (selectedDipIds.includes(dipId)) {
+                selectedDipIds = selectedDipIds.filter((id) => id !== dipId);
+            } else {
+                selectedDipIds.push(dipId);
+            }
+            renderModalCustomizations();
+        }
+
+        function toggleModalAddon(addonId) {
+            if (selectedAddonIds.includes(addonId)) {
+                selectedAddonIds = selectedAddonIds.filter((id) => id !== addonId);
+            } else {
+                selectedAddonIds.push(addonId);
+            }
+            renderModalCustomizations();
+            updateModalTotal();
+        }
+
+        function changeModalQty(delta) {
+            modalQty = Math.max(1, Math.min(20, modalQty + delta));
+            document.getElementById("modal-prod-qty").textContent = modalQty;
+            updateModalTotal();
+        }
+
+        function calculateModalUnitPrice() {
+            if (!activeModalProduct) return 0;
+
+            let total = activeModalProduct.price;
+
+            if (activeModalProduct.customType === "half_and_half") {
+                const h1Id = document.getElementById("modal-first-half").value;
+                const h2Id = document.getElementById("modal-second-half").value;
+                const h1 = HALF_FLAVORS.find((h) => h.id === h1Id);
+                const h2 = HALF_FLAVORS.find((h) => h.id === h2Id);
+                if (h1 && h2) {
+                    total = h1.halfPrice + h2.halfPrice;
+                }
+            } else if (selectedSizeId && activeModalProduct.sizes) {
+                const sz = activeModalProduct.sizes.find((s) => s.id === selectedSizeId);
+                if (sz) total += sz.delta;
+            }
+
+            if (selectedAddonIds.length && activeModalProduct.addons) {
+                selectedAddonIds.forEach((aid) => {
+                    const ad = activeModalProduct.addons.find((a) => a.id === aid);
+                    if (ad) total += ad.price;
+                });
+            }
+            return total;
+        }
+
+        function updateModalTotal() {
+            const total = calculateModalUnitPrice() * modalQty;
+            document.getElementById("modal-total-price").textContent = `${total} EGP`;
+        }
+
+        function saveModalProductToCart() {
+            if (!activeModalProduct) return;
+
+            const sizeObj = activeModalProduct.sizes?.find((s) => s.id === selectedSizeId) || null;
+            const dipObjs = (activeModalProduct.includedDips || []).filter((d) => selectedDipIds.includes(d.id));
+            const addonObjs = (activeModalProduct.addons || []).filter((a) => selectedAddonIds.includes(a.id));
+            const notes = document.getElementById("modal-prod-notes").value.trim();
+            const unitPrice = calculateModalUnitPrice();
+
+            let halvesObj = null;
+            if (activeModalProduct.customType === "half_and_half") {
+                const h1 = HALF_FLAVORS.find((h) => h.id === document.getElementById("modal-first-half").value);
+                const h2 = HALF_FLAVORS.find((h) => h.id === document.getElementById("modal-second-half").value);
+                if (h1 && h2) {
+                    halvesObj = { first: h1, second: h2 };
+                }
+            }
+
+            const cartRecord = {
+                uid: editingCartUid || (Date.now() + Math.random()),
+                productId: activeModalProduct.id,
+                image: activeModalProduct.image,
+                name: activeModalProduct.name,
+                size: sizeObj,
+                halves: halvesObj,
+                includedDips: dipObjs,
+                addons: addonObjs,
+                notes: notes,
+                unitPrice: unitPrice,
+                qty: modalQty
+            };
+
+            if (editingCartUid) {
+                const idx = orderBag.findIndex((i) => i.uid === editingCartUid);
+                if (idx !== -1) {
+                    orderBag[idx] = cartRecord;
+                }
+                closeProductModal();
+                saveCartToStorage();
+                renderBag();
+                openBagDrawer();
+                showToast(I18N[currentLang].updatedToast);
+            } else {
+                orderBag.push(cartRecord);
+                closeProductModal();
+                saveCartToStorage();
+                renderBag();
+                showToast(I18N[currentLang].addedToast);
+            }
+        }
+
+        function editCartItem(uid) {
+            const item = orderBag.find((i) => i.uid === uid);
+            if (!item || !item.productId) return;
+            closeBagDrawer();
+            openProductModal(item.productId, item);
+        }
+
+        function removeCartItem(uid) {
+            orderBag = orderBag.filter((i) => i.uid !== uid);
+            saveCartToStorage();
+            renderBag();
+        }
+
+        function addOfferToBag(offerId) {
+            const offer = SPECIAL_OFFERS.find((o) => o.id === offerId && o.approved === true);
+            if (!offer) return;
+
+            orderBag.push({
+                uid: Date.now() + Math.random(),
+                productId: null,
+                image: offer.image,
+                name: offer.title,
+                size: null,
+                halves: null,
+                includedDips: [],
+                addons: [],
+                notes: "",
+                unitPrice: offer.price,
+                qty: 1
+            });
+
+            saveCartToStorage();
+            renderBag();
+            showToast(I18N[currentLang].addedToast);
+        }
+
+        // Order Bag Management & WhatsApp Order Summary Builder
+        function openBagDrawer() {
+            renderBag();
+            document.getElementById("bag-drawer").classList.remove("hidden");
+        }
+
+        function closeBagDrawer() {
+            document.getElementById("bag-drawer").classList.add("hidden");
+        }
+
+        function updateBagItemQty(uid, delta) {
+            const idx = orderBag.findIndex((i) => i.uid === uid);
+            if (idx === -1) return;
+            orderBag[idx].qty += delta;
+            if (orderBag[idx].qty <= 0) {
+                orderBag.splice(idx, 1);
+            }
+            saveCartToStorage();
+            renderBag();
+        }
+
+        function setOrderType(type) {
+            orderType = type;
+            document.querySelectorAll(".order-type-btn").forEach((btn) => {
+                btn.classList.remove("bg-tawriqa-green", "text-tawriqa-cream", "border-tawriqa-green");
+                btn.classList.add("bg-tawriqa-cream", "text-tawriqa-ink", "border-tawriqa-green/20");
+            });
+            const activeBtn = document.getElementById(`type-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.remove("bg-tawriqa-cream", "text-tawriqa-ink", "border-tawriqa-green/20");
+                activeBtn.classList.add("bg-tawriqa-green", "text-tawriqa-cream", "border-tawriqa-green");
+            }
+
+            const addrWrap = document.getElementById("cust-address-wrap");
+            if (addrWrap) {
+                if (type === "delivery") {
+                    addrWrap.classList.remove("hidden");
+                } else {
+                    addrWrap.classList.add("hidden");
+                }
+            }
+        }
+
+        function renderBag() {
+            const dict = I18N[currentLang];
+            const totalQty = orderBag.reduce((sum, item) => sum + item.qty, 0);
+            const subtotalAmount = orderBag.reduce((sum, item) => sum + item.unitPrice * item.qty, 0);
+            const discountAmount = 0; // No invented discounts or fees
+            const finalTotal = Math.max(0, subtotalAmount - discountAmount);
+
+            document.getElementById("bag-count-badge").textContent = totalQty;
+            document.getElementById("floating-bag-count").textContent = totalQty;
+            document.getElementById("floating-bag-total").textContent = `${finalTotal} EGP`;
+            document.getElementById("bag-subtotal-amount").textContent = `${subtotalAmount} EGP`;
+            document.getElementById("bag-discount-amount").textContent = `${discountAmount} EGP`;
+            document.getElementById("bag-total-amount").textContent = `${finalTotal} EGP`;
+
+            const floatingBar = document.getElementById("floating-bag-bar");
+            if (totalQty > 0) {
+                floatingBar.classList.remove("hidden");
+            } else {
+                floatingBar.classList.add("hidden");
+            }
+
+            const itemsContainer = document.getElementById("bag-items-container");
+            const checkoutForm = document.getElementById("bag-checkout-form");
+            const bagFooter = document.getElementById("bag-footer");
+
+            if (orderBag.length === 0) {
+                checkoutForm.classList.add("hidden");
+                bagFooter.classList.add("hidden");
+                itemsContainer.innerHTML = `
+                    <div class="text-center py-12 px-5 bg-white rounded-3xl border border-tawriqa-green/10 space-y-3">
+                        <div class="w-16 h-16 rounded-full bg-tawriqa-creamDark text-tawriqa-green flex items-center justify-center mx-auto text-2xl">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-tawriqa-green">${dict.bagEmptyTitle}</h4>
+                        <p class="text-xs text-tawriqa-muted leading-relaxed max-w-xs mx-auto">${dict.bagEmptySub}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            checkoutForm.classList.remove("hidden");
+            bagFooter.classList.remove("hidden");
+
+            itemsContainer.innerHTML = orderBag.map((item) => {
+                const sizeLabel = item.size ? `<span class="text-[11px] px-2 py-0.5 rounded-md bg-tawriqa-creamDark text-tawriqa-green font-bold">${item.size[currentLang]}</span>` : "";
+                const halvesLabel = item.halves
+                    ? `<p class="text-[11px] text-tawriqa-green font-bold mt-1"><i class="fa-solid fa-circle-half-stroke text-tawriqa-gold me-1"></i>${item.halves.first[currentLang]} + ${item.halves.second[currentLang]}</p>`
+                    : "";
+                const dipsLabel = item.includedDips && item.includedDips.length > 0
+                    ? `<p class="text-[11px] text-tawriqa-muted mt-1">${currentLang === "ar" ? "الغموسات:" : "Dips:"} ${item.includedDips.map((d) => d[currentLang]).join("، ")}</p>`
+                    : "";
+                const addonsLabel = item.addons && item.addons.length > 0
+                    ? `<p class="text-[11px] text-tawriqa-muted mt-1">+ ${item.addons.map((a) => a[currentLang]).join("، ")}</p>`
+                    : "";
+                const notesLabel = item.notes
+                    ? `<p class="text-[11px] text-tawriqa-gold font-semibold mt-1"><i class="fa-regular fa-note-sticky me-1"></i>${item.notes}</p>`
+                    : "";
+
+                const editBtnHtml = item.productId
+                    ? `<button type="button" onclick="editCartItem(${item.uid})" class="text-[11px] font-bold text-tawriqa-green hover:text-tawriqa-gold flex items-center gap-1"><i class="fa-solid fa-pen-to-square"></i><span>${dict.editItemBtn}</span></button>`
+                    : "";
+
+                return `
+                    <div class="bg-white p-4 rounded-2xl border border-tawriqa-green/10 shadow-xs space-y-3">
+                        <div class="flex items-start gap-3">
+                            <img src="${item.image || 'https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'}" onerror="this.src='https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'" alt="${item.name[currentLang]}" class="w-16 h-16 rounded-xl object-cover shrink-0 bg-tawriqa-creamDark border border-tawriqa-green/10" />
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="font-extrabold text-sm text-tawriqa-green leading-snug">${item.name[currentLang]}</h4>
+                                    <span class="font-extrabold text-sm text-tawriqa-green shrink-0">${item.unitPrice * item.qty} EGP</span>
+                                </div>
+                                <div class="mt-1 flex flex-wrap items-center gap-1.5">
+                                    ${sizeLabel}
+                                    <span class="text-[11px] text-tawriqa-muted">(${item.unitPrice} EGP / ${currentLang === "ar" ? "قطعة" : "pc"})</span>
+                                </div>
+                                ${halvesLabel}
+                                ${dipsLabel}
+                                ${addonsLabel}
+                                ${notesLabel}
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-tawriqa-green/10">
+                            <div class="flex items-center gap-3">
+                                ${editBtnHtml}
+                                <button type="button" onclick="removeCartItem(${item.uid})" class="text-[11px] font-bold text-red-600 hover:underline flex items-center gap-1">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    <span>${dict.removeItemBtn}</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="updateBagItemQty(${item.uid}, -1)" class="w-7 h-7 rounded-lg bg-tawriqa-creamDark text-tawriqa-green font-bold hover:bg-tawriqa-green hover:text-white transition-colors">-</button>
+                                <span class="text-xs font-extrabold w-5 text-center">${item.qty}</span>
+                                <button type="button" onclick="updateBagItemQty(${item.uid}, 1)" class="w-7 h-7 rounded-lg bg-tawriqa-creamDark text-tawriqa-green font-bold hover:bg-tawriqa-green hover:text-white transition-colors">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function generateOrderReference() {
+            const now = new Date();
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            return `TWQ-${now.getHours()}${String(now.getMinutes()).padStart(2, "0")}-${rand}`;
+        }
+
+        function sendOrderViaWhatsApp() {
+            if (orderBag.length === 0) return;
+
+            const dict = I18N[currentLang];
+            const custName = document.getElementById("cust-name").value.trim();
+            const custPhone = document.getElementById("cust-phone").value.trim();
+            const custAddress = document.getElementById("cust-address").value.trim();
+            const custOrderNotes = document.getElementById("cust-order-notes").value.trim();
+
+            if (!custName || !custPhone) {
+                showToast(dict.validationErrorToast);
+                document.getElementById(!custName ? "cust-name" : "cust-phone").focus();
+                return;
+            }
+
+            if (orderType === "delivery" && !custAddress) {
+                showToast(dict.addressErrorToast);
+                document.getElementById("cust-address").focus();
+                return;
+            }
+
+            const subtotalAmount = orderBag.reduce((sum, item) => sum + item.unitPrice * item.qty, 0);
+            const discountAmount = 0;
+            const totalAmount = subtotalAmount - discountAmount;
+            const orderRef = generateOrderReference();
+
+            const typeMap = {
+                delivery: currentLang === "ar" ? "توصيل (Delivery)" : "Delivery",
+                pickup: currentLang === "ar" ? "استلام من الفرع (Pickup)" : "Branch Pickup",
+                dinein: currentLang === "ar" ? "داخل المطعم (Dine-in)" : "Dine-in"
+            };
+
+            let lines = [];
+            if (currentLang === "ar") {
+                lines.push("مرحباً توريقة 🌿");
+                lines.push("أرغب في طلب الأوردر التالي:");
+                lines.push(`رقم مرجعي للطلب: ${orderRef}`);
+                lines.push("");
+                lines.push("تفاصيل الطلب:");
+                orderBag.forEach((item, idx) => {
+                    const sz = item.size ? ` (${item.size.ar})` : "";
+                    lines.push(`${idx + 1}. ${item.name.ar}${sz} — (${item.unitPrice * item.qty} جنيه)`);
+                    lines.push(`   الكمية: ${item.qty}`);
+                    if (item.halves) {
+                        lines.push(`   الاختيارات: ${item.halves.first.ar} + ${item.halves.second.ar}`);
+                    }
+                    if (item.includedDips && item.includedDips.length) {
+                        lines.push(`   الغموسات: ${item.includedDips.map((d) => d.ar).join("، ")}`);
+                    }
+                    if (item.addons && item.addons.length) {
+                        lines.push(`   الإضافات: ${item.addons.map((a) => a.ar).join("، ")}`);
+                    }
+                    if (item.notes) {
+                        lines.push(`   ملاحظات الصنف: ${item.notes}`);
+                    }
+                });
+                lines.push("");
+                lines.push(`إجمالي الأصناف: ${subtotalAmount} جنيه`);
+                lines.push(`الخصم: ${discountAmount} جنيه`);
+                lines.push(`الإجمالي النهائي: ${totalAmount} جنيه`);
+                lines.push("");
+                lines.push("بيانات العميل:");
+                lines.push(`الاسم: ${custName}`);
+                lines.push(`رقم الهاتف: ${custPhone}`);
+                lines.push(`نوع الطلب: ${typeMap[orderType]}`);
+                if (orderType === "delivery" && custAddress) {
+                    lines.push(`العنوان: ${custAddress}`);
+                }
+                lines.push(`ملاحظات: ${custOrderNotes || "لا يوجد"}`);
+                lines.push("شكراً لكم ❤️");
+            } else {
+                lines.push("Hello Tawriqa 🌿");
+                lines.push("I would like to place the following order:");
+                lines.push(`Order Reference: ${orderRef}`);
+                lines.push("");
+                lines.push("Order Details:");
+                orderBag.forEach((item, idx) => {
+                    const sz = item.size ? ` (${item.size.en})` : "";
+                    lines.push(`${idx + 1}. ${item.name.en}${sz} — (${item.unitPrice * item.qty} EGP)`);
+                    lines.push(`   Quantity: ${item.qty}`);
+                    if (item.halves) {
+                        lines.push(`   Selections: ${item.halves.first.en} + ${item.halves.second.en}`);
+                    }
+                    if (item.includedDips && item.includedDips.length) {
+                        lines.push(`   Included Dips: ${item.includedDips.map((d) => d.en).join(", ")}`);
+                    }
+                    if (item.addons && item.addons.length) {
+                        lines.push(`   Add-ons: ${item.addons.map((a) => a.en).join(", ")}`);
+                    }
+                    if (item.notes) {
+                        lines.push(`   Item Notes: ${item.notes}`);
+                    }
+                });
+                lines.push("");
+                lines.push(`Subtotal: ${subtotalAmount} EGP`);
+                lines.push(`Discount: ${discountAmount} EGP`);
+                lines.push(`Final Total: ${totalAmount} EGP`);
+                lines.push("");
+                lines.push("Customer Details:");
+                lines.push(`Name: ${custName}`);
+                lines.push(`Phone: ${custPhone}`);
+                lines.push(`Order Type: ${typeMap[orderType]}`);
+                if (orderType === "delivery" && custAddress) {
+                    lines.push(`Delivery Address: ${custAddress}`);
+                }
+                lines.push(`Notes: ${custOrderNotes || "None"}`);
+                lines.push("Thank you ❤️");
+            }
+
+            showToast(dict.redirectingToast);
+            const waUrl = `https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+            setTimeout(() => {
+                window.open(waUrl, "_blank", "noopener");
+            }, 450);
+        }
+
+        // Table Reservation Inquiry Modal (WhatsApp / Phone)
+        function openReservationModal() {
+            document.getElementById("reservation-modal").classList.remove("hidden");
+        }
+
+        function closeReservationModal() {
+            document.getElementById("reservation-modal").classList.add("hidden");
+        }
+
+        function submitReservationWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById("res-name").value.trim();
+            const guests = document.getElementById("res-guests").value;
+            const time = document.getElementById("res-time").value;
+            const date = document.getElementById("res-date").value;
+
+            const msg = currentLang === "ar"
+                ? `*استفسار حجز طاولة — توريقة شرم الشيخ*\n• الاسم: ${name}\n• عدد الأفراد: ${guests}\n• التاريخ: ${date}\n• الوقت المفضل: ${time}\n• الفرع: كليوباترا مول، حي النور`
+                : `*Table Reservation Inquiry — Tawriqa Sharm El Sheikh*\n• Name: ${name}\n• Guests: ${guests}\n• Date: ${date}\n• Preferred Time: ${time}\n• Branch: Cleopatra Mall, Hay El Nour`;
+
+            const waUrl = `https://wa.me/${BRANCH_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, "_blank", "noopener");
+            closeReservationModal();
+        }
+
+        // Non-blocking Toast Banner
+        let toastTimer = null;
+        function showToast(msg) {
+            const banner = document.getElementById("toast-banner");
+            document.getElementById("toast-message").textContent = msg;
+            banner.classList.remove("hidden");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                banner.classList.add("hidden");
+            }, 2600);
+        }
+    </script>
+</body>
+</html>
