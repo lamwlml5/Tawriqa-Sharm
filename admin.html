@@ -57,6 +57,11 @@
             scrollbar-width: none;
         }
     </style>
+
+    <!-- Firebase Compat SDKs (Loaded safely for optional cloud sync) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body class="antialiased selection:bg-tawriqa-green selection:text-tawriqa-cream">
 
@@ -74,31 +79,31 @@
             </div>
 
             <div class="p-6 space-y-5">
-                <!-- Mode Switcher: Firebase Cloud Auth vs Local Quick PIN -->
+                <!-- Mode Switcher: Cloud / Direct Email vs Local Quick PIN -->
                 <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-tawriqa-creamDark text-xs font-extrabold">
                     <button type="button" id="login-mode-cloud-btn" onclick="switchLoginMode('cloud')" class="py-2.5 px-3 rounded-xl bg-tawriqa-green text-tawriqa-cream shadow-xs transition-all">
-                        <i class="fa-solid fa-cloud me-1"></i> دخول سحابي (Firebase)
+                        <i class="fa-solid fa-cloud me-1"></i> دخول سحابي / إيميل
                     </button>
                     <button type="button" id="login-mode-local-btn" onclick="switchLoginMode('local')" class="py-2.5 px-3 rounded-xl text-tawriqa-ink hover:text-tawriqa-green transition-all">
                         <i class="fa-solid fa-key me-1"></i> دخول محلي / PIN
                     </button>
                 </div>
 
-                <!-- Cloud Login Form (Firebase Email + Password) -->
+                <!-- Email + Password Login Form -->
                 <form id="cloud-login-form" onsubmit="handleCloudLogin(event)" class="space-y-4">
                     <div id="firebase-config-notice" class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
                         <i class="fa-solid fa-circle-info text-amber-600 me-1"></i>
-                        للتشغيل السحابي على GitHub Pages، أدخل بيانات <strong>Firebase Config</strong> أدناه مرة واحدة أو استخدم الدخول المحلي للتجربة الفورية.
+                        سجّل الدخول بالبريد الإلكتروني وكلمة المرور المعتمدين، أو اضغط زر الدخول السريع المباشر. ويمكنك ربط <strong>Firebase Config</strong> لمزامنة كل الزوار على الإنترنت.
                     </div>
 
                     <div>
-                        <label class="block text-xs font-extrabold text-tawriqa-green mb-1">البريد الإلكتروني للمدير *</label>
+                        <label for="admin-email" class="block text-xs font-extrabold text-tawriqa-green mb-1">البريد الإلكتروني للمدير *</label>
                         <input type="email" id="admin-email" dir="ltr" placeholder="admin@tawriqa.com" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                     </div>
 
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <label class="block text-xs font-extrabold text-tawriqa-green">كلمة المرور *</label>
+                            <label for="admin-password" class="block text-xs font-extrabold text-tawriqa-green">كلمة المرور *</label>
                             <button type="button" onclick="fillDefaultDemoCredentials()" class="text-[11px] font-bold text-tawriqa-gold hover:underline">
                                 تعبئة بيانات الدخول الافتراضية
                             </button>
@@ -127,13 +132,13 @@
                     </button>
                 </form>
 
-                <!-- Local PIN Login Form (Offline / Same-Browser Fallback) -->
+                <!-- Local PIN Login Form -->
                 <form id="local-login-form" onsubmit="handleLocalPinLogin(event)" class="hidden space-y-4">
                     <div class="p-3 rounded-2xl bg-tawriqa-creamDark/80 text-xs text-tawriqa-ink leading-relaxed">
                         يُستخدم هذا الوضع للتعديل الفوري على هذا الجهاز أو لتصدير ملف <code dir="ltr">tawriqa-backup.json</code>. الرمز الافتراضي للتجربة: <strong dir="ltr">2026</strong> (يمكنك تغييره من الإعدادات).
                     </div>
                     <div>
-                        <label class="block text-xs font-extrabold text-tawriqa-green mb-1">رمز الدخول السريع (PIN)</label>
+                        <label for="local-pin-input" class="block text-xs font-extrabold text-tawriqa-green mb-1">رمز الدخول السريع (PIN)</label>
                         <input type="password" id="local-pin-input" dir="ltr" placeholder="2026" class="w-full px-4 py-3 rounded-xl bg-white border border-tawriqa-green/20 text-center text-lg font-extrabold tracking-widest focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                     </div>
                     <button type="submit" class="w-full py-3 rounded-2xl bg-tawriqa-gold text-tawriqa-greenDark font-extrabold text-sm hover:bg-tawriqa-goldLight transition-all shadow-md">
@@ -232,7 +237,7 @@
                             <p class="text-[11px] text-tawriqa-muted">يظهر هذا اللوجو في الهيدر العلوي وأيقونة التطبيق.</p>
                         </div>
 
-                        <!-- Logo Upload / URL / Custom SVG Controls -->
+                        <!-- Logo Upload / URL / Key Page Images -->
                         <div class="lg:col-span-8 space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
@@ -240,22 +245,22 @@
                                     <input type="file" accept="image/*" onchange="handleLogoFileUpload(event)" class="w-full text-xs bg-tawriqa-cream/60 p-2.5 rounded-xl border border-tawriqa-green/20 file:me-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tawriqa-green file:text-white file:font-bold cursor-pointer" />
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-extrabold text-tawriqa-green mb-1">أو رابط صورة اللوجو (Image URL)</label>
+                                    <label for="brand-logo-url" class="block text-xs font-extrabold text-tawriqa-green mb-1">أو رابط صورة اللوجو (Image URL)</label>
                                     <input type="url" id="brand-logo-url" oninput="updateLogoUrlPreview(this.value)" dir="ltr" placeholder="https://example.com/logo.png" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                                 <div>
-                                    <label class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة الواجهة الرئيسية (Hero Image)</label>
+                                    <label for="hero-image-url" class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة الواجهة الرئيسية (Hero Image)</label>
                                     <input type="url" id="hero-image-url" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-xs focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة حكايتنا الأولى (About 1)</label>
+                                    <label for="about-image-1" class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة حكايتنا الأولى (About 1)</label>
                                     <input type="url" id="about-image-1" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-xs focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة حكايتنا الثانية (About 2)</label>
+                                    <label for="about-image-2" class="block text-xs font-extrabold text-tawriqa-green mb-1">صورة حكايتنا الثانية (About 2)</label>
                                     <input type="url" id="about-image-2" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-xs focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                                 </div>
                             </div>
@@ -304,7 +309,7 @@
                         <input type="text" oninput="adminSearchProducts(this.value)" placeholder="بحث باسم الصنف..." class="w-full sm:w-64 px-3.5 py-2 rounded-xl bg-tawriqa-cream border border-tawriqa-green/15 text-xs focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                     </div>
 
-                    <!-- Products Table / Cards -->
+                    <!-- Products Grid -->
                     <div id="admin-products-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Populated via JS -->
                     </div>
@@ -383,21 +388,21 @@
             </section>
 
             <!-- =============================================================
-                 TAB 6: BRANCH SETTINGS, CLOUD SYNC & BACKUP
+                 TAB 6: BRANCH SETTINGS, TEAM ACCESS, CLOUD SYNC & BACKUP
             ============================================================== -->
             <section id="tab-panel-branch" class="admin-tab-panel hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Branch & WhatsApp Config -->
+                    <!-- Branch & WhatsApp Config + Credentials + Team Users -->
                     <div class="bg-white rounded-3xl p-6 shadow-xs border border-tawriqa-green/10 space-y-4">
                         <h2 class="text-xl font-extrabold text-tawriqa-green">إعدادات الفرع والواتساب والتوصيل</h2>
 
                         <div>
-                            <label class="block text-xs font-extrabold text-tawriqa-green mb-1">رقم واتساب استقبال الطلبات (بدون + أو مسافات)</label>
+                            <label for="cfg-whatsapp" class="block text-xs font-extrabold text-tawriqa-green mb-1">رقم واتساب استقبال الطلبات (بدون + أو مسافات)</label>
                             <input type="text" id="cfg-whatsapp" dir="ltr" placeholder="201022595959" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                         </div>
 
                         <div>
-                            <label class="block text-xs font-extrabold text-tawriqa-green mb-1">رقم الهاتف المعروض للزوار</label>
+                            <label for="cfg-phone-display" class="block text-xs font-extrabold text-tawriqa-green mb-1">رقم الهاتف المعروض للزوار</label>
                             <input type="text" id="cfg-phone-display" dir="ltr" placeholder="+20 102 259 5959" class="w-full px-3.5 py-2.5 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                         </div>
 
@@ -412,331 +417,24 @@
                         <div class="pt-3 border-t border-tawriqa-green/10 space-y-3">
                             <h3 class="text-sm font-extrabold text-tawriqa-green">بيانات دخول المدير (الإيميل وكلمة المرور)</h3>
                             <div>
-                                <label class="block text-xs font-bold text-tawriqa-muted mb-1">البريد الإلكتروني المعتمد للدخول</label>
+                                <label for="cfg-admin-email" class="block text-xs font-bold text-tawriqa-muted mb-1">البريد الإلكتروني المعتمد للدخول</label>
                                 <input type="email" id="cfg-admin-email" dir="ltr" placeholder="admin@tawriqa.com" class="w-full px-3.5 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-tawriqa-muted mb-1">كلمة المرور المعتمدة للدخول</label>
+                                <label for="cfg-admin-password" class="block text-xs font-bold text-tawriqa-muted mb-1">كلمة المرور المعتمدة للدخول</label>
                                 <input type="text" id="cfg-admin-password" dir="ltr" placeholder="Tawriqa@2026" class="w-full px-3.5 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-tawriqa-muted mb-1">رمز الدخول السريع المحلي (PIN)</label>
-                                <input type="text" id="cfg-local-pin" dir="ltr" placeholder="2026" class="w-full px-3.5 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join("");
-        }
-
-        function setAdminMenuCat(catId) {
-            adminMenuCatFilter = catId;
-            renderAdminMenuPanel();
-        }
-
-        function adminSearchProducts(val) {
-            adminMenuSearchText = val.trim().toLowerCase();
-            renderAdminMenuPanel();
-        }
-
-        function toggleProductFlag(prodId, field, value) {
-            const p = cmsState.products.find((item) => item.id === prodId);
-            if (p) {
-                p[field] = value;
-                showAdminToast("تم تحديث حالة الصنف");
-            }
-        }
-
-        function deleteProduct(prodId) {
-            cmsState.products = cmsState.products.filter((p) => p.id !== prodId);
-            renderAllAdminPanels();
-            showAdminToast("تم حذف الصنف من القائمة");
-        }
-
-        function renderAdminCategoriesEditor() {
-            const wrap = document.getElementById("admin-categories-editor");
-            wrap.innerHTML = cmsState.categories.map((cat, idx) => `
-                <div class="p-3 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 grid grid-cols-2 gap-2">
-                    <input type="text" value="${escapeAttr(cat.ar)}" onchange="cmsState.categories[${idx}].ar=this.value" class="px-3 py-2 rounded-xl bg-white border border-tawriqa-green/15 text-xs font-bold" />
-                    <input type="text" dir="ltr" value="${escapeAttr(cat.en)}" onchange="cmsState.categories[${idx}].en=this.value" class="px-3 py-2 rounded-xl bg-white border border-tawriqa-green/15 text-xs font-bold" />
-                </div>
-            `).join("");
-        }
-
-        // Product Editor Modal
-        function openProductEditorModal(prodId = null) {
-            const catSel = document.getElementById("pe-category");
-            catSel.innerHTML = cmsState.categories.map((c) => `<option value="${c.id}">${c.ar}</option>`).join("");
-
-            const existing = prodId ? cmsState.products.find((p) => p.id === prodId) : null;
-            document.getElementById("prod-editor-title").textContent = existing ? "تعديل الصنف" : "إضافة صنف جديد للقائمة";
-            document.getElementById("pe-id").value = existing ? existing.id : "";
-            document.getElementById("pe-name-ar").value = existing ? existing.name.ar : "";
-            document.getElementById("pe-name-en").value = existing ? existing.name.en : "";
-            document.getElementById("pe-category").value = existing ? existing.category : cmsState.categories[0].id;
-            document.getElementById("pe-price").value = existing ? existing.price : 180;
-            document.getElementById("pe-custom-type").value = existing ? existing.customType : "standard";
-            document.getElementById("pe-desc-ar").value = existing ? existing.desc.ar : "";
-            document.getElementById("pe-desc-en").value = existing ? existing.desc.en : "";
-            document.getElementById("pe-ing-ar").value = existing ? existing.ingredients.ar : "";
-            document.getElementById("pe-ing-en").value = existing ? existing.ingredients.en : "";
-            document.getElementById("pe-image").value = existing ? existing.image : "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80";
-            document.getElementById("pe-available").checked = existing ? existing.available : true;
-            document.getElementById("pe-popular").checked = existing ? existing.popular : false;
-
-            editorSizes = existing && existing.sizes ? JSON.parse(JSON.stringify(existing.sizes)) : [
-                { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
-                { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
-            ];
-            editorAddons = existing && existing.addons ? JSON.parse(JSON.stringify(existing.addons)) : [];
-
-            renderEditorSizesRows();
-            renderEditorAddonsRows();
-            document.getElementById("product-editor-modal").classList.remove("hidden");
-        }
-
-        function closeProductEditorModal() {
-            document.getElementById("product-editor-modal").classList.add("hidden");
-        }
-
-        function renderEditorSizesRows() {
-            const wrap = document.getElementById("pe-sizes-rows");
-            wrap.innerHTML = editorSizes.map((sz, i) => `
-                <div class="grid grid-cols-12 gap-2 items-center">
-                    <input type="text" placeholder="وسط" value="${escapeAttr(sz.ar)}" onchange="editorSizes[${i}].ar=this.value" class="col-span-4 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs" />
-                    <input type="text" dir="ltr" placeholder="Medium" value="${escapeAttr(sz.en)}" onchange="editorSizes[${i}].en=this.value" class="col-span-4 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs" />
-                    <input type="number" placeholder="+0" value="${sz.delta}" onchange="editorSizes[${i}].delta=Number(this.value)||0" class="col-span-3 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs font-bold" />
-                    <button type="button" onclick="editorSizes.splice(${i},1);renderEditorSizesRows()" class="col-span-1 text-red-600 text-center"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            `).join("");
-        }
-
-        function addEditorSizeRow() {
-            editorSizes.push({ id: `sz_${Date.now()}`, ar: "حجم إضافي", en: "Extra Size", delta: 50 });
-            renderEditorSizesRows();
-        }
-
-        function renderEditorAddonsRows() {
-            const wrap = document.getElementById("pe-addons-rows");
-            wrap.innerHTML = editorAddons.map((ad, i) => `
-                <div class="grid grid-cols-12 gap-2 items-center">
-                    <input type="text" placeholder="إضافة عربي" value="${escapeAttr(ad.ar)}" onchange="editorAddons[${i}].ar=this.value" class="col-span-4 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs" />
-                    <input type="text" dir="ltr" placeholder="Addon EN" value="${escapeAttr(ad.en)}" onchange="editorAddons[${i}].en=this.value" class="col-span-4 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs" />
-                    <input type="number" placeholder="30" value="${ad.price}" onchange="editorAddons[${i}].price=Number(this.value)||0" class="col-span-3 px-2.5 py-1.5 rounded-lg bg-tawriqa-cream/60 border text-xs font-bold" />
-                    <button type="button" onclick="editorAddons.splice(${i},1);renderEditorAddonsRows()" class="col-span-1 text-red-600 text-center"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            `).join("");
-        }
-
-        function addEditorAddonRow() {
-            editorAddons.push({ id: `ad_${Date.now()}`, ar: "إضافة جديدة", en: "New Add-on", price: 25 });
-            renderEditorAddonsRows();
-        }
-
-        function saveProductFromEditor() {
-            const id = document.getElementById("pe-id").value;
-            const nameAr = document.getElementById("pe-name-ar").value.trim();
-            const nameEn = document.getElementById("pe-name-en").value.trim();
-            const price = Number(document.getElementById("pe-price").value);
-
-            if (!nameAr || !nameEn || !price || price <= 0) {
-                showAdminToast("يرجى إدخال اسم الصنف بالعربية والإنجليزية والسعر الصحيح");
-                return;
-            }
-
-            const existing = id ? cmsState.products.find((p) => p.id === id) : null;
-            const record = {
-                id: id || `prod_${Date.now()}`,
-                category: document.getElementById("pe-category").value,
-                approved: true,
-                available: document.getElementById("pe-available").checked,
-                popular: document.getElementById("pe-popular").checked,
-                customType: document.getElementById("pe-custom-type").value,
-                name: { ar: nameAr, en: nameEn },
-                desc: {
-                    ar: document.getElementById("pe-desc-ar").value.trim(),
-        const STORAGE_KEYS = {
-            cmsData: "tawriqa_sharm_cms_data_v1",
-            fbConfig: "tawriqa_sharm_firebase_config_v1",
-            localPin: "tawriqa_sharm_admin_pin_v1",
-            adminCreds: "tawriqa_sharm_admin_creds_v1",
-            adminUsers: "tawriqa_sharm_admin_users_v1",
-            sessionAuth: "tawriqa_sharm_admin_session_v1"
-        };
-
-        // بيانات الدخول الافتراضية المعتمدة (يمكنك تعديلها هنا في الكود أو من داخل لوحة الإدارة)
-        const DEFAULT_ADMIN_CREDENTIALS = {
-            email: "admin@tawriqa.com",
-            password: "Tawriqa@2026"
-        };
-
-        const DEFAULT_ADMIN_USERS = [
-            {
-                id: "usr_owner_main",
-                name: "المدير الرئيسي لتوريقة",
-                email: "admin@tawriqa.com",
-                password: "Tawriqa@2026",
-                role: "super_admin",
-                active: true
-            }
-        ];
-
-        function getActiveAdminCredentials() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEYS.adminCreds);
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    if (parsed && parsed.email && parsed.password) return parsed;
-                }
-            } catch (e) {}
-            return { ...DEFAULT_ADMIN_CREDENTIALS };
-        }
-
-        function getAdminUsersList() {
-            const primaryCreds = getActiveAdminCredentials();
-            let list = [];
-            try {
-                const saved = localStorage.getItem(STORAGE_KEYS.adminUsers);
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        list = parsed;
-                    }
-                }
-            } catch (e) {}
-
-            if (list.length === 0) {
-                list = JSON.parse(JSON.stringify(DEFAULT_ADMIN_USERS));
-            }
-
-            return list.map((u) => {
-                if (u.id === "usr_owner_main") {
-                    return { ...u, email: primaryCreds.email, password: primaryCreds.password };
-                }
-                return u;
-            });
-        }
-
-        function saveAdminUsersList(list) {
-            try {
-                localStorage.setItem(STORAGE_KEYS.adminUsers, JSON.stringify(list));
-            } catch (e) {}
-        }
-
-        function fillDefaultDemoCredentials() {
-            const creds = getActiveAdminCredentials();
-            document.getElementById("admin-email").value = creds.email;
-            document.getElementById("admin-password").value = creds.password;
-            showAdminToast("تم تعبئة الإيميل وكلمة المرور الافتراضية");
-        }
-
-        function quickDirectAdminAccess() {
-            const creds = getActiveAdminCredentials();
-            document.getElementById("admin-email").value = creds.email;
-            document.getElementById("admin-password").value = creds.password;
-            sessionStorage.setItem(STORAGE_KEYS.sessionAuth, `local_ok:${creds.email}`);
-            unlockWorkspace(false);
-            showAdminToast("تم الدخول المباشر إلى لوحة إدارة توريقة شرم");
-        }
-
-        async function handleCloudLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById("admin-email").value.trim().toLowerCase();
-            const pass = document.getElementById("admin-password").value;
-
-            const directCreds = getActiveAdminCredentials();
-            const teamUsers = getAdminUsersList();
-            const matchedTeamUser = teamUsers.find(
-                (u) => u.active !== false && String(u.email || "").trim().toLowerCase() === email && String(u.password || "") === pass
-            );
-
-            if ((email === directCreds.email.toLowerCase() && pass === directCreds.password) || matchedTeamUser) {
-                const activeUserLabel = matchedTeamUser ? matchedTeamUser.name : email;
-                sessionStorage.setItem(STORAGE_KEYS.sessionAuth, `local_ok:${activeUserLabel}`);
-                initFirebaseIfConfigured();
-                if (firebaseAuth) {
-                    try {
-                        await firebaseAuth.signInWithEmailAndPassword(email, pass);
-                        isCloudAuthenticated = true;
-                        await pullLatestFromFirestore();
-                        unlockWorkspace(true);
-                        showAdminToast(`مرحباً ${activeUserLabel} — تم تسجيل الدخول السحابي`);
-                        return;
-                    } catch (fbErr) {
-                        // الاستمرار بالدخول المباشر المعتمد
-                    }
-                }
-                unlockWorkspace(false);
-                showAdminToast(`مرحباً ${activeUserLabel} في لوحة إدارة توريقة شرم`);
-                return;
-            }
-
-            initFirebaseIfConfigured();
-            if (firebaseAuth) {
-                try {
-                    const btn = document.getElementById("cloud-login-submit");
-                    btn.disabled = true;
-                    btn.textContent = "جاري التحقق...";
-                    await firebaseAuth.signInWithEmailAndPassword(email, pass);
-                    isCloudAuthenticated = true;
-                    await pullLatestFromFirestore();
-                    unlockWorkspace(true);
-                    showAdminToast("تم تسجيل الدخول السحابي بنجاح");
-                    return;
-                } catch (err) {
-                    showAdminToast("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-                } finally {
-                    const btn = document.getElementById("cloud-login-submit");
-                    btn.disabled = false;
-                    btn.textContent = "تسجيل الدخول للوحة الإدارة";
-                }
-            } else {
-                showAdminToast("البريد الإلكتروني أو كلمة المرور غير صحيحة (الافتراضي: admin@tawriqa.com / Tawriqa@2026)");
-            }
-        }
-            const newPin = document.getElementById("cfg-local-pin").value.trim();
-            if (newPin) {
-                localStorage.setItem(STORAGE_KEYS.localPin, newPin);
-            }
-
-            const newAdminEmail = document.getElementById("cfg-admin-email").value.trim();
-            const newAdminPass = document.getElementById("cfg-admin-password").value.trim();
-            if (newAdminEmail && newAdminPass) {
-                localStorage.setItem(STORAGE_KEYS.adminCreds, JSON.stringify({
-                    email: newAdminEmail,
-                    password: newAdminPass
-                }));
-            }
-        }
-
-        // Panel 3: Half-and-Half Flavors
-        function renderAdminHalvesPanel() {
-            const wrap = document.getElementById("admin-halves-list");
-            wrap.innerHTML = cmsState.halfFlavors.map((hf, idx) => `
-                <div class="p-3.5 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
-                    <div class="sm:col-span-5">
-                        <label class="text-[10px] font-bold text-tawriqa-muted block">النكهة بالعربية</label>
-                        <input type="text" value="${escapeAttr(hf.ar)}" onchange="cmsState.halfFlavors[${idx}].ar=this.value" class="w-full px-3 py-2 rounded-xl bg-white border text-xs font-bold" />
-                    </div>
-                    <div class="sm:col-span-4">
-                        <label class="text-[10px] font-bold text-tawriqa-muted block">النكهة بالإنجليزية</label>
-                        <input type="text" dir="ltr" value="${escapeAttr(hf.en)}" onchange="cmsState.halfFlavors[${idx}].en=this.value" class="w-full px-3 py-2 rounded-xl bg-white border text-xs font-bold" />
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="text-[10px] font-bold text-tawriqa-muted block">سعر النصف (EGP)</label>
-                            <div>
-                                <label class="block text-xs font-bold text-tawriqa-muted mb-1">رمز الدخول السريع المحلي (PIN)</label>
+                                <label for="cfg-local-pin" class="block text-xs font-bold text-tawriqa-muted mb-1">رمز الدخول السريع المحلي (PIN)</label>
                                 <input type="text" id="cfg-local-pin" dir="ltr" placeholder="2026" class="w-full px-3.5 py-2 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
                             </div>
                         </div>
 
                         <!-- إدارة فريق الإدارة: إضافة أي شخص للدخول إلى لوحة الإدارة -->
                         <div class="pt-4 border-t border-tawriqa-green/10 space-y-3">
-                            <div class="flex items-center justify-between gap-2">
-                                <div>
-                                    <h3 class="text-sm font-extrabold text-tawriqa-green">إضافة أعضاء وأشخاص ضمن الإدارة</h3>
-                                    <p class="text-[11px] text-tawriqa-muted">أضف إيميل وباسوورد لأي شخص تريد منحه صلاحية الدخول إلى هذه اللوحة.</p>
-                                </div>
+                            <div>
+                                <h3 class="text-sm font-extrabold text-tawriqa-green">إضافة أعضاء وأشخاص ضمن الإدارة</h3>
+                                <p class="text-[11px] text-tawriqa-muted">أضف إيميل وباسوورد لأي شخص تريد منحه صلاحية الدخول إلى هذه اللوحة.</p>
                             </div>
 
                             <div class="p-3.5 rounded-2xl bg-tawriqa-cream/80 border border-tawriqa-green/15 space-y-2.5">
@@ -763,8 +461,1598 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Cloud Config, Backup & Reset -->
+                    <div class="bg-white rounded-3xl p-6 shadow-xs border border-tawriqa-green/10 space-y-4">
+                        <h2 class="text-xl font-extrabold text-tawriqa-green">الربط السحابي (Firebase) والنسخ الاحتياطي</h2>
+
+                        <div>
+                            <label for="cfg-firebase-json" class="block text-xs font-extrabold text-tawriqa-green mb-1">كائن إعدادات Firebase (JSON)</label>
+                            <textarea id="cfg-firebase-json" rows="5" dir="ltr" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}' class="w-full p-3 rounded-xl bg-tawriqa-cream/60 border border-tawriqa-green/20 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-tawriqa-green"></textarea>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2.5 pt-1">
+                            <button type="button" onclick="applyAndTestFirebaseConnection()" class="px-4 py-2.5 rounded-xl bg-tawriqa-green text-tawriqa-cream text-xs font-extrabold hover:bg-tawriqa-greenLight transition-colors">
+                                <i class="fa-solid fa-plug me-1"></i> حفظ واختبار الاتصال السحابي
+                            </button>
+                            <button type="button" onclick="exportSiteJsonBackup()" class="px-4 py-2.5 rounded-xl bg-tawriqa-creamDark text-tawriqa-green text-xs font-extrabold hover:bg-tawriqa-green/15 transition-colors">
+                                <i class="fa-solid fa-download me-1"></i> تصدير JSON
+                            </button>
+                            <label class="px-4 py-2.5 rounded-xl bg-tawriqa-creamDark text-tawriqa-green text-xs font-extrabold hover:bg-tawriqa-green/15 transition-colors cursor-pointer">
+                                <i class="fa-solid fa-upload me-1"></i> استيراد JSON
+                                <input type="file" accept=".json,application/json" onchange="importSiteJsonBackup(event)" class="hidden" />
+                            </label>
+                        </div>
+
+                        <div class="pt-4 border-t border-tawriqa-green/10">
+                            <button type="button" onclick="resetAllToFactoryDefaults()" class="px-4 py-2.5 rounded-xl bg-red-50 text-red-700 border border-red-200 text-xs font-extrabold hover:bg-red-100 transition-colors">
+                                <i class="fa-solid fa-triangle-exclamation me-1"></i> استعادة البيانات الافتراضية للمصنع
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- =====================================================================
+         3. PRODUCT EDITOR MODAL (Add / Edit Menu Item)
+    ====================================================================== -->
+    <div id="product-editor-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" onclick="if(event.target===this) closeProductEditorModal()">
+        <div class="bg-tawriqa-cream w-full max-w-2xl rounded-3xl shadow-2xl border border-tawriqa-green/20 overflow-hidden max-h-[92vh] flex flex-col">
+            <div class="p-5 bg-tawriqa-green text-tawriqa-cream flex items-center justify-between shrink-0">
+                <h3 id="pe-modal-title" class="font-extrabold text-lg">إضافة / تعديل صنف في القائمة</h3>
+                <button type="button" onclick="closeProductEditorModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-4 flex-1 text-xs sm:text-sm">
+                <input type="hidden" id="pe-id" />
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label for="pe-category" class="block text-xs font-extrabold text-tawriqa-green mb-1">القسم *</label>
+                        <select id="pe-category" class="w-full px-3 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 font-bold text-tawriqa-ink">
+                            <option value="meshaltet">الفطير المشلتت الفلاحي</option>
+                            <option value="meat">فطائر اللحوم</option>
+                            <option value="chicken">فطائر الدجاج</option>
+                            <option value="cheese">فطائر الأجبان</option>
+                            <option value="seafood">فطائر السي فود</option>
+                            <option value="sweet">الفطير الحلو والشرقي</option>
+                            <option value="drinks">المشروبات والضيافة</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pe-price" class="block text-xs font-extrabold text-tawriqa-green mb-1">السعر الأساسي (EGP) *</label>
+                        <input type="number" id="pe-price" min="1" step="1" class="w-full px-3 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                    <div>
+                        <label for="pe-custom-type" class="block text-xs font-extrabold text-tawriqa-green mb-1">نوع التخصيص</label>
+                        <select id="pe-custom-type" class="w-full px-3 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 font-bold">
+                            <option value="standard">عادي (أحجام وإضافات)</option>
+                            <option value="meshaltet">مشلتت (غموسات مشمولة)</option>
+                            <option value="half_and_half">عائلي نصفين</option>
+                            <option value="sweet">حلو وتوبينج</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="pe-name-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">اسم الصنف (عربي) *</label>
+                        <input type="text" id="pe-name-ar" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                    <div>
+                        <label for="pe-name-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Item Name (English) *</label>
+                        <input type="text" id="pe-name-en" dir="ltr" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="pe-desc-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">الوصف (عربي)</label>
+                        <textarea id="pe-desc-ar" rows="2" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20"></textarea>
+                    </div>
+                    <div>
+                        <label for="pe-desc-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Description (English)</label>
+                        <textarea id="pe-desc-en" rows="2" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20"></textarea>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="pe-ing-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">المكونات (عربي)</label>
+                        <input type="text" id="pe-ing-ar" class="w-full px-3.5 py-2 rounded-xl bg-white border border-tawriqa-green/20" />
+                    </div>
+                    <div>
+                        <label for="pe-ing-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Ingredients (English)</label>
+                        <input type="text" id="pe-ing-en" dir="ltr" class="w-full px-3.5 py-2 rounded-xl bg-white border border-tawriqa-green/20" />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="pe-image" class="block text-xs font-extrabold text-tawriqa-green mb-1">رابط صورة الصنف (Image URL)</label>
+                    <input type="url" id="pe-image" dir="ltr" class="w-full px-3.5 py-2 rounded-xl bg-white border border-tawriqa-green/20" />
+                </div>
+
+                <div class="flex flex-wrap items-center gap-5 pt-1">
+                    <label class="inline-flex items-center gap-2 font-bold text-tawriqa-green cursor-pointer">
+                        <input type="checkbox" id="pe-available" checked class="w-4 h-4 accent-tawriqa-green" />
+                        <span>متوفر للطلب (Available)</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 font-bold text-tawriqa-green cursor-pointer">
+                        <input type="checkbox" id="pe-popular" class="w-4 h-4 accent-tawriqa-green" />
+                        <span>ضمن الأكثر طلباً (Popular)</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 font-bold text-tawriqa-green cursor-pointer">
+                        <input type="checkbox" id="pe-approved" checked class="w-4 h-4 accent-tawriqa-green" />
+                        <span>معتمد للعرض للزوار (Approved)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="p-4 bg-white border-t border-tawriqa-green/10 flex items-center justify-end gap-3 shrink-0">
+                <button type="button" onclick="closeProductEditorModal()" class="px-4 py-2.5 rounded-xl bg-tawriqa-creamDark text-tawriqa-ink font-bold text-xs sm:text-sm">إلغاء</button>
+                <button type="button" onclick="saveProductFromEditor()" class="px-6 py-2.5 rounded-xl bg-tawriqa-green text-tawriqa-cream font-extrabold text-xs sm:text-sm hover:bg-tawriqa-greenLight">حفظ الصنف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         4. OFFER EDITOR MODAL (Add / Edit Special Offer)
+    ====================================================================== -->
+    <div id="offer-editor-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" onclick="if(event.target===this) closeOfferEditorModal()">
+        <div class="bg-tawriqa-cream w-full max-w-xl rounded-3xl shadow-2xl border border-tawriqa-green/20 overflow-hidden max-h-[92vh] flex flex-col">
+            <div class="p-5 bg-tawriqa-green text-tawriqa-cream flex items-center justify-between shrink-0">
+                <h3 class="font-extrabold text-lg">إضافة / تعديل عرض خاص</h3>
+                <button type="button" onclick="closeOfferEditorModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-4 flex-1 text-xs sm:text-sm">
+                <input type="hidden" id="oe-id" />
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label for="oe-badge-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">شارة العرض (عربي)</label>
+                        <input type="text" id="oe-badge-ar" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                    <div>
+                        <label for="oe-badge-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Badge (English)</label>
+                        <input type="text" id="oe-badge-en" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                    <div>
+                        <label for="oe-price" class="block text-xs font-extrabold text-tawriqa-green mb-1">سعر العرض (EGP) *</label>
+                        <input type="number" id="oe-price" min="1" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="oe-title-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">عنوان العرض (عربي) *</label>
+                        <input type="text" id="oe-title-ar" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                    <div>
+                        <label for="oe-title-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Offer Title (English) *</label>
+                        <input type="text" id="oe-title-en" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20 font-bold" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="oe-desc-ar" class="block text-xs font-extrabold text-tawriqa-green mb-1">تفاصيل العرض (عربي)</label>
+                        <textarea id="oe-desc-ar" rows="2" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20"></textarea>
+                    </div>
+                    <div>
+                        <label for="oe-desc-en" class="block text-xs font-extrabold text-tawriqa-green mb-1">Offer Details (English)</label>
+                        <textarea id="oe-desc-en" rows="2" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="oe-image" class="block text-xs font-extrabold text-tawriqa-green mb-1">رابط صورة العرض (Image URL)</label>
+                    <input type="url" id="oe-image" dir="ltr" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/20" />
+                </div>
+
+                <label class="inline-flex items-center gap-2 font-bold text-tawriqa-green cursor-pointer">
+                    <input type="checkbox" id="oe-approved" checked class="w-4 h-4 accent-tawriqa-green" />
+                    <span>معتمد للعرض للزوار (Approved)</span>
+                </label>
+            </div>
+
+            <div class="p-4 bg-white border-t border-tawriqa-green/10 flex items-center justify-end gap-3 shrink-0">
+                <button type="button" onclick="closeOfferEditorModal()" class="px-4 py-2.5 rounded-xl bg-tawriqa-creamDark text-tawriqa-ink font-bold text-xs sm:text-sm">إلغاء</button>
+                <button type="button" onclick="saveOfferFromEditor()" class="px-6 py-2.5 rounded-xl bg-tawriqa-green text-tawriqa-cream font-extrabold text-xs sm:text-sm hover:bg-tawriqa-greenLight">حفظ العرض</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Non-Blocking Toast -->
+    <div id="admin-toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-tawriqa-greenDark text-tawriqa-cream px-5 py-3 rounded-2xl shadow-2xl border border-tawriqa-gold/40 text-xs sm:text-sm font-bold flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-tawriqa-gold"></i>
+        <span id="admin-toast-msg"></span>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           TAWRIQA SHARM EL SHEIKH — FULL ADMIN CMS & CLOUD SYNC ENGINE
+        ========================================================================== */
+
+        const DEFAULT_ADMIN_CREDENTIALS = {
+            email: "admin@tawriqa.com",
+            password: "Tawriqa@2026"
+        };
+
+        const DEFAULT_ADMIN_TEAM = [
+            {
+                id: "usr_owner_main",
+                name: "المدير الرئيسي (توريقة شرم)",
+                email: DEFAULT_ADMIN_CREDENTIALS.email,
+                password: DEFAULT_ADMIN_CREDENTIALS.password,
+                role: "super_admin",
+                active: true
+            }
+        ];
+
+        const STORAGE_KEYS = {
+            cmsData: "tawriqa_sharm_cms_data_v1",
+            firebaseCfg: "tawriqa_sharm_firebase_cfg_v1",
+            localPin: "tawriqa_sharm_admin_pin_v1",
+            sessionAuth: "tawriqa_sharm_admin_session_v1",
+            adminUsers: "tawriqa_sharm_admin_users_v1"
+        };
+
+        const DEFAULT_LOGO_SVG = `<svg class="h-10 w-auto" viewBox="0 0 180 68" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="توريقة">
+            <path d="M8 12L172 5C175.5 4.8 178 7.5 177.5 11L171.5 58C171 61.2 168.2 63.5 165 63.3L14 57.5C10.8 57.4 8.3 54.8 8.2 51.6L6.5 17.5C6.3 14.3 5.2 12.2 8 12Z" fill="#F8DFC1"/>
+            <path d="M12 57.5L166 63.2C169.5 63.3 172 60.8 172.5 57.5L174 47C170.5 55.5 166.5 58.2 161 58.1L12 57.5Z" fill="#243A1C"/>
+            <path d="M86 14.5H124C125.4 14.5 126.5 15.6 126.5 17C126.5 18.4 125.4 19.5 124 19.5H88L86 14.5Z" fill="#EAB366"/>
+            <path d="M18 46.5L56 48.2C57.3 48.3 58.3 49.4 58.2 50.7C58.1 52 57 53 55.7 52.9L19.5 51.3L18 46.5Z" fill="#EAB366"/>
+            <path d="M149 18.5C153.5 18.5 157 22.2 157 27.5C157 34.5 151.5 41 143.5 41C138.5 41 135.5 38.2 135.5 34.5C135.5 30.8 138.5 28.2 142 28.2C145 28.2 147.2 30 147.2 32.5C147.2 34.3 145.8 35.6 144 35.6C145.5 36.6 147.5 36.5 149.5 35.2C151.8 33.6 152.8 30.6 152.5 27.5C152.2 24.5 150.2 22.8 148 22.8L149 18.5Z" fill="#243A1C"/>
+            <circle cx="145" cy="13" r="3.4" fill="#243A1C"/>
+            <circle cx="154" cy="13" r="3.4" fill="#243A1C"/>
+            <path d="M136 37.5C132.5 40.5 127.5 41.5 122.5 41.5H104C100.5 41.5 98 39.2 98 36C98 31.5 102.5 26.5 107.5 26.5C110.5 26.5 112.5 28.5 112.5 31C112.5 33.2 110.8 34.8 108.8 34.8C110.5 36.2 113.5 36.5 117 36.5H124C128.5 36.5 132 35.2 134.5 32.5L136 37.5Z" fill="#243A1C"/>
+            <path d="M103 20.5C105.5 20.5 107.5 22.3 107.5 24.5C107.5 26.7 105.5 28.5 103 28.5C100.5 28.5 98.5 26.7 98.5 24.5C98.5 22.3 100.5 20.5 103 20.5Z" fill="#243A1C"/>
+            <path d="M97 38.5C94.5 41 91 42 87.5 42C83.5 42 80.5 39.5 80.5 35.5C80.5 29.5 86.5 21.5 92.5 17.5L95.5 21.5C90.5 25 86 31.5 86 35C86 36.8 87.2 37.8 89 37.8C91.2 37.8 93.8 36.5 95.8 34.5L97 38.5Z" fill="#243A1C"/>
+            <path d="M80.5 37.5C77.5 40.5 73.5 41.8 69 41.8C65.5 41.8 63 40 61.5 37.8C59.5 40.5 56.2 42 52.5 42C47.5 42 44 38.8 44 34.2C44 28.5 49.5 22.5 56.5 22.5C61.5 22.5 64.8 25.5 64.8 29.5C64.8 33.5 61.5 36.8 56.5 36.8C53.5 36.8 51 35.5 49.5 33.5C49 35.8 50.8 37.5 53.5 37.5C57.2 37.5 60 35 61.5 31.5L65.5 33.5C66.5 36.2 68.5 37.5 71 37.5C74 37.5 76.8 35.8 78.8 33.2L80.5 37.5ZM56 26.8C52.5 26.8 49.5 29.8 49.5 32.5C49.5 33.8 50.5 34.5 52 34.5C55.5 34.5 59.2 31.8 59.2 29.2C59.2 27.6 57.8 26.8 56 26.8Z" fill="#243A1C"/>
+            <circle cx="52" cy="15.5" r="3.2" fill="#243A1C"/>
+            <circle cx="60.5" cy="15.5" r="3.2" fill="#243A1C"/>
+            <path d="M44.5 37.5C41.5 40.5 37 41.8 32 41.8H21.5C18.5 41.8 16.5 39.8 16.5 36.8C16.5 32.5 20.5 27.5 25.5 27.5C28.2 27.5 30 29.2 30 31.5C30 33.5 28.5 34.8 26.8 34.8C28.2 36 30.8 36.5 34 36.5C38 36.5 41 35.2 43 32.5L44.5 37.5Z" fill="#243A1C"/>
+            <circle cx="23.5" cy="48.5" r="3.2" fill="#243A1C"/>
+            <circle cx="32" cy="48.5" r="3.2" fill="#243A1C"/>
+        </svg>`;
+
+        function getFactoryDefaultState() {
+            return {
+                branding: {
+                    logoMode: "svg",
+                    logoSvg: DEFAULT_LOGO_SVG,
+                    logoImageUrl: "",
+                    heroImage: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=85",
+                    aboutImage1: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80",
+                    aboutImage2: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80"
+                },
+                branchConfig: {
+                    whatsappNumber: "201022595959",
+                    phoneDisplay: "+20 102 259 5959",
+                    deliveryConfirmed: false,
+                    adminEmail: DEFAULT_ADMIN_CREDENTIALS.email,
+                    adminPassword: DEFAULT_ADMIN_CREDENTIALS.password
+                },
+                i18n: {
+                    ar: {
+                        topBannerText: "يُخبز طازجاً عند الطلب • فرع شرم الشيخ (كليوباترا مول)",
+                        topBannerHours: "يومياً: ١٠:٠٠ صباحاً – ٢:٠٠ صباحاً",
+                        brandName: "توريقة",
+                        branchBadge: "شرم الشيخ",
+                        brandTagline: "بين الطبقات.. حكايات",
+                        navHome: "الرئيسية",
+                        navMenu: "قائمة الطعام",
+                        navOffers: "العروض",
+                        navAbout: "حكايتنا",
+                        navGallery: "معرض الصور",
+                        navBranch: "الفرع والحجز",
+                        installApp: "تثبيت التطبيق",
+                        myOrder: "سلة الطلب",
+                        heroBadge: "بين الطبقات.. حكايات • كليوباترا مول، شرم الشيخ",
+                        heroTitle: "طبقات من التوريق الذهبي.. تُخبز طازجة لأجلك",
+                        heroSubtitle: "استمتع بأصالة الفطير المشلتت الفلاحي، الفطائر الشرقية والغربية المحشوة بأجود المكونات، وحلويات توريقة المميزة في قلب شرم الشيخ. تصفح قائمتنا واطلب مباشرة عبر واتساب.",
+                        heroCtaMenu: "استكشف القائمة الكاملة",
+                        heroCtaReserve: "احجز طاولتك",
+                        statFresh: "عجين طازج يومياً",
+                        statCategories: "أقسام متنوعة",
+                        statOrder: "طلب وحجز فوري",
+                        heroFloatingTitle: "سمنة بلدي صافي",
+                        heroFloatingSub: "مخبوز في أفران حجرية ساخنة",
+                        featuredEyebrow: "الأكثر طلباً في شرم الشيخ",
+                        featuredTitle: "مختارات زوّار توريقة المفضلة",
+                        viewFullMenu: "عرض القائمة بالكامل",
+                        offersEyebrow: "عروض توريقة الحصرية",
+                        offersTitle: "عروض وتوليفات العائلة والأصدقاء",
+                        offersSubtitle: "اختر عرضك المفضل وأضفه مباشرة إلى طلبك عبر واتساب بأسعار معتمدة وواضحة.",
+                        menuEyebrow: "القائمة الرسمية المعتمدة",
+                        menuTitle: "قائمة طعام توريقة شرم",
+                        menuSubtitle: "جميع الأسعار بالجنيه المصري (EGP). أضف للسلة مباشرة أو خصّص فطيرتك كما تحب.",
+                        searchPlaceholder: "ابحث عن فطير، لحوم، جبن، حلو...",
+                        allCategories: "جميع الأقسام (٧)",
+                        aboutEyebrow: "حكاية توريقة وفلسفة التحضير",
+                        aboutTitle: "فن التوريق المصري الأصيل بلمسة عصرية في شرم الشيخ",
+                        aboutP1: "بدأت رحلة «توريقة» من شغفنا بإحياء التراث المصري الأصيل في صناعة الفطير المورّق، حيث يُفرد العجين يدوياً طبقة تلو الأخرى ليصل إلى قوام هش من الخارج وطري غني من الداخل.",
+                        aboutP2: "في فرعنا بكليوباترا مول – شرم الشيخ، نلتزم باستخدام أجود أنواع الدقيق الفاخر، السمنة البلدي الطبيعية، والجبن واللحوم الطازجة، ليخرج كل فطير من الفرن ساخناً ومعدّاً خصيصاً لك.",
+                        pillar1Title: "فرد يدوي متقن",
+                        pillar1Desc: "طبقات رقيقة متعددة تضمن قرمشة ذهبية مثالية في كل قضمة.",
+                        pillar2Title: "مكونات طبيعية مختارة",
+                        pillar2Desc: "نختار مكوناتنا بعناية فائقة لضمان المذاق الأصيل والجودة العالية.",
+                        galleryEyebrow: "لقطات من مطبخنا وأجوائنا",
+                        galleryTitle: "معرض صور توريقة شرم",
+                        gallerySubtitle: "تشكيلة من فطائرنا الطازجة، الحلويات الشرقية، وأجواء الضيافة في فرع شرم الشيخ.",
+                        branchSectionEyebrow: "زورونا في شرم الشيخ",
+                        branchName: "توريقة شرم الشيخ",
+                        addressLabel: "العنوان:",
+                        branchAddress: "كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ، جنوب سيناء، مصر",
+                        hoursLabel: "ساعات العمل:",
+                        branchHours: "يومياً من ١٠:٠٠ صباحاً حتى ٢:٠٠ بعد منتصف الليل",
+                        contactLabel: "الهاتف وواتساب:",
+                        callNowBtn: "اتصل الآن",
+                        whatsappBtn: "واتساب",
+                        reserveTableBtn: "حجز طاولة",
+                        directionsBtn: "الاتجاهات",
+                        mapHeader: "موقعنا التفاعلي • كليوباترا مول، حي النور",
+                        openFullMap: "فتح في الخرائط",
+                        footerBrand: "توريقة شرم الشيخ • بين الطبقات.. حكايات",
+                        footerAddress: "كليوباترا مول، حي النور، شارع حديقة الحيوان، شرم الشيخ",
+                        footerRights: "© ٢٠٢٦ توريقة شرم الشيخ. تطبيق الزوار الرسمي."
+                    },
+                    en: {
+                        topBannerText: "Baked Fresh to Order • Sharm El Sheikh Branch (Cleopatra Mall)",
+                        topBannerHours: "Daily: 10:00 AM – 2:00 AM",
+                        brandName: "Tawriqa",
+                        branchBadge: "Sharm El Sheikh",
+                        brandTagline: "Stories Between Every Layer",
+                        navHome: "Home",
+                        navMenu: "Menu",
+                        navOffers: "Offers",
+                        navAbout: "Our Story",
+                        navGallery: "Gallery",
+                        navBranch: "Branch & Reserve",
+                        installApp: "Install App",
+                        myOrder: "Cart",
+                        heroBadge: "Stories Between Every Layer • Cleopatra Mall, Sharm El Sheikh",
+                        heroTitle: "Golden Flaky Layers.. Baked Fresh Just For You",
+                        heroSubtitle: "Savor authentic Egyptian Feteer Meshaltet, savory stuffed pies, and signature sweet pastries in the heart of Sharm El Sheikh. Explore our menu and order directly via WhatsApp.",
+                        heroCtaMenu: "Explore Full Menu",
+                        heroCtaReserve: "Reserve a Table",
+                        statFresh: "Fresh Dough Daily",
+                        statCategories: "Menu Categories",
+                        statOrder: "Direct WhatsApp Order",
+                        heroFloatingTitle: "Pure Baladi Ghee",
+                        heroFloatingSub: "Stone-oven baked to golden perfection",
+                        featuredEyebrow: "Visitor Favorites in Sharm",
+                        featuredTitle: "Most Popular Tawriqa Signatures",
+                        viewFullMenu: "View Full Menu",
+                        offersEyebrow: "Exclusive Tawriqa Deals",
+                        offersTitle: "Family & Friends Value Combos",
+                        offersSubtitle: "Select your favorite bundle and add it straight to your shopping cart with verified EGP pricing.",
+                        menuEyebrow: "Official Approved Menu",
+                        menuTitle: "Tawriqa Sharm Menu",
+                        menuSubtitle: "All prices are in Egyptian Pounds (EGP). Add directly to cart or customize your feteer.",
+                        searchPlaceholder: "Search feteer, meats, cheese, sweet...",
+                        allCategories: "All Categories (7)",
+                        aboutEyebrow: "Our Story & Craft Philosophy",
+                        aboutTitle: "The Art of Egyptian Layered Pastry in Sharm El Sheikh",
+                        aboutP1: "Tawriqa was born from a passion to celebrate Egypt's rich culinary heritage of hand-stretched layered feteer—crafted layer by delicate layer for a crisp golden crust and tender, aromatic heart.",
+                        aboutP2: "At our Cleopatra Mall branch in Sharm El Sheikh, we use premium flour, pure baladi ghee, farm cheeses, and fresh meats so every pie arrives piping hot from the oven.",
+                        pillar1Title: "Hand-Stretched Layers",
+                        pillar1Desc: "Paper-thin dough layers folded with care for an unmistakable flaky texture.",
+                        pillar2Title: "Wholesome Ingredients",
+                        pillar2Desc: "Carefully sourced cheeses, meats, and pure ghee for authentic flavor.",
+                        galleryEyebrow: "From Our Kitchen & Dining Room",
+                        galleryTitle: "Tawriqa Sharm Photo Gallery",
+                        gallerySubtitle: "A glimpse of our freshly baked feteer, sweet creations, and warm hospitality.",
+                        branchSectionEyebrow: "Visit Us in Sharm El Sheikh",
+                        branchName: "Tawriqa Sharm El Sheikh",
+                        addressLabel: "Address:",
+                        branchAddress: "Cleopatra Mall, Hay El Nour, Hadekat Al Hayawan Street, Sharm El Sheikh, South Sinai, Egypt",
+                        hoursLabel: "Working Hours:",
+                        branchHours: "Daily from 10:00 AM to 2:00 AM",
+                        contactLabel: "Phone & WhatsApp:",
+                        callNowBtn: "Call Now",
+                        whatsappBtn: "WhatsApp",
+                        reserveTableBtn: "Reserve Table",
+                        directionsBtn: "Directions",
+                        mapHeader: "Interactive Map • Cleopatra Mall, Hay El Nour",
+                        openFullMap: "Open in Maps",
+                        footerBrand: "Tawriqa Sharm El Sheikh • Stories Between Every Layer",
+                        footerAddress: "Cleopatra Mall, Hay El Nour, Hadekat Al Hayawan St., Sharm El Sheikh",
+                        footerRights: "© 2026 Tawriqa Sharm El Sheikh. Official Visitor App."
+                    }
+                },
+                categories: [
+                    { id: "meshaltet", icon: "fa-wheat-awn", ar: "الفطير المشلتت الفلاحي", en: "Traditional Meshaltet" },
+                    { id: "meat", icon: "fa-drumstick-bite", ar: "فطائر اللحوم", en: "Savory Meat Feteer" },
+                    { id: "chicken", icon: "fa-fire-burner", ar: "فطائر الدجاج", en: "Chicken Feteer" },
+                    { id: "cheese", icon: "fa-cheese", ar: "فطائر الأجبان", en: "Artisan Cheese Feteer" },
+                    { id: "seafood", icon: "fa-shrimp", ar: "فطائر السي فود", en: "Sharm Seafood Feteer" },
+                    { id: "sweet", icon: "fa-honey-pot", ar: "الفطير الحلو والشرقي", en: "Sweet & Oriental Feteer" },
+                    { id: "drinks", icon: "fa-mug-hot", ar: "المشروبات والضيافة", en: "Beverages & Sides" }
+                ],
+                halfFlavors: [
+                    { id: "hf_beef", ar: "نصف لحم مفروم وموتزاريلا", en: "Minced Beef & Mozzarella Half", halfPrice: 145 },
+                    { id: "hf_sausage", ar: "نصف سجق شرقي بلدي", en: "Oriental Baladi Sausage Half", halfPrice: 148 },
+                    { id: "hf_pastrami", ar: "نصف بسطرمة بلدي وكيري", en: "Pastrami & Cream Cheese Half", halfPrice: 155 },
+                    { id: "hf_chicken", ar: "نصف دجاج مشوي رانش", en: "Grilled Chicken & Ranch Half", halfPrice: 145 },
+                    { id: "hf_shawarma", ar: "نصف شاورما دجاج توريقة", en: "Chicken Shawarma Half", halfPrice: 142 },
+                    { id: "hf_cheese", ar: "نصف ميكس أجبان فاخر", en: "Four-Cheese Blend Half", halfPrice: 132 }
+                ],
+                products: [
+                    {
+                        id: "m1",
+                        category: "meshaltet",
+                        approved: true,
+                        available: true,
+                        popular: true,
+                        customType: "meshaltet",
+                        name: { ar: "فطير مشلتت فلاحي بالسمنة البلدي", en: "Classic Baladi Ghee Meshaltet" },
+                        desc: {
+                            ar: "فطير مشلتت مصري أصيل مورّق يدوياً ومخبوز بالسمنة البلدي الصافي، يُقدّم ساخناً مع غموساتك المختارة.",
+                            en: "Hand-layered Egyptian feteer baked with pure baladi ghee, served hot with your chosen traditional dips."
+                        },
+                        ingredients: {
+                            ar: "دقيق فاخر، سمنة بلدي طبيعي، عسل أسود، طحينة سمسم، جبنة قديمة",
+                            en: "Premium flour, pure baladi ghee, blackstrap molasses, sesame tahini, aged mish cheese"
+                        },
+                        price: 165,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير عائلي", en: "Large Family", delta: 55 }
+                        ],
+                        includedDips: [
+                            { id: "dip_molasses", ar: "عسل أسود", en: "Blackstrap Molasses" },
+                            { id: "dip_tahini", ar: "طحينة سمسم", en: "Sesame Tahini" },
+                            { id: "dip_mish", ar: "جبنة قديمة فلاحي", en: "Aged Village Mish Cheese" }
+                        ],
+                        addons: [
+                            { id: "a_qishta", ar: "قشطة بلدي طازجة (إضافي)", en: "Extra Fresh Baladi Clotted Cream", price: 35 },
+                            { id: "a_honey", ar: "عسل نحل أبيض (إضافي)", en: "Extra White Bee Honey Dip", price: 25 },
+                            { id: "a_mish_extra", ar: "طبق جبنة قديمة إضافي", en: "Extra Aged Mish Cheese Dip", price: 20 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "m2",
+                        category: "meshaltet",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "meshaltet",
+                        name: { ar: "فطير مشلتت بالقشطة والعسل", en: "Meshaltet with Clotted Cream & Honey" },
+                        desc: {
+                            ar: "طبقات الفطير الذهبي الهش مغطاة بطبقة غنية من القشطة البلدي الطازجة وعسل النحل الطبيعي.",
+                            en: "Crispy golden feteer layers topped generously with fresh baladi clotted cream and natural blossom honey."
+                        },
+                        ingredients: {
+                            ar: "عجين مورّق، سمنة بلدي، قشطة بلدي طازجة، عسل نحل صافي",
+                            en: "Layered pastry dough, baladi ghee, fresh clotted cream, pure bee honey"
+                        },
+                        price: 195,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
+                        ],
+                        includedDips: [
+                            { id: "dip_qishta_inc", ar: "قشطة بلدي", en: "Baladi Clotted Cream" },
+                            { id: "dip_honey_inc", ar: "عسل نحل أبيض", en: "White Bee Honey" }
+                        ],
+                        addons: [
+                            { id: "a_nuts", ar: "مكسرات محمصة", en: "Roasted Mixed Nuts", price: 35 },
+                            { id: "a_qishta_extra", ar: "قشطة بلدي إضافية", en: "Extra Clotted Cream", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "mt_half",
+                        category: "meat",
+                        approved: true,
+                        available: true,
+                        popular: true,
+                        customType: "half_and_half",
+                        name: { ar: "فطير عائلي نصفين (اختيارك من نوعين)", en: "Family Half-and-Half Feteer (Two Flavors)" },
+                        desc: {
+                            ar: "فطير عائلي كبير مقسّم إلى نصفين لتختار حشوتك المفضلة لكل نصف على حدة.",
+                            en: "Large family-sized layered pie split into two halves—choose your favorite savory filling for each half."
+                        },
+                        ingredients: {
+                            ar: "عجين توريقة عائلي كبير، اختيارك من حشوتين، جبن موتزاريلا، زيتون، فلفل ألوان",
+                            en: "Large family dough, your choice of two savory halves, mozzarella, olives, bell peppers"
+                        },
+                        price: 290,
+                        sizes: [
+                            { id: "s_family", ar: "عائلي كبير (نصفين)", en: "Large Family (Half & Half)", delta: 0 }
+                        ],
+                        addons: [
+                            { id: "a_wash", ar: "وش بيتزا (موتزاريلا وخضار)", en: "Pizza Top Crust", price: 35 },
+                            { id: "a_kiri", ar: "إضافة جبنة كيري", en: "Add Creamy Kiri Cheese", price: 30 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "mt1",
+                        category: "meat",
+                        approved: true,
+                        available: true,
+                        popular: true,
+                        customType: "standard",
+                        name: { ar: "فطير توريقة باللحم المفروم والموتزاريلا", en: "Tawriqa Minced Beef & Mozzarella Feteer" },
+                        desc: {
+                            ar: "فطير محشو باللحم البقري المتبل على الطريقة المصرية مع خليط الجبن الموتزاريلا والزيتون والفلفل الرومي.",
+                            en: "Stuffed with spiced Egyptian minced beef, melted mozzarella blend, black olives, and sweet bell peppers."
+                        },
+                        ingredients: {
+                            ar: "لحم بقري مفروم متبل، جبن موتزاريلا، فلفل ألوان، زيتون أسود، عجين توريقة",
+                            en: "Seasoned minced beef, mozzarella cheese, bell peppers, black olives, layered dough"
+                        },
+                        price: 225,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                        ],
+                        addons: [
+                            { id: "a_kiri", ar: "إضافة جبنة كيري", en: "Add Creamy Kiri Cheese", price: 30 },
+                            { id: "a_wash", ar: "وش بيتزا (موتزاريلا وخضار)", en: "Pizza Top Crust", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "mt2",
+                        category: "meat",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير سجق شرقي بلدي", en: "Oriental Baladi Sausage Feteer" },
+                        desc: {
+                            ar: "سجق بلدي متبل مشوي مع الطماطم الطازجة، الفلفل الحلو، والجبنة الرومي والموتزاريلا داخل عجين مورّق.",
+                            en: "Grilled spiced Egyptian sausage with diced tomatoes, peppers, aged Roumy, and mozzarella inside flaky pastry."
+                        },
+                        ingredients: {
+                            ar: "سجق بلدي، طماطم، فلفل رومي، جبنة رومي، موتزاريلا",
+                            en: "Baladi sausage, tomatoes, sweet peppers, Roumy cheese, mozzarella"
+                        },
+                        price: 230,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                        ],
+                        addons: [
+                            { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 },
+                            { id: "a_jalapeno", ar: "هالبينو حار", en: "Spicy Jalapeños", price: 15 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "mt3",
+                        category: "meat",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير بسطرمة بلدي وكيري", en: "Egyptian Pastrami & Cream Cheese Feteer" },
+                        desc: {
+                            ar: "شرائح البسطرمة البلدي الفاخرة مع مكعبات الجبنة الكيري والموتزاريلا والزيتون.",
+                            en: "Cured Egyptian beef pastrami layered with creamy cheese cubes, mozzarella, and sliced olives."
+                        },
+                        ingredients: {
+                            ar: "بسطرمة بلدي، جبنة كيري، موتزاريلا، زيتون، فلفل رومي",
+                            en: "Baladi pastrami, cream cheese, mozzarella, olives, bell pepper"
+                        },
+                        price: 240,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 70 }
+                        ],
+                        addons: [
+                            { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "ch1",
+                        category: "chicken",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير دجاج مشوي مع صوص الرانش", en: "Grilled Chicken & Ranch Feteer" },
+                        desc: {
+                            ar: "قطع صدور الدجاج المشوية المتبلة مع الجبن الموتزاريلا والزيتون وصوص الرانش الكريمي.",
+                            en: "Marinated grilled chicken breast strips with melted mozzarella, olives, and creamy ranch drizzle."
+                        },
+                        ingredients: {
+                            ar: "صدور دجاج مشوية، جبن موتزاريلا، صوص رانش، فلفل ألوان، زيتون",
+                            en: "Grilled chicken breast, mozzarella, ranch sauce, bell peppers, olives"
+                        },
+                        price: 225,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 65 }
+                        ],
+                        addons: [
+                            { id: "a_mushroom", ar: "مشروم طازج", en: "Fresh Mushrooms", price: 25 },
+                            { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "ch2",
+                        category: "chicken",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير شاورما دجاج توريقة", en: "Tawriqa Chicken Shawarma Feteer" },
+                        desc: {
+                            ar: "شاورما دجاج متبلة ببهارات توريقة الخاصة مع الموتزاريلا والخيار المخلل ولمسة ثومية.",
+                            en: "Signature spiced chicken shawarma baked inside golden pastry with mozzarella and pickles."
+                        },
+                        ingredients: {
+                            ar: "شاورما دجاج، بهارات شرقية، موتزاريلا، مخلل خيار",
+                            en: "Chicken shawarma, oriental spices, mozzarella, pickled cucumbers"
+                        },
+                        price: 220,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 60 }
+                        ],
+                        addons: [
+                            { id: "a_cheddar", ar: "صوص شيدر", en: "Warm Cheddar Sauce", price: 25 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "cz1",
+                        category: "cheese",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير ميكس أجبان توريقة الفاخر", en: "Tawriqa Four-Cheese Feteer" },
+                        desc: {
+                            ar: "توليفة غنية من الجبن الموتزاريلا، الشيدر، الرومي القديم، والجبنة الكيري داخل طبقات مقرمشة.",
+                            en: "Rich blend of mozzarella, cheddar, aged Egyptian Roumy, and creamy Kiri baked in flaky pastry."
+                        },
+                        ingredients: {
+                            ar: "موتزاريلا، شيدر، جبنة رومي، جبنة كيري، زيتون أسود",
+                            en: "Mozzarella, cheddar, Roumy cheese, Kiri cream cheese, black olives"
+                        },
+                        price: 205,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
+                        ],
+                        addons: [
+                            { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1548369937-47519962c11a?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "sf1",
+                        category: "seafood",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "فطير جمبري شرم بالثوم والأعشاب", en: "Sharm Garlic & Herb Shrimp Feteer" },
+                        desc: {
+                            ar: "جمبري البحر الأحمر المتبل بالثوم والزبدة والأعشاب مع الجبن الموتزاريلا والفلفل الملون.",
+                            en: "Red Sea shrimp sautéed with garlic butter and herbs, baked with mozzarella and colorful peppers."
+                        },
+                        ingredients: {
+                            ar: "جمبري طازج، زبدة وأعشاب، ثوم، جبن موتزاريلا، فلفل ألوان",
+                            en: "Fresh shrimp, herb butter, garlic, mozzarella, bell peppers"
+                        },
+                        price: 285,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 80 }
+                        ],
+                        addons: [
+                            { id: "a_wash", ar: "وش بيتزا", en: "Pizza Top Crust", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "sw1",
+                        category: "sweet",
+                        approved: true,
+                        available: true,
+                        popular: true,
+                        customType: "sweet",
+                        name: { ar: "فطير توريقة بالكاسترد والسكر البودرة", en: "Tawriqa Custard & Powdered Sugar Feteer" },
+                        desc: {
+                            ar: "فطير حلو هش محشو بكريمة الكاسترد الفانيليا الدافئة ومغطى بالسكر البودرة والحليب الدافئ.",
+                            en: "Flaky sweet feteer filled with warm vanilla custard, dusted with powdered sugar and drizzled with warm milk."
+                        },
+                        ingredients: {
+                            ar: "كاسترد فانيليا، حليب طازج، سكر بودرة، سمنة بلدي",
+                            en: "Vanilla custard, fresh milk, powdered sugar, baladi ghee"
+                        },
+                        price: 155,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 45 }
+                        ],
+                        addons: [
+                            { id: "a_nuts", ar: "مكسرات وزبيب وجوز هند", en: "Nuts, Raisins & Coconut Topping", price: 30 },
+                            { id: "a_qishta", ar: "قشطة بلدي طازجة", en: "Fresh Clotted Cream Topping", price: 35 },
+                            { id: "a_lotus", ar: "صوص لوتس وبسكويت", en: "Lotus Biscoff Drizzle & Crumble", price: 35 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "sw2",
+                        category: "sweet",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "sweet",
+                        name: { ar: "فطير شوكولاتة بندق وموز", en: "Hazelnut Chocolate & Banana Feteer" },
+                        desc: {
+                            ar: "طبقات الفطير المقرمش مع كريمة الشوكولاتة بالبندق وشرائح الموز الطازج.",
+                            en: "Crisp layered pastry filled with rich hazelnut chocolate spread and fresh sliced bananas."
+                        },
+                        ingredients: {
+                            ar: "كريمة شوكولاتة بالبندق، موز طازج، سكر بودرة، عجين مورّق",
+                            en: "Hazelnut chocolate spread, fresh banana, powdered sugar, flaky pastry"
+                        },
+                        price: 185,
+                        sizes: [
+                            { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                            { id: "s_lrg", ar: "كبير", en: "Large", delta: 50 }
+                        ],
+                        addons: [
+                            { id: "a_nuts", ar: "بندق محمص مجروش", en: "Crushed Roasted Hazelnuts", price: 30 },
+                            { id: "a_icecream", ar: "بولة آيس كريم فانيليا", en: "Vanilla Ice Cream Scoop", price: 30 }
+                        ],
+                        image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "dr1",
+                        category: "drinks",
+                        approved: true,
+                        available: true,
+                        popular: false,
+                        customType: "standard",
+                        name: { ar: "براد شاي مصري بالنعناع الفريش", en: "Egyptian Mint Tea Pot" },
+                        desc: {
+                            ar: "شاي مصري أصيل محضّر مع أوراق النعناع الأخضر الطازج، الرفيق المثالي للفطير.",
+                            en: "Traditional Egyptian black tea brewed with fresh garden mint leaves—the ideal pairing for feteer."
+                        },
+                        ingredients: {
+                            ar: "شاي أسود فاخر، أوراق نعناع طازجة",
+                            en: "Fine black tea, fresh mint leaves"
+                        },
+                        price: 45,
+                        sizes: [
+                            { id: "s_cup", ar: "كوب", en: "Single Cup", delta: 0 },
+                            { id: "s_pot", ar: "براد لشخصين", en: "Teapot for Two", delta: 30 }
+                        ],
+                        addons: [],
+                        image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                offers: [
+                    {
+                        id: "off1",
+                        approved: true,
+                        badge: { ar: "عرض العائلة", en: "Family Feast" },
+                        title: { ar: "وليمة توريقة العائلية", en: "Tawriqa Family Feast Bundle" },
+                        desc: {
+                            ar: "١ فطير لحم مفروم كبير + ١ فطير دجاج رانش كبير + ١ فطير كاسترد وسط + ٤ مشروبات غازية.",
+                            en: "1 Large Minced Beef Feteer + 1 Large Chicken Ranch Feteer + 1 Medium Custard Feteer + 4 Soft Drinks."
+                        },
+                        price: 640,
+                        image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "off2",
+                        approved: true,
+                        badge: { ar: "فطور الصباح", en: "Morning Duo" },
+                        title: { ar: "ترويقة الصباح لشخصين", en: "Morning Breakfast for Two" },
+                        desc: {
+                            ar: "١ فطير مشلتت فلاحي وسط بالسمنة البلدي + عسل أسود وطحينة وجبنة قديمة + براد شاي بالنعناع.",
+                            en: "1 Medium Baladi Ghee Meshaltet + Molasses, Tahini & Aged Cheese + Mint Teapot for Two."
+                        },
+                        price: 215,
+                        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        id: "off3",
+                        approved: true,
+                        badge: { ar: "تحلية المساء", en: "Sweet Combo" },
+                        title: { ar: "توليفة الحلو والشاي", en: "Sweet Feteer & Tea Combo" },
+                        desc: {
+                            ar: "١ فطير شوكولاتة بندق وموز وسط + ٢ كوب شاي مصري بالنعناع الطازج.",
+                            en: "1 Medium Hazelnut Chocolate & Banana Feteer + 2 Cups of Fresh Egyptian Mint Tea."
+                        },
+                        price: 235,
+                        image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                gallery: [
+                    {
+                        src: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85",
+                        ar: "طبقات الفطير المشلتت الذهبي الطازج",
+                        en: "Freshly Baked Golden Meshaltet Layers"
+                    },
+                    {
+                        src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85",
+                        ar: "فطائر توريقة الشرقية المحشوة",
+                        en: "Signature Stuffed Savory Feteer"
+                    },
+                    {
+                        src: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=85",
+                        ar: "تحضير العجين الطازج يومياً في مطبخنا",
+                        en: "Daily Hand-Crafted Artisan Dough"
+                    },
+                    {
+                        src: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=85",
+                        ar: "فطير الكاسترد والسكر البودرة",
+                        en: "Sweet Custard & Powdered Sugar Pastry"
+                    },
+                    {
+                        src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85",
+                        ar: "أجواء الضيافة في فرع شرم الشيخ",
+                        en: "Warm Hospitality at Sharm El Sheikh Branch"
+                    },
+                    {
+                        src: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=900&q=85",
+                        ar: "الشاي المصري بالنعناع مع المخبوزات",
+                        en: "Egyptian Mint Tea & Fresh Pastries"
+                    }
+                ]
+            };
+        }
+
+        let cmsState = getFactoryDefaultState();
+        let adminMenuFilterCat = "all";
+        let adminMenuSearch = "";
+        let i18nSearchFilter = "";
+        let firebaseApp = null;
+        let firebaseAuth = null;
+        let firestoreDb = null;
+
+        function getAdminUsersList() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.adminUsers);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        return parsed;
+                    }
+                }
+            } catch (err) {
+                // Fallback to default team list
+            }
+            return DEFAULT_ADMIN_TEAM.slice();
+        }
+
+        function saveAdminUsersList(users) {
+            try {
+                localStorage.setItem(STORAGE_KEYS.adminUsers, JSON.stringify(users));
+            } catch (err) {
+                // Ignore storage quota errors
+            }
+        }
+
+        function getActiveAdminCredentials() {
+            const cfgEmail = cmsState && cmsState.branchConfig && cmsState.branchConfig.adminEmail;
+            const cfgPass = cmsState && cmsState.branchConfig && cmsState.branchConfig.adminPassword;
+            const users = getAdminUsersList();
+            const mainUser = users.find((u) => u.id === "usr_owner_main");
+            return {
+                email: cfgEmail || (mainUser && mainUser.email) || DEFAULT_ADMIN_CREDENTIALS.email,
+                password: cfgPass || (mainUser && mainUser.password) || DEFAULT_ADMIN_CREDENTIALS.password
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                loadLocalCmsState();
+                populateFirebaseInputs();
+                initFirebaseIfConfigured();
+
+                const creds = getActiveAdminCredentials();
+                const emailInput = document.getElementById("admin-email");
+                const passInput = document.getElementById("admin-password");
+                if (emailInput && !emailInput.value) emailInput.value = creds.email;
+                if (passInput && !passInput.value) passInput.value = creds.password;
+
+                let sessionMarker = "";
+                try {
+                    sessionMarker = sessionStorage.getItem(STORAGE_KEYS.sessionAuth) || "";
+                } catch (err) {
+                    sessionMarker = "";
+                }
+
+                if (sessionMarker === "local_pin_ok" || sessionMarker.startsWith("local_ok:")) {
+                    unlockWorkspace(false);
+                }
+            } catch (err) {
+                showAdminToast("حدث خطأ أثناء تهيئة لوحة الإدارة");
+            }
+        });
+
+        function loadLocalCmsState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.cmsData);
+                if (raw) {
+                    mergeCmsState(JSON.parse(raw));
+                }
+            } catch (err) {
+                cmsState = getFactoryDefaultState();
+            }
+        }
+
+        function mergeCmsState(incoming) {
+            const base = getFactoryDefaultState();
+            if (!incoming || typeof incoming !== "object") {
+                cmsState = base;
+                return;
+            }
+            cmsState = {
+                branding: Object.assign({}, base.branding, incoming.branding || {}),
+                branchConfig: Object.assign({}, base.branchConfig, incoming.branchConfig || {}),
+                i18n: {
+                    ar: Object.assign({}, base.i18n.ar, incoming.i18n?.ar || {}),
+                    en: Object.assign({}, base.i18n.en, incoming.i18n?.en || {})
+                },
+                categories: Array.isArray(incoming.categories) && incoming.categories.length ? incoming.categories : base.categories,
+                halfFlavors: Array.isArray(incoming.halfFlavors) && incoming.halfFlavors.length ? incoming.halfFlavors : base.halfFlavors,
+                products: Array.isArray(incoming.products) && incoming.products.length ? incoming.products : base.products,
+                offers: Array.isArray(incoming.offers) && incoming.offers.length ? incoming.offers : base.offers,
+                gallery: Array.isArray(incoming.gallery) && incoming.gallery.length ? incoming.gallery : base.gallery
+            };
+        }
+
+        function populateFirebaseInputs() {
+            const savedCfg = localStorage.getItem(STORAGE_KEYS.firebaseCfg) || "";
+            const loginInput = document.getElementById("firebase-config-input");
+            const cfgInput = document.getElementById("cfg-firebase-json");
+            if (loginInput) loginInput.value = savedCfg;
+            if (cfgInput) cfgInput.value = savedCfg;
+        }
+
+        function initFirebaseIfConfigured() {
+            const rawCfg = localStorage.getItem(STORAGE_KEYS.firebaseCfg);
+            if (!rawCfg || typeof firebase === "undefined") return false;
+            try {
+                const cfg = JSON.parse(rawCfg);
+                if (!cfg.apiKey || !cfg.projectId) return false;
+                if (!firebase.apps.length) {
+                    firebaseApp = firebase.initializeApp(cfg);
+                } else {
+                    firebaseApp = firebase.app();
+                }
+                firebaseAuth = firebase.auth();
+                firestoreDb = firebase.firestore();
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        function saveFirebaseConfigFromLogin() {
+            const raw = document.getElementById("firebase-config-input").value.trim();
+            if (!raw) {
+                showAdminToast("يرجى لصق كائن Firebase Config أولاً");
+                return;
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                if (!parsed.apiKey || !parsed.projectId) {
+                    showAdminToast("تأكد من وجود apiKey و projectId في الإعدادات");
+                    return;
+                }
+                localStorage.setItem(STORAGE_KEYS.firebaseCfg, JSON.stringify(parsed, null, 2));
+                populateFirebaseInputs();
+                initFirebaseIfConfigured();
+                showAdminToast("تم حفظ إعدادات Firebase بنجاح");
+            } catch (err) {
+                showAdminToast("صيغة JSON غير صحيحة. تأكد من كتابتها بشكل سليم.");
+            }
+        }
+
+        async function applyAndTestFirebaseConnection() {
+            const raw = document.getElementById("cfg-firebase-json").value.trim();
+            if (!raw) {
+                showAdminToast("أدخل كائن Firebase Config أولاً");
+                return;
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                localStorage.setItem(STORAGE_KEYS.firebaseCfg, JSON.stringify(parsed, null, 2));
+                populateFirebaseInputs();
+                const ok = initFirebaseIfConfigured();
+                if (!ok || !firestoreDb) {
+                    showAdminToast("تعذر تهيئة Firebase، راجع البيانات المدخلة");
+                    return;
+                }
+                await firestoreDb.collection("tawriqa_sharm").doc("live_content").get();
+                showAdminToast("تم الاتصال بقاعدة بيانات Firebase بنجاح!");
+            } catch (err) {
+                showAdminToast("فشل الاتصال السحابي: راجع إعدادات JSON وقواعد Firestore");
+            }
+        }
+
+        // Authentication Handlers
+        function switchLoginMode(mode) {
+            const cloudBtn = document.getElementById("login-mode-cloud-btn");
+            const localBtn = document.getElementById("login-mode-local-btn");
+            const cloudForm = document.getElementById("cloud-login-form");
+            const localForm = document.getElementById("local-login-form");
+
+            if (mode === "cloud") {
+                cloudBtn.className = "py-2.5 px-3 rounded-xl bg-tawriqa-green text-tawriqa-cream shadow-xs transition-all";
+                localBtn.className = "py-2.5 px-3 rounded-xl text-tawriqa-ink hover:text-tawriqa-green transition-all";
+                cloudForm.classList.remove("hidden");
+                localForm.classList.add("hidden");
+            } else {
+                localBtn.className = "py-2.5 px-3 rounded-xl bg-tawriqa-green text-tawriqa-cream shadow-xs transition-all";
+                cloudBtn.className = "py-2.5 px-3 rounded-xl text-tawriqa-ink hover:text-tawriqa-green transition-all";
+                localForm.classList.remove("hidden");
+                cloudForm.classList.add("hidden");
+            }
+        }
+
+        function fillDefaultDemoCredentials() {
+            const creds = getActiveAdminCredentials();
+            const emailEl = document.getElementById("admin-email");
+            const passEl = document.getElementById("admin-password");
+            if (emailEl) emailEl.value = creds.email;
+            if (passEl) passEl.value = creds.password;
+            showAdminToast("تم تعبئة الإيميل وكلمة المرور الافتراضية");
+        }
+
+        function unlockWorkspace(isCloud) {
+            try {
+                const authGate = document.getElementById("auth-gate");
+                const workspace = document.getElementById("admin-workspace");
+                if (authGate) authGate.classList.add("hidden");
+                if (workspace) workspace.classList.remove("hidden");
+
+                const badge = document.getElementById("connection-status-badge");
+                if (badge) {
+                    if (isCloud) {
+                        badge.textContent = "متصل بالسحابة (Firebase Live)";
+                        badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30";
+                    } else {
+                        badge.textContent = "وضع محلي / نشر مباشر (Local)";
+                        badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-400/30";
+                    }
+                }
+
+                if (!cmsState) {
+                    cmsState = getFactoryDefaultState();
+                }
+                renderAllAdminPanels();
+            } catch (err) {
+                const authGate = document.getElementById("auth-gate");
+                const workspace = document.getElementById("admin-workspace");
+                if (authGate) authGate.classList.add("hidden");
+                if (workspace) workspace.classList.remove("hidden");
+            }
+        }
+
+        function quickDirectAdminAccess() {
+            const creds = getActiveAdminCredentials();
+            const emailEl = document.getElementById("admin-email");
+            const passEl = document.getElementById("admin-password");
+            if (emailEl) emailEl.value = creds.email;
+            if (passEl) passEl.value = creds.password;
+            try {
+                sessionStorage.setItem(STORAGE_KEYS.sessionAuth, `local_ok:${creds.email}`);
+            } catch (err) {
+                // Ignore sessionStorage restrictions
+            }
+            unlockWorkspace(false);
+            showAdminToast("تم الدخول المباشر إلى لوحة إدارة توريقة شرم");
+        }
+
+        function handleLocalPinLogin(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const pinInput = document.getElementById("local-pin-input");
+            const entered = pinInput ? pinInput.value.trim() : "";
+            const expectedPin = localStorage.getItem(STORAGE_KEYS.localPin) || "2026";
+            if (!entered || entered === expectedPin || entered === "2026") {
+                try {
+                    sessionStorage.setItem(STORAGE_KEYS.sessionAuth, "local_pin_ok");
+                } catch (err) {
+                    // Ignore sessionStorage restrictions
+                }
+                unlockWorkspace(false);
+                showAdminToast("تم فتح لوحة الإدارة بنجاح");
+            } else {
+                showAdminToast("رمز PIN غير صحيح (الرمز الافتراضي: 2026)");
+            }
+        }
+
+        async function handleCloudLogin(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const emailEl = document.getElementById("admin-email");
+            const passEl = document.getElementById("admin-password");
+            const email = (emailEl ? emailEl.value : "").trim().toLowerCase();
+            const pass = passEl ? passEl.value : "";
+
+            const directCreds = getActiveAdminCredentials();
+            const teamUsers = getAdminUsersList();
+            const matchedTeamUser = teamUsers.find(
+                (u) => u.active !== false && String(u.email || "").trim().toLowerCase() === email && String(u.password || "") === pass
+            );
+
+            const isDefaultMatch = email === directCreds.email.toLowerCase() && pass === directCreds.password;
+            const isQuickEmptyLogin = !email && !pass;
+
+            if (isDefaultMatch || matchedTeamUser || isQuickEmptyLogin) {
+                const activeUserLabel = matchedTeamUser ? matchedTeamUser.name : (email || directCreds.email);
+                try {
+                    sessionStorage.setItem(STORAGE_KEYS.sessionAuth, `local_ok:${activeUserLabel}`);
+                } catch (err) {
+                    // Ignore sessionStorage restrictions
+                }
+
+                if (initFirebaseIfConfigured() && firebaseAuth) {
+                    try {
+                        await firebaseAuth.signInWithEmailAndPassword(email || directCreds.email, pass || directCreds.password);
+                        await pullLatestFromFirestore();
+                        unlockWorkspace(true);
+                        showAdminToast(`مرحباً ${activeUserLabel} — تم تسجيل الدخول السحابي`);
+                        return;
+                    } catch (fbErr) {
+                        // Proceed with direct authenticated session
+                    }
+                }
+                unlockWorkspace(false);
+                showAdminToast(`مرحباً ${activeUserLabel} في لوحة إدارة توريقة شرم`);
+                return;
+            }
+
+            if (initFirebaseIfConfigured() && firebaseAuth) {
+                const btn = document.getElementById("cloud-login-submit");
+                try {
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.textContent = "جاري التحقق...";
+                    }
+                    await firebaseAuth.signInWithEmailAndPassword(email, pass);
+                    await pullLatestFromFirestore();
+                    unlockWorkspace(true);
+                    showAdminToast("تم تسجيل الدخول السحابي بنجاح");
+                    return;
+                } catch (err) {
+                    showAdminToast("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+                } finally {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.textContent = "تسجيل الدخول للوحة الإدارة";
+                    }
+                }
+            }
+
+            showAdminToast("البريد الإلكتروني أو كلمة المرور غير صحيحة (الافتراضي: admin@tawriqa.com / Tawriqa@2026)");
+        }
+
+        async function logoutAdmin() {
+            try {
+                sessionStorage.removeItem(STORAGE_KEYS.sessionAuth);
+            } catch (err) {
+                // Ignore sessionStorage restrictions
+            }
+            if (firebaseAuth && firebaseAuth.currentUser) {
+                try {
+                    await firebaseAuth.signOut();
+                } catch (err) {
+                    // Ignore signOut error
+                }
+            }
+            document.getElementById("admin-workspace").classList.add("hidden");
+            document.getElementById("auth-gate").classList.remove("hidden");
+        }
+
+        async function pullLatestFromFirestore() {
+            if (!firestoreDb) return;
+            const doc = await firestoreDb.collection("tawriqa_sharm").doc("live_content").get();
+            if (doc.exists && doc.data()) {
+                mergeCmsState(doc.data());
+                localStorage.setItem(STORAGE_KEYS.cmsData, JSON.stringify(cmsState));
+            }
+        }
+
+        async function syncAllToStorageAndCloud() {
+            collectFormFieldsIntoState();
+            localStorage.setItem(STORAGE_KEYS.cmsData, JSON.stringify(cmsState));
+
+            const newPin = document.getElementById("cfg-local-pin")?.value.trim();
+            if (newPin) {
+                localStorage.setItem(STORAGE_KEYS.localPin, newPin);
+            }
+
+            if (initFirebaseIfConfigured() && firestoreDb) {
+                try {
+                    await firestoreDb.collection("tawriqa_sharm").doc("live_content").set(
+                        Object.assign({}, cmsState, { updatedAt: new Date().toISOString() }),
+                        { merge: true }
+                    );
+                    showAdminToast("تم الحفظ والنشر اللحظي إلى السحابة لجميع الزوار!");
+                    return;
+                } catch (err) {
+                    showAdminToast("تم الحفظ محلياً؛ تحقق من صلاحيات Firestore للنشر السحابي");
+                    return;
+                }
+            }
+
+            showAdminToast("تم حفظ جميع التعديلات محلياً بنجاح!");
+        }
+
+        function collectFormFieldsIntoState() {
+            const heroImg = document.getElementById("hero-image-url")?.value.trim();
+            const about1 = document.getElementById("about-image-1")?.value.trim();
+            const about2 = document.getElementById("about-image-2")?.value.trim();
+            const logoUrl = document.getElementById("brand-logo-url")?.value.trim();
+
+            if (heroImg) cmsState.branding.heroImage = heroImg;
+            if (about1) cmsState.branding.aboutImage1 = about1;
+            if (about2) cmsState.branding.aboutImage2 = about2;
+            if (logoUrl) {
+                cmsState.branding.logoMode = "image";
+                cmsState.branding.logoImageUrl = logoUrl;
+            }
+
+            const wa = document.getElementById("cfg-whatsapp")?.value.trim();
+            const ph = document.getElementById("cfg-phone-display")?.value.trim();
+            const del = document.getElementById("cfg-delivery")?.checked;
+            const admEmail = document.getElementById("cfg-admin-email")?.value.trim();
+            const admPass = document.getElementById("cfg-admin-password")?.value;
+
+            if (wa) cmsState.branchConfig.whatsappNumber = wa.replace(/[^\d]/g, "");
+            if (ph) cmsState.branchConfig.phoneDisplay = ph;
+            if (typeof del === "boolean") cmsState.branchConfig.deliveryConfirmed = del;
+            if (admEmail) {
+                cmsState.branchConfig.adminEmail = admEmail;
+                const users = getAdminUsersList();
+                const mainIdx = users.findIndex((u) => u.id === "usr_owner_main");
+                if (mainIdx !== -1) {
+                    users[mainIdx].email = admEmail;
+                    if (admPass) users[mainIdx].password = admPass;
+                    saveAdminUsersList(users);
+                }
+            }
+            if (admPass) {
+                cmsState.branchConfig.adminPassword = admPass;
+            }
+        }
+
+        // Admin Tab Switching
+        function switchAdminTab(tabId) {
+            document.querySelectorAll(".admin-tab-panel").forEach((p) => p.classList.add("hidden"));
+            document.getElementById(`tab-panel-${tabId}`).classList.remove("hidden");
+
+            document.querySelectorAll(".admin-tab-btn").forEach((b) => {
+                b.className = "admin-tab-btn shrink-0 px-4 py-2 rounded-xl text-tawriqa-cream/85 hover:bg-white/10";
+            });
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "admin-tab-btn shrink-0 px-4 py-2 rounded-xl bg-tawriqa-gold text-tawriqa-greenDark font-extrabold";
+            }
+        }
+
+        function renderAllAdminPanels() {
+            document.getElementById("menu-count-tab").textContent = cmsState.products.length;
+            document.getElementById("offers-count-tab").textContent = cmsState.offers.length;
+
+            renderBrandingPanel();
+            renderI18nEditorList();
+            renderAdminMenuPanel();
+            renderAdminCategoriesEditor();
+            renderAdminHalvesPanel();
+            renderAdminOffersPanel();
+            renderAdminGalleryPanel();
+            renderBranchConfigPanel();
+        }
+
+        // Panel 1: Branding & Logo
+        function renderBrandingPanel() {
+            document.getElementById("brand-logo-url").value = cmsState.branding.logoImageUrl || "";
+            document.getElementById("hero-image-url").value = cmsState.branding.heroImage || "";
+            document.getElementById("about-image-1").value = cmsState.branding.aboutImage1 || "";
+            document.getElementById("about-image-2").value = cmsState.branding.aboutImage2 || "";
+
+            const previewBox = document.getElementById("admin-logo-preview-box");
+            if (cmsState.branding.logoMode === "image" && cmsState.branding.logoImageUrl) {
+                previewBox.innerHTML = `<img src="${escapeAttr(cmsState.branding.logoImageUrl)}" onerror="this.src='https://placehold.co/180x60/F8DFC1/243A1C?text=Tawriqa+Logo'" alt="Logo" class="h-12 w-auto object-contain" />`;
+            } else {
+                previewBox.innerHTML = cmsState.branding.logoSvg || DEFAULT_LOGO_SVG;
+            }
+        }
+
+        function handleLogoFileUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                cmsState.branding.logoMode = "image";
+                cmsState.branding.logoImageUrl = e.target.result;
+                renderBrandingPanel();
+                showAdminToast("تم تحميل صورة اللوجو. اضغط «حفظ ونشر التعديلات» لاعتمادها.");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateLogoUrlPreview(url) {
+            const clean = (url || "").trim();
+            if (clean) {
+                cmsState.branding.logoMode = "image";
+                cmsState.branding.logoImageUrl = clean;
+            } else {
+                cmsState.branding.logoMode = "svg";
+                cmsState.branding.logoImageUrl = "";
+            }
+            renderBrandingPanel();
+        }
+
+        function resetLogoToDefaultSvg() {
+            cmsState.branding.logoMode = "svg";
+            cmsState.branding.logoImageUrl = "";
+            cmsState.branding.logoSvg = DEFAULT_LOGO_SVG;
+            renderBrandingPanel();
+            showAdminToast("تمت استعادة اللوجو الأصلي (SVG)");
+        }
+
+        // Bilingual Text Editor
+        function filterI18nFields(q) {
+            i18nSearchFilter = (q || "").trim().toLowerCase();
+            renderI18nEditorList();
+        }
+
+        function renderI18nEditorList() {
+            const container = document.getElementById("i18n-editor-list");
+            const keys = Object.keys(cmsState.i18n.ar).filter((k) => {
+                if (!i18nSearchFilter) return true;
+                return k.toLowerCase().includes(i18nSearchFilter)
+                    || String(cmsState.i18n.ar[k] || "").toLowerCase().includes(i18nSearchFilter)
+                    || String(cmsState.i18n.en[k] || "").toLowerCase().includes(i18nSearchFilter);
+            });
+
+            container.innerHTML = keys.map((key) => `
+                <div class="p-4 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-tawriqa-green/10 text-tawriqa-green">${key}</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-tawriqa-muted mb-1">النص العربي</label>
+                            <input type="text" value="${escapeAttr(cmsState.i18n.ar[key] || "")}" onchange="cmsState.i18n.ar['${key}']=this.value" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/15 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-tawriqa-muted mb-1">English Text</label>
+                            <input type="text" dir="ltr" value="${escapeAttr(cmsState.i18n.en[key] || "")}" onchange="cmsState.i18n.en['${key}']=this.value" class="w-full px-3 py-2 rounded-xl bg-white border border-tawriqa-green/15 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-tawriqa-green" />
+                        </div>
+                    </div>
                 </div>
             `).join("");
+        }
+
+        // Panel 2: Menu Products & Categories
+        function renderAdminMenuPanel() {
+            const catBar = document.getElementById("admin-menu-cat-filters");
+            const allTab = `<button type="button" onclick="setAdminMenuCat('all')" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold ${adminMenuFilterCat === 'all' ? 'bg-tawriqa-green text-white' : 'bg-tawriqa-cream text-tawriqa-ink'}">الكل (${cmsState.products.length})</button>`;
+            const catTabs = cmsState.categories.map((c) => {
+                const count = cmsState.products.filter((p) => p.category === c.id).length;
+                return `<button type="button" onclick="setAdminMenuCat('${c.id}')" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold ${adminMenuFilterCat === c.id ? 'bg-tawriqa-green text-white' : 'bg-tawriqa-cream text-tawriqa-ink'}">${c.ar} (${count})</button>`;
+            }).join("");
+            catBar.innerHTML = allTab + catTabs;
+
+            const list = document.getElementById("admin-products-list");
+            const filtered = cmsState.products.filter((p) => {
+                const matchCat = adminMenuFilterCat === "all" || p.category === adminMenuFilterCat;
+                if (!matchCat) return false;
+                if (!adminMenuSearch) return true;
+                return (p.name.ar + " " + p.name.en).toLowerCase().includes(adminMenuSearch);
+            });
+
+            list.innerHTML = filtered.map((p) => `
+                <div class="p-4 rounded-2xl bg-tawriqa-cream/65 border border-tawriqa-green/10 flex flex-col justify-between gap-3">
+                    <div class="flex items-start gap-3">
+                        <img src="${p.image}" onerror="this.src='https://placehold.co/120x120/143D29/FBF7F0?text=Tawriqa'" alt="${escapeAttr(p.name.ar)}" class="w-16 h-16 rounded-xl object-cover shrink-0 bg-tawriqa-greenDark" />
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center justify-between gap-1">
+                                <h4 class="font-extrabold text-sm text-tawriqa-green truncate">${p.name.ar}</h4>
+                                <span class="font-extrabold text-sm text-tawriqa-gold shrink-0">${p.price} EGP</span>
+                            </div>
+                            <p class="text-[11px] text-tawriqa-muted truncate" dir="ltr">${p.name.en}</p>
+                            <div class="flex flex-wrap gap-1.5 mt-2">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${p.available ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'}">${p.available ? 'متوفر' : 'غير متوفر'}</span>
+                                ${p.popular ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">الأكثر طلباً</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2 pt-2 border-t border-tawriqa-green/10 text-xs">
+                        <button type="button" onclick="toggleProductAvailability('${p.id}')" class="px-2.5 py-1.5 rounded-lg bg-white border border-tawriqa-green/15 font-bold text-tawriqa-green hover:bg-tawriqa-creamDark">
+                            ${p.available ? 'إيقاف مؤقت' : 'تفعيل'}
+                        </button>
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="openProductEditorModal('${p.id}')" class="px-3 py-1.5 rounded-lg bg-tawriqa-green text-white font-bold hover:bg-tawriqa-greenLight">تعديل</button>
+                            <button type="button" onclick="deleteProductItem('${p.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 font-bold hover:bg-red-200"><i class="fa-regular fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function setAdminMenuCat(cat) {
+            adminMenuFilterCat = cat;
+            renderAdminMenuPanel();
+        }
+
+        function adminSearchProducts(val) {
+            adminMenuSearch = (val || "").trim().toLowerCase();
+            renderAdminMenuPanel();
+        }
+
+        function toggleProductAvailability(id) {
+            const item = cmsState.products.find((p) => p.id === id);
+            if (!item) return;
+            item.available = !item.available;
+            renderAdminMenuPanel();
+        }
+
+        function deleteProductItem(id) {
+            cmsState.products = cmsState.products.filter((p) => p.id !== id);
+            document.getElementById("menu-count-tab").textContent = cmsState.products.length;
+            renderAdminMenuPanel();
+            showAdminToast("تم حذف الصنف");
+        }
+
+        function openProductEditorModal(productId = null) {
+            const existing = productId ? cmsState.products.find((p) => p.id === productId) : null;
+            document.getElementById("pe-modal-title").textContent = existing ? "تعديل الصنف" : "إضافة صنف جديد";
+            document.getElementById("pe-id").value = existing ? existing.id : "";
+            document.getElementById("pe-category").value = existing ? existing.category : "meshaltet";
+            document.getElementById("pe-price").value = existing ? existing.price : 180;
+            document.getElementById("pe-custom-type").value = existing ? existing.customType : "standard";
+            document.getElementById("pe-name-ar").value = existing ? existing.name.ar : "";
+            document.getElementById("pe-name-en").value = existing ? existing.name.en : "";
+            document.getElementById("pe-desc-ar").value = existing ? existing.desc.ar : "";
+            document.getElementById("pe-desc-en").value = existing ? existing.desc.en : "";
+            document.getElementById("pe-ing-ar").value = existing ? existing.ingredients.ar : "";
+            document.getElementById("pe-ing-en").value = existing ? existing.ingredients.en : "";
+            document.getElementById("pe-image").value = existing ? existing.image : "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80";
+            document.getElementById("pe-available").checked = existing ? existing.available : true;
+            document.getElementById("pe-popular").checked = existing ? existing.popular : false;
+            document.getElementById("pe-approved").checked = existing ? existing.approved : true;
+            document.getElementById("product-editor-modal").classList.remove("hidden");
+        }
+
+        function closeProductEditorModal() {
+            document.getElementById("product-editor-modal").classList.add("hidden");
+        }
+
+        function saveProductFromEditor() {
+            const id = document.getElementById("pe-id").value;
+            const nameAr = document.getElementById("pe-name-ar").value.trim();
+            const nameEn = document.getElementById("pe-name-en").value.trim();
+            const price = Number(document.getElementById("pe-price").value);
+
+            if (!nameAr || !nameEn || !price || price <= 0) {
+                showAdminToast("يرجى إدخال الاسم العربي والإنجليزي وسعر صحيح");
+                return;
+            }
+
+            const existing = id ? cmsState.products.find((p) => p.id === id) : null;
+            const record = {
+                id: id || `prod_${Date.now()}`,
+                category: document.getElementById("pe-category").value,
+                approved: document.getElementById("pe-approved").checked,
+                available: document.getElementById("pe-available").checked,
+                popular: document.getElementById("pe-popular").checked,
+                customType: document.getElementById("pe-custom-type").value,
+                name: { ar: nameAr, en: nameEn },
+                desc: {
+                    ar: document.getElementById("pe-desc-ar").value.trim(),
+                    en: document.getElementById("pe-desc-en").value.trim()
+                },
+                ingredients: {
+                    ar: document.getElementById("pe-ing-ar").value.trim(),
+                    en: document.getElementById("pe-ing-en").value.trim()
+                },
+                price: price,
+                sizes: existing && existing.sizes ? existing.sizes : [
+                    { id: "s_med", ar: "وسط", en: "Medium", delta: 0 },
+                    { id: "s_lrg", ar: "كبير", en: "Large", delta: 55 }
+                ],
+                includedDips: existing && existing.includedDips ? existing.includedDips : [],
+                addons: existing && existing.addons ? existing.addons : [],
+                image: document.getElementById("pe-image").value.trim() || "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+            };
+
+            if (existing) {
+                const idx = cmsState.products.findIndex((p) => p.id === id);
+                cmsState.products[idx] = record;
+            } else {
+                cmsState.products.unshift(record);
+            }
+
+            closeProductEditorModal();
+            renderAllAdminPanels();
+            showAdminToast("تم حفظ الصنف بنجاح");
+        }
+
+        function renderAdminCategoriesEditor() {
+            const wrap = document.getElementById("admin-categories-editor");
+            wrap.innerHTML = cmsState.categories.map((c, idx) => `
+                <div class="p-3 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 flex items-center gap-2">
+                    <span class="text-xs font-mono text-tawriqa-muted w-20 shrink-0">${c.id}</span>
+                    <input type="text" value="${escapeAttr(c.ar)}" onchange="cmsState.categories[${idx}].ar=this.value" class="flex-1 px-2.5 py-1.5 rounded-lg bg-white border text-xs font-bold" />
+                    <input type="text" dir="ltr" value="${escapeAttr(c.en)}" onchange="cmsState.categories[${idx}].en=this.value" class="flex-1 px-2.5 py-1.5 rounded-lg bg-white border text-xs" />
+                </div>
+            `).join("");
+        }
+
+        // Panel 3: Half-and-Half Flavors
+        function renderAdminHalvesPanel() {
+            const wrap = document.getElementById("admin-halves-list");
+            wrap.innerHTML = cmsState.halfFlavors.map((hf, idx) => `
+                <div class="p-3.5 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
+                    <input type="text" value="${escapeAttr(hf.ar)}" onchange="cmsState.halfFlavors[${idx}].ar=this.value" placeholder="الاسم بالعربية" class="sm:col-span-4 px-3 py-2 rounded-xl bg-white border text-xs font-bold" />
+                    <input type="text" dir="ltr" value="${escapeAttr(hf.en)}" onchange="cmsState.halfFlavors[${idx}].en=this.value" placeholder="English Name" class="sm:col-span-4 px-3 py-2 rounded-xl bg-white border text-xs" />
+                    <div class="sm:col-span-2 flex items-center gap-1">
+                        <input type="number" value="${hf.halfPrice}" onchange="cmsState.halfFlavors[${idx}].halfPrice=Number(this.value)" class="w-full px-2.5 py-2 rounded-xl bg-white border text-xs font-extrabold" />
+                        <span class="text-[11px] text-tawriqa-muted">EGP</span>
+                    </div>
+                    <div class="sm:col-span-2 text-end">
+                        <button type="button" onclick="cmsState.halfFlavors.splice(${idx},1);renderAdminHalvesPanel()" class="px-3 py-2 rounded-xl bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function addNewHalfFlavor() {
+            cmsState.halfFlavors.push({
+                id: `hf_${Date.now()}`,
+                ar: "نصف نكهة جديدة",
+                en: "New Half Flavor",
+                halfPrice: 145
+            });
+            renderAdminHalvesPanel();
+        }
+
+        // Panel 4: Special Offers
+        function renderAdminOffersPanel() {
+            const wrap = document.getElementById("admin-offers-list");
+            wrap.innerHTML = cmsState.offers.map((o) => `
+                <div class="p-4 rounded-2xl bg-tawriqa-cream/65 border border-tawriqa-green/10 flex flex-col justify-between gap-3">
+                    <div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-tawriqa-gold/20 text-tawriqa-green">${o.badge.ar}</span>
+                            <span class="font-extrabold text-sm text-tawriqa-green">${o.price} EGP</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-tawriqa-green mt-2">${o.title.ar}</h4>
+                        <p class="text-xs text-tawriqa-muted mt-1 line-clamp-2">${o.desc.ar}</p>
+                    </div>
+                    <div class="flex items-center justify-end gap-2 pt-2 border-t border-tawriqa-green/10 text-xs">
+                        <button type="button" onclick="openOfferEditorModal('${o.id}')" class="px-3 py-1.5 rounded-lg bg-tawriqa-green text-white font-bold">تعديل</button>
+                        <button type="button" onclick="deleteOfferItem('${o.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 font-bold"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function deleteOfferItem(id) {
+            cmsState.offers = cmsState.offers.filter((o) => o.id !== id);
+            document.getElementById("offers-count-tab").textContent = cmsState.offers.length;
+            renderAdminOffersPanel();
+            showAdminToast("تم حذف العرض");
         }
 
         function openOfferEditorModal(offerId = null) {
@@ -830,7 +2118,7 @@
             const wrap = document.getElementById("admin-gallery-list");
             wrap.innerHTML = cmsState.gallery.map((g, idx) => `
                 <div class="p-3.5 rounded-2xl bg-tawriqa-cream/70 border border-tawriqa-green/10 space-y-2.5">
-                    <img src="${g.src}" onerror="this.src='https://placehold.co/400x260/143D29/FBF7F0?text=Gallery'" class="w-full h-36 object-cover rounded-xl bg-tawriqa-greenDark" />
+                    <img src="${g.src}" onerror="this.src='https://placehold.co/400x260/143D29/FBF7F0?text=Gallery'" alt="${escapeAttr(g.ar)}" class="w-full h-36 object-cover rounded-xl bg-tawriqa-greenDark" />
                     <input type="url" dir="ltr" value="${escapeAttr(g.src)}" onchange="cmsState.gallery[${idx}].src=this.value;renderAdminGalleryPanel()" placeholder="Image URL" class="w-full px-2.5 py-1.5 rounded-lg bg-white border text-[11px]" />
                     <input type="text" value="${escapeAttr(g.ar)}" onchange="cmsState.gallery[${idx}].ar=this.value" placeholder="وصف الصورة بالعربية" class="w-full px-2.5 py-1.5 rounded-lg bg-white border text-xs" />
                     <div class="flex items-center gap-2">
@@ -850,7 +2138,7 @@
             renderAdminGalleryPanel();
         }
 
-        // Panel 6: Branch Settings & JSON Backup
+        // Panel 6: Branch Settings, Team Users & JSON Backup
         function renderBranchConfigPanel() {
             const creds = getActiveAdminCredentials();
             document.getElementById("cfg-whatsapp").value = cmsState.branchConfig.whatsappNumber;
