@@ -2555,5 +2555,95 @@
             }, 3200);
         }
     </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const tawriqaFirebaseConfig = {
+    apiKey: "AIzaSyAn80PL6iyGLUTmr--ndh3BbZe2jJrzavU",
+    authDomain: "tawriqa-sharm.firebaseapp.com",
+    projectId: "tawriqa-sharm",
+    storageBucket: "tawriqa-sharm.firebasestorage.app",
+    messagingSenderId: "349617488488",
+    appId: "1:349617488488:web:6eb128b0baee55a8e3f1dd",
+    measurementId: "G-98JSF26ZWS"
+  };
+
+  const LOCAL_CMS_KEY = "tawriqa_sharm_cms_data_v1";
+
+  function applyCmsPayloadToVisitor(payload) {
+    if (!payload || typeof payload !== "object") return false;
+
+    if (payload.branch && typeof BRANCH_CONFIG !== "undefined") {
+      if (payload.branch.whatsappNumber) {
+        BRANCH_CONFIG.whatsappNumber = String(payload.branch.whatsappNumber).replace(/\D/g, "");
+      }
+      if (payload.branch.phoneDisplay) {
+        BRANCH_CONFIG.phoneDisplay = payload.branch.phoneDisplay;
+      }
+      if (typeof payload.branch.deliveryConfirmed === "boolean") {
+        BRANCH_CONFIG.deliveryConfirmed = payload.branch.deliveryConfirmed;
+        if (typeof configureDeliveryAvailability === "function") configureDeliveryAvailability();
+      }
+    }
+
+    if (payload.texts && typeof I18N !== "undefined") {
+      if (payload.texts.ar) Object.assign(I18N.ar, payload.texts.ar);
+      if (payload.texts.en) Object.assign(I18N.en, payload.texts.en);
+      if (typeof applyStaticTranslations === "function") applyStaticTranslations();
+    }
+
+    if (Array.isArray(payload.products) && payload.products.length > 0 && typeof MENU_PRODUCTS !== "undefined") {
+      MENU_PRODUCTS.length = 0;
+      MENU_PRODUCTS.push(...payload.products);
+    }
+
+    if (Array.isArray(payload.offers) && payload.offers.length > 0 && typeof SPECIAL_OFFERS !== "undefined") {
+      SPECIAL_OFFERS.length = 0;
+      SPECIAL_OFFERS.push(...payload.offers);
+    }
+
+    if (Array.isArray(payload.gallery) && payload.gallery.length > 0 && typeof GALLERY_ITEMS !== "undefined") {
+      GALLERY_ITEMS.length = 0;
+      GALLERY_ITEMS.push(...payload.gallery);
+    }
+
+    if (typeof renderAll === "function") {
+      renderAll();
+    }
+    return true;
+  }
+
+  async function syncVisitorWithFirestore() {
+    try {
+      const cached = localStorage.getItem(LOCAL_CMS_KEY);
+      if (cached) {
+        applyCmsPayloadToVisitor(JSON.parse(cached));
+      }
+    } catch (_) {}
+
+    try {
+      const app = initializeApp(tawriqaFirebaseConfig);
+      const db = getFirestore(app);
+      const snap = await getDoc(doc(db, "tawriqa_sharm", "live_content"));
+
+      if (snap.exists()) {
+        const cloudData = snap.data();
+        try {
+          localStorage.setItem(LOCAL_CMS_KEY, JSON.stringify(cloudData));
+        } catch (_) {}
+        applyCmsPayloadToVisitor(cloudData);
+      }
+    } catch (err) {
+      console.warn("Firestore read fallback:", err);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncVisitorWithFirestore);
+  } else {
+    syncVisitorWithFirestore();
+  }
+</script>
 </body>
 </html>
